@@ -1,0 +1,61 @@
+# シェル連携 none / detect / bash / elvish / fish / zsh
+shell-integration = "zsh"
+
+# フォント設定
+font-family = "Monaco"
+
+# フォントサイズ（px）
+font-size = 16
+
+# フォントの高度な機能
+font-feature = "calt,liga"
+
+# テーマ $ ghostty +list-themes
+theme = "Monokai Classic"
+
+# 背景の透明度
+background-opacity = 1.0
+
+# 背景のぼかし
+background-blur = false
+
+# ウィンドウの初期サイズ（文字数）
+window-width = 120
+window-height = 40
+
+# ウィンドウ内の余白（ピクセル）
+window-padding-x = 10
+window-padding-y = 10
+
+# macOS用タイトルバー設定 native / transparent / tabs / hidden)
+macos-titlebar-style = "tabs"
+
+# カーソル・マウス設定 block / bar / underline
+cursor-style = "block"
+
+# true: デフォルトで点滅、false: 点滅しない
+cursor-style-blink = true
+
+# タイピング中はマウスカーソルを非表示にする
+mouse-hide-while-typing = true
+
+# ウィンドウ外観  auto / system / light / dark / ghostty
+window-theme = "system"
+
+# 選択と同時にコピーしない true / false / clipboard
+copy-on-select = false
+
+# ウィンドウ状態（タブ・スプリット含む）を常に保存・復元する
+window-save-state = "always"
+
+# クイックターミナルを上部に表示
+quick-terminal-position = "top"
+
+# クイックターミナルを起動できるように
+keybind = "global:cmd+shift+space=toggle_quick_terminal"
+
+# フルスクリーンを無効化
+keybind = "cmd+enter=unbind"
+
+# タブの名前の自動更新をやめる
+shell-integration-features = no-title
