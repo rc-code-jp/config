@@ -3,5 +3,6 @@
 # file
 
 ```bash
-cp zed/settings.json ~/.config/zed/settings.json
+curl -L -o ~/.config/zed/settings.json \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/zed/settings.json
 ```

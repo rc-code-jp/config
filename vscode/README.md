@@ -3,5 +3,6 @@
 ## file
 
 ```bash
-cp vscode/settings.json ~/Library/Application Support/Code/User/settings.json
+curl -L -o "$HOME/Library/Application Support/Code/User/settings.json" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/vscode/settings.json
 ```

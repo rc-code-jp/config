@@ -3,7 +3,8 @@
 ## AGENTS.md
 
 ```bash
-curl -L -o AGENTS.md https://raw.githubusercontent.com/rc-code-jp/config/main/agents/AGENTS.md
+curl -L -o AGENTS.md \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/agents/AGENTS.md
 ```
 
 ## opencode
@@ -11,7 +12,8 @@ curl -L -o AGENTS.md https://raw.githubusercontent.com/rc-code-jp/config/main/ag
 ### Global config
 
 ```bash
-curl -L -o ~/.config/opencode/opencode.json https://raw.githubusercontent.com/rc-code-jp/config/main/agents/.opencode/opencode.jsonc
+curl -L -o ~/.config/opencode/opencode.json \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/agents/.opencode/opencode.jsonc
 ```
 
 ## codex
@@ -19,5 +21,6 @@ curl -L -o ~/.config/opencode/opencode.json https://raw.githubusercontent.com/rc
 ## Local gitignroe
 
 ```bash
-curl -L -o .codex/.gitignore https://raw.githubusercontent.com/rc-code-jp/config/main/agents/codex.gitignore
+curl -L -o .codex/.gitignore \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/agents/codex.gitignore
 ```
