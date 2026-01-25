@@ -1,0 +1,41 @@
+{
+  "editor.tabSize": 2,
+  "editor.fontSize": 16,
+  "editor.wordWrap": "on",
+  "editor.renderLineHighlight": "gutter",
+  "editor.cursorBlinking": "smooth",
+  "editor.mouseWheelScrollSensitivity": 2,
+  "editor.links": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.scrollBeyondLastLine": false,
+  "emmet.triggerExpansionOnTab": true,
+  "extensions.ignoreRecommendations": true,
+  "explorer.compactFolders": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.colorTheme": "Monokai",
+  "workbench.preferredDarkColorTheme": "Monokai",
+  "workbench.preferredHighContrastColorTheme": "Monokai",
+  "workbench.editor.enablePreview": false,
+  "window.commandCenter": false,
+  "workbench.tree.indent": 16,
+  "editor.semanticHighlighting.enabled": "configuredByTheme",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "variable.other.type",
+          "entity.name.class",
+          "entity.other.inherited-class",
+          "support.class",
+          "support.type",
+          "entity.name.type",
+          "source.ts",
+          "source.tsx"
+        ],
+        "settings": {
+          "fontStyle": "" // 下線を削除するために空の値を設定
+        }
+      }
+    ]
+  }
+}

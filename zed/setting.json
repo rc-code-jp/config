@@ -1,0 +1,51 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  // editor.tabSize
+  "tab_size": 2,
+
+  // editor.fontSize
+  "buffer_font_size": 15,
+
+  // editor.wordWrap: "on"（= 画面幅で折り返し）
+  "soft_wrap": "editor_width",
+
+  // editor.renderLineHighlight: "gutter"
+  "current_line_highlight": "gutter",
+
+  // editor.cursorBlinking: "smooth"
+  // Zedは true/false（"smooth" のような種類指定は不可）
+  "cursor_blink": true,
+
+  // editor.mouseWheelScrollSensitivity
+  "scroll_sensitivity": 2.0,
+
+  // editor.inlineSuggest.enabled
+  "show_edit_predictions": true,
+
+  // editor.scrollBeyondLastLine: false
+  // Zedは "off" / "one_page" / "vertical_scroll_margin" の文字列
+  "scroll_beyond_last_line": "off",
+
+  // workbench.colorTheme / preferred*ColorTheme
+  "theme": "Gruvbox Dark",
+
+  // workbench.editor.enablePreview: false
+  "preview_tabs": {
+    "enabled": false
+  },
+
+  // explorer.compactFolders: false
+  "project_panel": {
+    "auto_fold_dirs": false,
+
+    // workbench.tree.indent: 16（VS Codeのツリーインデント相当）
+    "indent_size": 16
+  }
+}
