@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "tokyonight",
+  "tools": {
+    "write": true,
+    "bash": true,
+    "webfetch": true,
+  },
+  "permission": {
+    "bash": {
+      "*": "deny",
+      "ls": "allow",
+      "cat": "allow",
+      "pwd": "allow",
+      "rg": "allow",
+      "grep": "allow",
+      "touch": "allow",
+      "mkdir": "allow",
+    },
+  },
+}
