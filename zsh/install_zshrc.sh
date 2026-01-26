@@ -21,6 +21,7 @@ cleanup() {
 trap cleanup EXIT
 
 # スクリプトがローカルで実行されているか、curlパイプで実行されているかを判定
+# ${BASH_SOURCE[0]:-} uses parameter expansion to handle unbound variable when using set -u
 if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]:-}" ]; then
   # ローカル実行
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
