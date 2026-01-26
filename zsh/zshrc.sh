@@ -17,7 +17,7 @@ alias Gs="git status"
 alias GB="git branch"
 alias GR="git restore"
 
-# Alias AI (よく使うAIエージェントのショートカットに書き換える)
+# Alias AI
 alias C="opencode" # claude
 alias CC="opencode --continue" # claude --continue
 
