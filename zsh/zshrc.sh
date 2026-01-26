@@ -20,6 +20,22 @@ alias GR="git restore"
 # Alias AI
 alias C="opencode" # claude
 alias CC="opencode --continue" # claude --continue
+alias CR="opencode_resume" # claude --resume
+
+# Open Codeをclaude resumeにように起動する
+opencode_resume() {
+  local sid
+  sid="$(
+    opencode session list | sed 1d | grep -vE '^-+$|^─+$' \
+    | nl -w2 -s': ' \
+    | sed -n '1,40p'
+  )"
+  echo "$sid"
+  echo -n "Session Number> "
+  read -r n
+  opencode --session "$(opencode session list | sed 1d | grep -vE '^-+$|^─+$' | sed -n "${n}p" | awk '{print $1}')"
+}
+
 
 # Ghostty/一般的な端末のタブ/ウィンドウタイトルを「現在フォルダ名」にする
 function _set_term_title_pwd() {
