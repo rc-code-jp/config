@@ -4,6 +4,12 @@ set -euo pipefail
 # GitHubのRawファイルURL
 TEMPLATE_URL="https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/zshrc.sh"
 
+# キャッシュ回避
+if [ -n "${CACHE_BUST:-}" ]; then
+  TEMPLATE_URL="${TEMPLATE_URL}?t=$(date +%s)"
+fi
+
+
 
 zshrc_path="${HOME}/.zshrc"
 start_marker='^# Config-Start'
