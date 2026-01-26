@@ -12,6 +12,11 @@
 ## Usage
 
 ```bash
+git clone https://github.com/rc-code-jp/config.git
+cd config/zsh
+```
+
+```bash
 bash zsh/install_zshrc.sh
 ```
 
