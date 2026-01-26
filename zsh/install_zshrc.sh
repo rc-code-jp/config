@@ -9,8 +9,6 @@ if [ -n "${CACHE_BUST:-}" ]; then
   TEMPLATE_URL="${TEMPLATE_URL}?t=$(date +%s)"
 fi
 
-
-
 zshrc_path="${HOME}/.zshrc"
 start_marker='^# Config-Start'
 end_marker='^# Config-End'
