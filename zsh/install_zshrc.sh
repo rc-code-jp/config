@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-template_source="${script_dir}/zshrc.sh"
+# GitHubのRawファイルURL
+TEMPLATE_URL="https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/zshrc.sh"
+
+
 zshrc_path="${HOME}/.zshrc"
 start_marker='^# Config-Start'
 end_marker='^# Config-End'
@@ -18,14 +20,47 @@ cleanup() {
 }
 trap cleanup EXIT
 
-awk -v start="${start_marker}" -v end="${end_marker}" '
-  $0 ~ start { in_block = 1 }
-  in_block { print }
-  $0 ~ end { in_block = 0 }
-' "${template_source}" > "${tmp_template}"
+# スクリプトがローカルで実行されているか、curlパイプで実行されているかを判定
+if [ -n "${BASH_SOURCE[0]}" ] && [ -f "${BASH_SOURCE[0]}" ]; then
+  # ローカル実行
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  template_source="${script_dir}/zshrc.sh"
+  
+  if [ -f "${template_source}" ]; then
+    echo "Using local template: ${template_source}"
+    awk -v start="${start_marker}" -v end="${end_marker}" '
+      $0 ~ start { in_block = 1 }
+      in_block { print }
+      $0 ~ end { in_block = 0 }
+    ' "${template_source}" > "${tmp_template}"
+  else
+    echo "Error: Local template not found: ${template_source}" >&2
+    exit 1
+  fi
+else
+  # curlパイプ実行（リモート）
+  echo "Downloading template from ${TEMPLATE_URL}..."
+  if command -v curl &> /dev/null; then
+    curl -fsSL "${TEMPLATE_URL}" -o "${tmp_template}"
+  elif command -v wget &> /dev/null; then
+    wget -q -O "${tmp_template}" "${TEMPLATE_URL}"
+  else
+    echo "Error: curl or wget is required to download the template" >&2
+    exit 1
+  fi
+  
+  # ダウンロードしたファイルから Config-Start と Config-End の間を抽出
+  tmp_extracted="$(mktemp)"
+  awk -v start="${start_marker}" -v end="${end_marker}" '
+    $0 ~ start { in_block = 1 }
+    in_block { print }
+    $0 ~ end { in_block = 0 }
+  ' "${tmp_template}" > "${tmp_extracted}"
+  mv "${tmp_extracted}" "${tmp_template}"
+fi
 
 if [ ! -s "${tmp_template}" ]; then
-  echo "Template block not found in ${template_source}" >&2
+  echo "Template block not found" >&2
   exit 1
 fi
 
