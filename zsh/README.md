@@ -17,10 +17,6 @@
 curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh | bash
 ```
 
-```bash
-source ~/.zshrc
-```
-
 ## 便利なプラグイン
 
 gitコマンドを置換してくれる
