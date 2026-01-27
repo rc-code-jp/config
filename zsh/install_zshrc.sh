@@ -110,4 +110,8 @@ else
   echo "Appended template block to ${zshrc_path}."
 fi
 
-echo "Run: source ~/.zshrc"
+# 推奨アクション
+echo ".zshrc reload done"
+
+# 更新内容を確認する
+echo "Check the file: open ~/.zshrc"
