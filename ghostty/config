@@ -5,7 +5,7 @@ shell-integration = "zsh"
 font-family = "Monaco"
 
 # フォントサイズ（px）
-font-size = 16
+font-size = 15
 
 # フォントの高度な機能
 font-feature = "calt,liga"

@@ -1,51 +1,32 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
-  // editor.tabSize
-  "tab_size": 2,
-
-  // editor.fontSize
-  "buffer_font_size": 15,
-
-  // editor.wordWrap: "on"（= 画面幅で折り返し）
-  "soft_wrap": "editor_width",
-
-  // editor.renderLineHighlight: "gutter"
-  "current_line_highlight": "gutter",
-
-  // editor.cursorBlinking: "smooth"
-  // Zedは true/false（"smooth" のような種類指定は不可）
-  "cursor_blink": true,
-
-  // editor.mouseWheelScrollSensitivity
-  "scroll_sensitivity": 2.0,
-
-  // editor.inlineSuggest.enabled
-  "show_edit_predictions": true,
-
-  // editor.scrollBeyondLastLine: false
-  // Zedは "off" / "one_page" / "vertical_scroll_margin" の文字列
-  "scroll_beyond_last_line": "off",
-
-  // workbench.colorTheme / preferred*ColorTheme
-  "theme": "Gruvbox Dark",
-
-  // workbench.editor.enablePreview: false
-  "preview_tabs": {
-    "enabled": false
+  "ui_font_family": "Monaco",
+  "buffer_line_height": "comfortable",
+  "buffer_font_weight": 400.0,
+  "buffer_font_family": "Monaco",
+  "icon_theme": "Catppuccin Mocha",
+  "agent_servers": {
+    "opencode": {
+      "type": "extension",
+      "favorite_models": ["openai/gpt-5.2-codex"],
+      "default_config_options": {},
+      "favorite_config_option_values": {},
+    },
   },
-
-  // explorer.compactFolders: false
+  "tab_size": 2,
+  "ui_font_size": 15.0,
+  "buffer_font_size": 15.0,
+  "soft_wrap": "editor_width",
+  "current_line_highlight": "gutter",
+  "cursor_blink": true,
+  "scroll_sensitivity": 2.0,
+  "show_edit_predictions": true,
+  "scroll_beyond_last_line": "off",
+  "theme": "Gruvbox Dark",
+  "preview_tabs": {
+    "enabled": false,
+  },
   "project_panel": {
     "auto_fold_dirs": false,
-
-    // workbench.tree.indent: 16（VS Codeのツリーインデント相当）
-    "indent_size": 16
-  }
+    "indent_size": 15,
+  },
 }
