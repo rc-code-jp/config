@@ -1,6 +1,8 @@
 {
-  "editor.fontFamily": "Menlo, BIZ UDGothic, Monaco, monospace",
-  "terminal.integrated.fontFamily": "Menlo, BIZ UDGothic, Monaco, monospace",
+  "editor.fontFamily": "Menlo, Monaco, monospace",
+  "editor.fontWeight": "400",
+  "terminal.integrated.fontFamily": "Menlo, Monaco, monospace",
+  "terminal.integrated.fontWeight": "400",
   "workbench.startupEditor": "none",
   "workbench.colorTheme": "Monokai",
   "workbench.preferredDarkColorTheme": "Monokai",
