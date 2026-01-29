@@ -17,10 +17,17 @@ alias Gs="git status"
 alias GB="git branch"
 alias GR="git restore"
 
-# Alias AI
-alias C="opencode" # claude
-alias CC="opencode --continue" # claude --continue
-alias CR="opencode_resume" # claude --resume
+# Alias AI(OpenCode)
+alias C="opencode"
+alias CC="opencode_resume" 
+
+# Alias AI(ClaudeCode)
+# alias C="claude"
+# alias CC="claude --resume" 
+
+# Alias AI(Codex CLI)
+# alias C="codex"
+# alias CC="codex resume" 
 
 # Open Codeをclaude resumeにように起動する
 opencode_resume() {
