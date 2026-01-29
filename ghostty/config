@@ -3,12 +3,9 @@ shell-integration = "zsh"
 
 # フォント設定
 font-family = "Monaco"
-
-# フォントサイズ（px）
-font-size = 15
-
-# フォントの高度な機能
+font-style = "Regular"
 font-feature = "calt,liga"
+font-size = 15
 
 # テーマ $ ghostty +list-themes
 theme = "Monokai Classic"
