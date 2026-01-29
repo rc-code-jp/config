@@ -9,7 +9,7 @@
   "workbench.preferredHighContrastColorTheme": "Monokai",
   "workbench.editor.enablePreview": false,
   "editor.tabSize": 2,
-  "editor.fontSize": 16,
+  "editor.fontSize": 15,
   "editor.wordWrap": "on",
   "editor.renderLineHighlight": "gutter",
   "editor.cursorBlinking": "smooth",
@@ -22,7 +22,7 @@
   "explorer.compactFolders": false,
   "security.workspace.trust.untrustedFiles": "open",
   "window.commandCenter": true,
-  "workbench.tree.indent": 16,
+  "workbench.tree.indent": 15,
   "editor.semanticHighlighting.enabled": "configuredByTheme",
   "editor.tokenColorCustomizations": {
     "textMateRules": [
