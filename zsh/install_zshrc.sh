@@ -31,12 +31,29 @@ trap cleanup EXIT
 select_ai_tool() {
   echo ""
   echo "AIツールを選択してください:"
-  PS3="#? "
-  select tool in "${AI_TOOLS[@]}"; do
-    case "${tool}" in
-      claudecode|codex|opencode|none)
-        echo "選択: ${tool}"
-        SELECTED_AI_TOOL="${tool}"
+  echo "  1) claudecode"
+  echo "  2) codex"
+  echo "  3) opencode"
+  echo "  4) none"
+  
+  while true; do
+    printf "#? "
+    read -r choice < /dev/tty
+    case "${choice}" in
+      1)
+        SELECTED_AI_TOOL="claudecode"
+        break
+        ;;
+      2)
+        SELECTED_AI_TOOL="codex"
+        break
+        ;;
+      3)
+        SELECTED_AI_TOOL="opencode"
+        break
+        ;;
+      4)
+        SELECTED_AI_TOOL="none"
         break
         ;;
       *)
@@ -44,6 +61,7 @@ select_ai_tool() {
         ;;
     esac
   done
+  echo "選択: ${SELECTED_AI_TOOL}"
 }
 
 # 選択されたAIツール以外のブロックを除去する関数
