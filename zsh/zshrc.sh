@@ -6,12 +6,31 @@ ssh-add --apple-load-keychain
 # Alias
 alias ll="ls -atrl"
 
-# Alias Git
-alias GA="git add -A"
-alias GP="git push origin HEAD"
-alias Gp="git pull"
-alias GC="git_commit_message"
-alias GS="git_switch_create"
+# Git
+alias G="git_command_pallet"
+
+# Git command palette
+function git_command_pallet() {
+  echo "Git Commands:"
+  echo " 1: git add -A"
+  echo " 2: git commit (interactive)"
+  echo " 3: git push origin HEAD"
+  echo " 4: git pull"
+  echo " 5: git switch -c (interactive)"
+  echo " 6: git status"
+  echo -n "Select> "
+  read -r choice
+  case $choice in
+    1) git add -A ;;
+    2) git_commit_message ;;
+    3) git push origin HEAD ;;
+    4) git pull ;;
+    5) git_switch_create ;;
+    6) git status ;;
+    "") echo "Cancelled."; return 0 ;;
+    *) echo "Error: Invalid choice." >&2; return 1 ;;
+  esac
+}
 
 # Git commit with message
 function git_commit_message() {
