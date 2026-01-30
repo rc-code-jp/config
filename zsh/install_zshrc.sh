@@ -218,7 +218,7 @@ else
 fi
 
 # 推奨アクション
-echo "Reload config: source ~/.zshrc"
+echo "再読み込みのために実行してください: source ~/.zshrc"
 
 # 更新内容を確認する
-echo "Check the file: open ~/.zshrc"
+echo "更新内容を確認するには: open ~/.zshrc"

@@ -11,31 +11,13 @@
 
 ## Usage
 
-### リモートインストール（リポジトリのクローン不要）
-
 ```bash
 curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh | bash
 ```
 
 インストール時にAIツール（claudecode / codex / opencode / none）を選択するメニューが表示されます。
 
-### AIツールを引数で指定
-
-```bash
-# 引数で指定
-curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh | bash -s -- opencode
-
-# プロセス置換
-bash <(curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh) opencode
-```
-
-### AIツールを環境変数で指定
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh | AI_TOOL=opencode bash
-```
-
-### 有効なAIツール値
+### 有効なAIツール
 
 | 値 | 説明 |
 |---|---|
