@@ -217,8 +217,16 @@ else
   echo "Appended template block to ${zshrc_path}."
 fi
 
-# 推奨アクション
-echo "再読み込みのために実行してください: source ~/.zshrc"
+# 自動で.zshrcを読み込む
+echo "設定を読み込んでいます..."
+if [ -n "$ZSH_VERSION" ]; then
+  # zshの場合は直接source
+  source "${zshrc_path}"
+  echo "✓ 設定を読み込みました"
+else
+  # bashなどから実行された場合は指示のみ
+  echo "新しいターミナルを開くか、以下を実行してください: source ~/.zshrc"
+fi
 
 # 更新内容を確認する
 echo "更新内容を確認するには: open ~/.zshrc"

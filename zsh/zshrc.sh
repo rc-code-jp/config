@@ -16,8 +16,9 @@ function git_command_pallet() {
   echo " 2: git commit (interactive)"
   echo " 3: git push origin HEAD"
   echo " 4: git pull"
-  echo " 5: git switch -c (interactive)"
-  echo " 6: git status"
+  echo " 5: git switch -c (create new branch)"
+  echo " 6: git switch (switch to existing branch)"
+  echo " 7: git status"
   echo -n "Select> "
   read -r choice
   case $choice in
@@ -25,8 +26,9 @@ function git_command_pallet() {
     2) git_commit_message ;;
     3) git push origin HEAD ;;
     4) git pull ;;
-    5) git_switch_create ;;
-    6) git status ;;
+    5) git_switch_branch create ;;
+    6) git_switch_branch switch ;;
+    7) git status ;;
     "") echo "Cancelled."; return 0 ;;
     *) echo "Error: Invalid choice." >&2; return 1 ;;
   esac
@@ -44,16 +46,23 @@ function git_commit_message() {
   git commit -m "$message"
 }
 
-# Git switch and create branch
-function git_switch_create() {
+# Git switch branch
+function git_switch_branch() {
+  local create_mode="$1"
   local branch_name
+  
   echo -n "Branch name> "
   read -r branch_name
   if [[ -z "$branch_name" ]]; then
     echo "Error: Branch name cannot be empty." >&2
     return 1
   fi
-  git switch -c "$branch_name"
+  
+  if [[ "$create_mode" == "create" ]]; then
+    git switch -c "$branch_name"
+  else
+    git switch "$branch_name"
+  fi
 }
 
 # AI-claudecode-Start
