@@ -34,17 +34,13 @@ function opencode_resume() {
   # Open Codeをclaude resumeのように起動する
   local sid
   sid="$(
-    opencode session list \
-    | sed 1d \                                    # ヘッダー行を削除
-    | grep -vE '^-+$|^─+$' \                      # 区切り線を除外
-    | awk '{$1=""; print substr($0,2)}' \         # Session ID列を削除（Title, Updated列のみ表示）
-    | nl -w2 -s': ' \                             # 行番号を付与（2桁幅、コロン区切り）
-    | sed -n '1,20p'                              # 最初の20行のみ表示
+    opencode session list | sed 1d | grep -vE '^-+$|^─+$' \
+    | nl -w2 -s': ' \
+    | sed -n '1,40p'
   )"
   echo "$sid"
   echo -n "Session Number> "
   read -r n
-  # 選択された番号のSession IDを取得してセッションを開く
   opencode --session "$(opencode session list | sed 1d | grep -vE '^-+$|^─+$' | sed -n "${n}p" | awk '{print $1}')"
 }
 # AI-opencode-End
