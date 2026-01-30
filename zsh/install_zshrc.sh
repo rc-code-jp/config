@@ -13,6 +13,9 @@ zshrc_path="${HOME}/.zshrc"
 start_marker='^# Config-Start'
 end_marker='^# Config-End'
 
+# AIツール選択肢
+AI_TOOLS=("claudecode" "codex" "opencode" "none")
+
 tmp_template="$(mktemp)"
 tmp_out=""
 
@@ -23,6 +26,62 @@ cleanup() {
   rm -f "${tmp_template}"
 }
 trap cleanup EXIT
+
+# AIツール選択関数
+select_ai_tool() {
+  echo ""
+  echo "AIツールを選択してください:"
+  PS3="#? "
+  select tool in "${AI_TOOLS[@]}"; do
+    case "${tool}" in
+      claudecode|codex|opencode|none)
+        echo "選択: ${tool}"
+        SELECTED_AI_TOOL="${tool}"
+        break
+        ;;
+      *)
+        echo "無効な選択です。1-4の番号を入力してください。"
+        ;;
+    esac
+  done
+}
+
+# 選択されたAIツール以外のブロックを除去する関数
+filter_ai_blocks() {
+  local input_file="$1"
+  local selected="$2"
+  local tmp_filtered
+  tmp_filtered="$(mktemp)"
+
+  if [ "${selected}" = "none" ]; then
+    # none選択時は全AIブロックを除去
+    awk '
+      /^# AI-claudecode-Start/ { skip=1; next }
+      /^# AI-claudecode-End/   { skip=0; next }
+      /^# AI-codex-Start/      { skip=1; next }
+      /^# AI-codex-End/        { skip=0; next }
+      /^# AI-opencode-Start/   { skip=1; next }
+      /^# AI-opencode-End/     { skip=0; next }
+      !skip { print }
+    ' "${input_file}" > "${tmp_filtered}"
+  else
+    # 選択されたツール以外のブロックを除去（マーカーも除去）
+    awk -v selected="${selected}" '
+      /^# AI-claudecode-Start/ { if (selected != "claudecode") skip=1; next }
+      /^# AI-claudecode-End/   { skip=0; next }
+      /^# AI-codex-Start/      { if (selected != "codex") skip=1; next }
+      /^# AI-codex-End/        { skip=0; next }
+      /^# AI-opencode-Start/   { if (selected != "opencode") skip=1; next }
+      /^# AI-opencode-End/     { skip=0; next }
+      !skip { print }
+    ' "${input_file}" > "${tmp_filtered}"
+  fi
+
+  mv "${tmp_filtered}" "${input_file}"
+}
+
+# AIツール選択
+select_ai_tool
 
 # スクリプトがローカルで実行されているか、curlパイプで実行されているかを判定
 # ${BASH_SOURCE[0]:-} uses parameter expansion to handle unbound variable when using set -u
@@ -68,6 +127,9 @@ if [ ! -s "${tmp_template}" ]; then
   echo "Template block not found" >&2
   exit 1
 fi
+
+# 選択されたAIツールに応じてフィルタリング
+filter_ai_blocks "${tmp_template}" "${SELECTED_AI_TOOL}"
 
 if [ ! -f "${zshrc_path}" ]; then
   cat "${tmp_template}" > "${zshrc_path}"

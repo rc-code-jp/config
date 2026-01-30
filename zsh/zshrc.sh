@@ -17,19 +17,21 @@ alias Gs="git status"
 alias GB="git branch"
 alias GR="git restore"
 
-# Alias AI(ClaudeCode)
-# alias C="claude"
-# alias CC="claude --resume" 
+# AI-claudecode-Start
+alias C="claude"
+alias CC="claude --resume"
+# AI-claudecode-End
 
-# Alias AI(Codex CLI)
-# alias C="codex"
-# alias CC="codex resume" 
+# AI-codex-Start
+alias C="codex"
+alias CC="codex resume"
+# AI-codex-End
 
-# Alias AI(OpenCode)
+# AI-opencode-Start
 alias C="opencode"
-alias CC="opencode_resume" 
+alias CC="opencode_resume"
 function opencode_resume() {
-  # Open Codeをclaude resumeにように起動する
+  # Open Codeをclaude resumeのように起動する
   local sid
   sid="$(
     opencode session list | sed 1d | grep -vE '^-+$|^─+$' \
@@ -41,6 +43,7 @@ function opencode_resume() {
   read -r n
   opencode --session "$(opencode session list | sed 1d | grep -vE '^-+$|^─+$' | sed -n "${n}p" | awk '{print $1}')"
 }
+# AI-opencode-End
 
 
 # Ghostty/一般的な端末のタブ/ウィンドウタイトルを「現在フォルダ名」にする
