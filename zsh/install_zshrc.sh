@@ -26,16 +26,20 @@ trap cleanup EXIT
 
 # AIツール選択関数
 select_ai_tool() {
-  # 環境変数 AI_TOOL が設定されていればそれを使用
-  if [ -n "${AI_TOOL:-}" ]; then
-    case "${AI_TOOL}" in
+  local tool_arg="${1:-}"
+  
+  # コマンドライン引数または環境変数 AI_TOOL が設定されていればそれを使用
+  local specified_tool="${tool_arg:-${AI_TOOL:-}}"
+  
+  if [ -n "${specified_tool}" ]; then
+    case "${specified_tool}" in
       claudecode|codex|opencode|none)
-        SELECTED_AI_TOOL="${AI_TOOL}"
-        echo "AIツール (環境変数から): ${SELECTED_AI_TOOL}"
+        SELECTED_AI_TOOL="${specified_tool}"
+        echo "AIツール: ${SELECTED_AI_TOOL}"
         return 0
         ;;
       *)
-        echo "Error: AI_TOOL の値が無効です: ${AI_TOOL}" >&2
+        echo "Error: 無効なAIツール: ${specified_tool}" >&2
         echo "有効な値: claudecode, codex, opencode, none" >&2
         exit 1
         ;;
@@ -45,8 +49,9 @@ select_ai_tool() {
   # /dev/tty が利用可能か確認
   if [ ! -e /dev/tty ]; then
     echo "Error: インタラクティブ選択ができません。" >&2
-    echo "環境変数 AI_TOOL を設定してください。" >&2
-    echo "例: AI_TOOL=opencode curl -fsSL ... | bash" >&2
+    echo "引数または環境変数 AI_TOOL を設定してください。" >&2
+    echo "例: curl ... | bash -s -- opencode" >&2
+    echo "例: bash <(curl ...) opencode" >&2
     echo "有効な値: claudecode, codex, opencode, none" >&2
     exit 1
   fi
@@ -121,7 +126,7 @@ filter_ai_blocks() {
 }
 
 # AIツール選択
-select_ai_tool
+select_ai_tool "${1:-}"
 
 # スクリプトがローカルで実行されているか、curlパイプで実行されているかを判定
 # ${BASH_SOURCE[0]:-} uses parameter expansion to handle unbound variable when using set -u
