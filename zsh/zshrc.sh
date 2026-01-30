@@ -1,5 +1,40 @@
 # Config-Start
 
+# ===== zsh completion start =====
+fpath=("$HOME/.zsh/completions" $fpath)
+
+autoload -Uz compinit
+compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+
+zmodload zsh/complist
+zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select search
+
+# git status in prompt（vcs_info）
+autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
+setopt PROMPT_SUBST
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '(%b)'
+zstyle ':vcs_info:git:*' actionformats '(%b|%a)'
+
+_git_dirty_mark() {
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+  git diff --quiet --ignore-submodules -- 2>/dev/null || { echo '*'; return }
+  git diff --cached --quiet --ignore-submodules -- 2>/dev/null || { echo '+'; return }
+}
+
+_prompt_precmd() {
+  vcs_info
+  print ''
+}
+add-zsh-hook precmd _prompt_precmd
+
+PROMPT=$'%~ ${vcs_info_msg_0_}$(_git_dirty_mark)\n%# '
+# ===== zsh completion end =====
+
+
 # Key chain
 ssh-add --apple-load-keychain
 
