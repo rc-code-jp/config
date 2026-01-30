@@ -17,10 +17,6 @@ alias Gs="git status"
 alias GB="git branch"
 alias GR="git restore"
 
-# Alias AI(OpenCode)
-alias C="opencode"
-alias CC="opencode_resume" 
-
 # Alias AI(ClaudeCode)
 # alias C="claude"
 # alias CC="claude --resume" 
@@ -29,8 +25,11 @@ alias CC="opencode_resume"
 # alias C="codex"
 # alias CC="codex resume" 
 
-# Open Codeをclaude resumeにように起動する
-opencode_resume() {
+# Alias AI(OpenCode)
+alias C="opencode"
+alias CC="opencode_resume" 
+function opencode_resume() {
+  # Open Codeをclaude resumeにように起動する
   local sid
   sid="$(
     opencode session list | sed 1d | grep -vE '^-+$|^─+$' \
