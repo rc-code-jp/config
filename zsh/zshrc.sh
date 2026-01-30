@@ -31,7 +31,7 @@ _prompt_precmd() {
 }
 add-zsh-hook precmd _prompt_precmd
 
-PROMPT=$'%~ ${vcs_info_msg_0_}$(_git_dirty_mark)\n%# '
+PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 # ===== zsh completion end =====
 
 
