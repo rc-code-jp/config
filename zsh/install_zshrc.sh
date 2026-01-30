@@ -219,7 +219,7 @@ fi
 
 # 自動で.zshrcを読み込む
 echo "設定を読み込んでいます..."
-if [ -n "$ZSH_VERSION" ]; then
+if [ -n "${ZSH_VERSION:-}" ]; then
   # zshの場合は直接source
   source "${zshrc_path}"
   echo "✓ 設定を読み込みました"
