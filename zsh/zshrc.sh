@@ -15,22 +15,26 @@ alias GS="git_switch_create"
 
 # Git commit with message
 function git_commit_message() {
-  if [[ -z "$1" ]]; then
-    echo "Error: Commit message is required." >&2
-    echo "Usage: GC \"commit message\"" >&2
+  local message
+  echo -n "Commit message> "
+  read -r message
+  if [[ -z "$message" ]]; then
+    echo "Error: Commit message cannot be empty." >&2
     return 1
   fi
-  git commit -m "$*"
+  git commit -m "$message"
 }
 
 # Git switch and create branch
 function git_switch_create() {
-  if [[ -z "$1" ]]; then
-    echo "Error: Branch name is required." >&2
-    echo "Usage: GS \"branch-name\"" >&2
+  local branch_name
+  echo -n "Branch name> "
+  read -r branch_name
+  if [[ -z "$branch_name" ]]; then
+    echo "Error: Branch name cannot be empty." >&2
     return 1
   fi
-  git switch -c "$1"
+  git switch -c "$branch_name"
 }
 
 # AI-claudecode-Start
