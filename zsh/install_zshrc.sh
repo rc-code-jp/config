@@ -13,9 +13,6 @@ zshrc_path="${HOME}/.zshrc"
 start_marker='^# Config-Start'
 end_marker='^# Config-End'
 
-# AIツール選択肢
-AI_TOOLS=("claudecode" "codex" "opencode" "none")
-
 tmp_template="$(mktemp)"
 tmp_out=""
 
@@ -29,6 +26,31 @@ trap cleanup EXIT
 
 # AIツール選択関数
 select_ai_tool() {
+  # 環境変数 AI_TOOL が設定されていればそれを使用
+  if [ -n "${AI_TOOL:-}" ]; then
+    case "${AI_TOOL}" in
+      claudecode|codex|opencode|none)
+        SELECTED_AI_TOOL="${AI_TOOL}"
+        echo "AIツール (環境変数から): ${SELECTED_AI_TOOL}"
+        return 0
+        ;;
+      *)
+        echo "Error: AI_TOOL の値が無効です: ${AI_TOOL}" >&2
+        echo "有効な値: claudecode, codex, opencode, none" >&2
+        exit 1
+        ;;
+    esac
+  fi
+
+  # /dev/tty が利用可能か確認
+  if [ ! -e /dev/tty ]; then
+    echo "Error: インタラクティブ選択ができません。" >&2
+    echo "環境変数 AI_TOOL を設定してください。" >&2
+    echo "例: AI_TOOL=opencode curl -fsSL ... | bash" >&2
+    echo "有効な値: claudecode, codex, opencode, none" >&2
+    exit 1
+  fi
+
   echo ""
   echo "AIツールを選択してください:"
   echo "  1) claudecode"
