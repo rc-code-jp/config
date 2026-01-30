@@ -7,15 +7,31 @@ ssh-add --apple-load-keychain
 alias ll="ls -atrl"
 
 # Alias Git
-alias G="git"
-alias GA="git add"
-alias GC="git commit -m"
-alias GP="git push origin"
-alias Gp="git pull origin"
-alias GS="git switch"
-alias Gs="git status"
-alias GB="git branch"
-alias GR="git restore"
+alias GA="git add -A"
+alias GP="git push origin HEAD"
+alias Gp="git pull"
+alias GC="git_commit_message"
+alias GS="git_switch_create"
+
+# Git commit with message
+function git_commit_message() {
+  if [[ -z "$1" ]]; then
+    echo "Error: Commit message is required." >&2
+    echo "Usage: GC \"commit message\"" >&2
+    return 1
+  fi
+  git commit -m "$*"
+}
+
+# Git switch and create branch
+function git_switch_create() {
+  if [[ -z "$1" ]]; then
+    echo "Error: Branch name is required." >&2
+    echo "Usage: GS \"branch-name\"" >&2
+    return 1
+  fi
+  git switch -c "$1"
+}
 
 # AI-claudecode-Start
 alias C="claude"
