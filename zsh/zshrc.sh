@@ -31,16 +31,24 @@ alias CC="codex resume"
 alias C="opencode"
 alias CC="opencode_resume"
 function opencode_resume() {
-  # Open Codeをclaude resumeのように起動する
   local sid
   sid="$(
     opencode session list | sed 1d | grep -vE '^-+$|^─+$' \
+    | awk '{$1=""; print substr($0,2)}' \
     | nl -w2 -s': ' \
     | sed -n '1,40p'
   )"
   echo "$sid"
   echo -n "Session Number> "
   read -r n
+  if [[ -z "$n" ]]; then
+    echo "Error: Session Number is required." >&2
+    return 1
+  fi
+  if ! [[ "$n" =~ ^[0-9]+$ ]]; then
+    echo "Error: Session Number must be a number." >&2
+    return 1
+  fi
   opencode --session "$(opencode session list | sed 1d | grep -vE '^-+$|^─+$' | sed -n "${n}p" | awk '{print $1}')"
 }
 # AI-opencode-End
