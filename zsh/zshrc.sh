@@ -1,4 +1,10 @@
 # Config-Start
+# Lightweight color setup
+autoload -Uz colors && colors
+export CLICOLOR=1
+alias ls="ls -G"
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
 
 # ===== zsh completion start =====
 fpath=("$HOME/.zsh/completions" $fpath)
@@ -86,15 +92,15 @@ function git_command_pallet() {
   local c
   for c in ${(s::)choice}; do
     case "$c" in
-      1) echo "Executing: git add -A"; git add -A ;;
-      2) echo "Executing: git commit -m <message>"; git_commit_message ;;
-      3) echo "Executing: git push origin HEAD"; git push origin HEAD ;;
-      4) echo "Executing: git pull"; git pull ;;
-      5) echo "Executing: git switch -c <branch_name>"; git_switch_branch create ;;
-      6) echo "Executing: git switch <branch_name>"; git_switch_branch switch ;;
-      7) echo "Executing: git status"; git status ;;
+      1) echo "${fg[cyan]}Executing: ${fg[yellow]}git add -A${reset_color}"; git add -A ;;
+      2) echo "${fg[cyan]}Executing: ${fg[yellow]}git commit -m <message>${reset_color}"; git_commit_message ;;
+      3) echo "${fg[cyan]}Executing: ${fg[yellow]}git push origin HEAD${reset_color}"; git push origin HEAD ;;
+      4) echo "${fg[cyan]}Executing: ${fg[yellow]}git pull${reset_color}"; git pull ;;
+      5) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch -c <branch_name>${reset_color}"; git_switch_branch create ;;
+      6) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch <branch_name>${reset_color}"; git_switch_branch switch ;;
+      7) echo "${fg[cyan]}Executing: ${fg[yellow]}git status${reset_color}"; git status ;;
       ' ') continue ;;
-      *) echo "Error: Invalid choice '$c'." >&2 ;;
+      *) echo "${fg[red]}Error: Invalid choice '$c'.${reset_color}" >&2 ;;
     esac
   done
 }
