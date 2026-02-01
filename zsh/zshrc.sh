@@ -3,12 +3,33 @@
 # ===== zsh completion start =====
 fpath=("$HOME/.zsh/completions" $fpath)
 
+# 履歴の設定
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS   # 重複を記録しない
+setopt SHARE_HISTORY      # 履歴を他ターミナルと共有
+
+# 履歴補完の設定（標準機能）
+# 上下矢印キーで途中まで入力した内容に基づいた履歴検索
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
 autoload -Uz compinit
 compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 
-zmodload zsh/complist
-zstyle ':completion:*' menu select
-zstyle ':completion:*' menu select search
+# Options for completion and directory
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt list_packed
+setopt list_types
+setopt no_beep
 
 # git status in prompt（vcs_info）
 autoload -Uz vcs_info
