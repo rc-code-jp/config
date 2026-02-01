@@ -56,17 +56,26 @@ function git_command_pallet() {
   echo " 7: git status"
   echo -n "Select> "
   read -r choice
-  case $choice in
-    1) git add -A ;;
-    2) git_commit_message ;;
-    3) git push origin HEAD ;;
-    4) git pull ;;
-    5) git_switch_branch create ;;
-    6) git_switch_branch switch ;;
-    7) git status ;;
-    "") echo "Cancelled."; return 0 ;;
-    *) echo "Error: Invalid choice." >&2; return 1 ;;
-  esac
+
+  if [[ -z "$choice" ]]; then
+    echo "Cancelled."
+    return 0
+  fi
+
+  local c
+  for c in ${(s::)choice}; do
+    case "$c" in
+      1) git add -A ;;
+      2) git_commit_message ;;
+      3) git push origin HEAD ;;
+      4) git pull ;;
+      5) git_switch_branch create ;;
+      6) git_switch_branch switch ;;
+      7) git status ;;
+      ' ') continue ;;
+      *) echo "Error: Invalid choice '$c'." >&2 ;;
+    esac
+  done
 }
 
 # Git commit with message
