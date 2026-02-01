@@ -7,7 +7,22 @@ set -e
 
 BASE_URL="https://raw.githubusercontent.com/rc-code-jp/config/main/ai/agents"
 
-# 引数チェック
+# インストールモード選択
+echo "インストールモードを選択してください:"
+echo "  1) Local  (現在のディレクトリの .<ai-type>/agents/)"
+echo "  2) Global (ホームディレクトリの .<ai-type>/agents/)"
+while true; do
+  printf "選択 (1-2)> "
+  read -r choice
+  case "$choice" in
+    1) BASE_PATH="."; break ;;
+    2) BASE_PATH="$HOME"; break ;;
+    *) echo "無効な選択です。1-2の番号を入力してください。" ;;
+  esac
+done
+
+echo ""
+
 # AIタイプ選択
 if [ -z "${1:-}" ]; then
   echo "AIツールを選択してください:"
@@ -46,22 +61,34 @@ else
 fi
 
 # AIタイプに応じたディレクトリを設定
-case "$AI_TYPE" in
-  claude)
-    INSTALL_DIR="./.claude/agents"
-    ;;
-  codex)
-    INSTALL_DIR="./.codex/agents"
-    ;;
-  opencode)
-    INSTALL_DIR="./.opencode/agents"
-    ;;
-  *)
-    echo "エラー: 不明なAIタイプ '$AI_TYPE'"
-    echo "利用可能なタイプ: claude, codex, opencode"
-    exit 1
-    ;;
-esac
+if [ "$BASE_PATH" == "$HOME" ]; then
+  # Global インストール
+  case "$AI_TYPE" in
+    claude)
+      INSTALL_DIR="${HOME}/.claude/agents"
+      ;;
+    codex)
+      INSTALL_DIR="${HOME}/.codex/agents"
+      ;;
+    opencode)
+      # OpenCodeのグローバルパスは ~/.config/opencode/agents
+      INSTALL_DIR="${HOME}/.config/opencode/agents"
+      ;;
+  esac
+else
+  # Local インストール
+  case "$AI_TYPE" in
+    claude)
+      INSTALL_DIR="./.claude/agents"
+      ;;
+    codex)
+      INSTALL_DIR="./.codex/agents"
+      ;;
+    opencode)
+      INSTALL_DIR="./.opencode/agents"
+      ;;
+  esac
+fi
 
 # ディレクトリ作成
 mkdir -p "$INSTALL_DIR"
