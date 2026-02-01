@@ -65,13 +65,13 @@ function git_command_pallet() {
   local c
   for c in ${(s::)choice}; do
     case "$c" in
-      1) git add -A ;;
-      2) git_commit_message ;;
-      3) git push origin HEAD ;;
-      4) git pull ;;
-      5) git_switch_branch create ;;
-      6) git_switch_branch switch ;;
-      7) git status ;;
+      1) echo "Executing: git add -A"; git add -A ;;
+      2) echo "Executing: git commit -m <message>"; git_commit_message ;;
+      3) echo "Executing: git push origin HEAD"; git push origin HEAD ;;
+      4) echo "Executing: git pull"; git pull ;;
+      5) echo "Executing: git switch -c <branch_name>"; git_switch_branch create ;;
+      6) echo "Executing: git switch <branch_name>"; git_switch_branch switch ;;
+      7) echo "Executing: git status"; git status ;;
       ' ') continue ;;
       *) echo "Error: Invalid choice '$c'." >&2 ;;
     esac
