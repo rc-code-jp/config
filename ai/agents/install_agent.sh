@@ -8,41 +8,57 @@ set -e
 BASE_URL="https://raw.githubusercontent.com/rc-code-jp/config/main/ai/agents"
 
 # 引数チェック
-if [ $# -lt 2 ]; then
-  echo "使い方: bash install.sh <ai-type> <agent-name>"
-  echo ""
-  echo "ai-type:"
-  echo "  codex    - OpenAI Codex CLI"
-  echo "  claude   - Claude Code (Anthropic)"
-  echo "  opencode - OpenCode"
-  echo ""
-  echo "agent-name:"
-  echo "  ios-expert - iOS開発エキスパート"
-  echo ""
-  echo "例:"
-  echo "  bash install.sh opencode ios-expert"
-  echo "  bash install.sh codex ios-expert"
-  echo "  bash install.sh claude ios-expert"
-  exit 1
+# AIタイプ選択
+if [ -z "${1:-}" ]; then
+  echo "AIツールを選択してください:"
+  echo "  1) claude (Claude Code)"
+  echo "  2) codex (OpenAI Codex)"
+  echo "  3) opencode (OpenCode)"
+  while true; do
+    printf "選択 (1-3)> "
+    read -r choice
+    case "$choice" in
+      1) AI_TYPE="claude"; break ;;
+      2) AI_TYPE="codex"; break ;;
+      3) AI_TYPE="opencode"; break ;;
+      *) echo "無効な選択です。1-3の番号を入力してください。" ;;
+    esac
+  done
+else
+  AI_TYPE="$1"
 fi
 
-AI_TYPE="$1"
-AGENT_NAME="$2"
+# エージェント名選択
+if [ -z "${2:-}" ]; then
+  echo ""
+  echo "インストールするエージェントを選択してください:"
+  echo "  1) ios-expert (iOS開発エキスパート)"
+  while true; do
+    printf "選択 (1)> "
+    read -r choice
+    case "$choice" in
+      1) AGENT_NAME="ios-expert"; break ;;
+      *) echo "無効な選択です。1の番号を入力してください。" ;;
+    esac
+  done
+else
+  AGENT_NAME="$2"
+fi
 
 # AIタイプに応じたディレクトリを設定
 case "$AI_TYPE" in
-  codex)
-    INSTALL_DIR="./.codex/agents"
-    ;;
   claude)
     INSTALL_DIR="./.claude/agents"
+    ;;
+  codex)
+    INSTALL_DIR="./.codex/agents"
     ;;
   opencode)
     INSTALL_DIR="./.opencode/agents"
     ;;
   *)
     echo "エラー: 不明なAIタイプ '$AI_TYPE'"
-    echo "利用可能なタイプ: codex, claude, opencode"
+    echo "利用可能なタイプ: claude, codex, opencode"
     exit 1
     ;;
 esac
