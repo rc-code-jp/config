@@ -161,8 +161,7 @@ function opencode_resume() {
   echo -n "Session Number> "
   read -r n
   if [[ -z "$n" ]]; then
-    echo "Error: Session Number is required." >&2
-    return 1
+    n=1
   fi
   if ! [[ "$n" =~ ^[0-9]+$ ]]; then
     echo "Error: Session Number must be a number." >&2
