@@ -2,7 +2,7 @@
 shell-integration = "zsh"
 
 # フォント設定
-font-family = "Monaco"
+font-family = "Menlo"
 font-style = "Regular"
 font-feature = "calt,liga"
 font-size = 15
