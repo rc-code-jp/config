@@ -1,16 +1,16 @@
 ---
 name: git-push-branch
-description: 作業ブランチにpushするスキル
+description: 作業内容をcommitして、GitHubの該当ブランチにpushするスキル。
 ---
 
 ## 実行
 
 変更差分に機密情報やenvファイルが含まれていたらユーザーに確認する。
 
-GitHubの該当ブランチにpushするスキル。
+ブランチがmain/staging/productionの場合はcommitやpush前にユーザーに確認する。
+
 まずは変更ファイルをすべてコミットします。
 コミットメッセージは変更内容から作成します。
-mainブランチやデフォルトブランチであっても確認不要でpushします。
 現在のブランチを確認してそのリモートブランチにpushします。
 
 ブランチ名にスラッシュが入っている場合はgithubのプルリクエストを作成するURLを開きます。
