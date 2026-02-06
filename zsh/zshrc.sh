@@ -1,10 +1,4 @@
 # Config-Start
-# Lightweight color setup
-autoload -Uz colors && colors
-export CLICOLOR=1
-alias ls="ls -G"
-alias grep="grep --color=auto"
-alias diff="diff --color=auto"
 
 # ===== zsh completion start =====
 fpath=("$HOME/.zsh/completions" $fpath)
@@ -23,8 +17,6 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
 
 autoload -Uz compinit
 compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
@@ -37,6 +29,11 @@ setopt list_packed
 setopt list_types
 setopt no_beep
 
+# 補完候補を矢印キーで選択できるようにする
+zstyle ':completion:*:default' menu select=2
+# 補完時に大文字小文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
 # git status in prompt（vcs_info）
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
@@ -47,9 +44,15 @@ zstyle ':vcs_info:git:*' formats '(%b)'
 zstyle ':vcs_info:git:*' actionformats '(%b|%a)'
 
 _git_dirty_mark() {
-  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
-  git diff --quiet --ignore-submodules -- 2>/dev/null || { echo '*'; return }
-  git diff --cached --quiet --ignore-submodules -- 2>/dev/null || { echo '+'; return }
+  local status_info
+  status_info=$(git status --porcelain 2>/dev/null) || return
+  [[ -z "$status_info" ]] && return
+  # Zshの内蔵パターンマッチングで高速判定
+  if [[ "$status_info" =~ $'\n [MADRCU]' || "$status_info" =~ '^ [MADRCU]' ]]; then
+    echo '*' # ワークツリーに修正あり
+  elif [[ "$status_info" =~ $'\n[MADRCU]' || "$status_info" =~ '^[MADRCU]' ]]; then
+    echo '+' # ステージングのみ修正あり
+  fi
 }
 
 _prompt_precmd() {
@@ -61,13 +64,11 @@ add-zsh-hook precmd _prompt_precmd
 PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 # ===== zsh completion end =====
 
-
 # Key chain
-ssh-add --apple-load-keychain
+(ssh-add --apple-load-keychain >/dev/null 2>&1 &)
 
 # Alias
 alias zshrc="open ~/.zshrc"
-alias l="ls -atrl" # リストを見やすく表示
 alias ll="ls -atrl" # リストを見やすく表示
 alias O="open ." # 現在のディレクトリを開く
 alias S="caffeinate -dimsu" # Sleepを防ぐ
