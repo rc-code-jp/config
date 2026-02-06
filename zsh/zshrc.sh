@@ -27,7 +27,7 @@ bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
 autoload -Uz compinit
-compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 
 # Options for completion and directory
 setopt auto_cd
@@ -66,7 +66,12 @@ PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 ssh-add --apple-load-keychain
 
 # Alias
-alias ll="ls -atrl"
+alias zshrc="open ~/.zshrc"
+alias l="ls -atrl" # リストを見やすく表示
+alias ll="ls -atrl" # リストを見やすく表示
+alias O="open ." # 現在のディレクトリを開く
+alias S="caffeinate -dimsu" # Sleepを防ぐ
+alias Z="zed ." # Zedを起動
 
 # Git
 alias G="git_command_pallet"
