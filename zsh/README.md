@@ -25,9 +25,3 @@ curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_
 | `codex` | Codex CLI (`C="codex"`, `CC="codex resume"`) |
 | `opencode` | OpenCode (`C="opencode"`, `CC="opencode_resume"` + 関数) |
 | `none` | AIエイリアスなし |
-
-## 便利なプラグイン
-
-gitコマンドを置換してくれる
-
-https://github.com/zimfw/zimfw
