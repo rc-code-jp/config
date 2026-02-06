@@ -23,7 +23,6 @@ compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 
 # Options for completion and directory
 setopt auto_cd
-setopt auto_pushd
 setopt pushd_ignore_dups
 setopt list_packed
 setopt list_types
