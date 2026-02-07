@@ -68,12 +68,12 @@ PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 (ssh-add --apple-load-keychain >/dev/null 2>&1 &)
 
 # Alias
+alias ..="cd .."
 alias oz="open ~/.zshrc"
 alias sz="source ~/.zshrc"
-alias ..="cd .."
 alias ll="ls -atrl" # リストを見やすく表示
 alias O="open ." # 現在のディレクトリを開く
-alias S="caffeinate -dimsu" # Sleepを防ぐ
+alias caf="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
 
 # Git
 alias G="git_command_pallet"
