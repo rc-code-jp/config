@@ -1,4 +1,5 @@
 # Config-Start
+export CLICOLOR=1
 
 # ===== zsh completion start =====
 fpath=("$HOME/.zsh/completions" $fpath)
@@ -73,7 +74,6 @@ alias ..="cd .."
 alias ll="ls -atrl" # リストを見やすく表示
 alias O="open ." # 現在のディレクトリを開く
 alias S="caffeinate -dimsu" # Sleepを防ぐ
-alias Z="zed ." # Zedを起動
 
 # Git
 alias G="git_command_pallet"
