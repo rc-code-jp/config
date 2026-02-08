@@ -2,7 +2,7 @@
 shell-integration = "zsh"
 
 # テーマ $ ghostty +list-themes
-theme = "Everforest Dark Hard"
+theme = "TokyoNight"
 
 # フォント設定
 font-family = "Menlo"

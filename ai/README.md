@@ -13,7 +13,7 @@ curl -L -o AGENTS.md \
 
 ```bash
 curl -L -o ~/.config/opencode/opencode.json \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/ai/.opencode/opencode.json
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ai/opencode/_opencode.json
 ```
 
 ## codex
