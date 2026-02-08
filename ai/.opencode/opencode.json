@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "tokyonight",
+  "theme": "everforest",
   "tools": {
     "write": true,
     "bash": true,
