@@ -3,6 +3,7 @@
   "buffer_font_weight": 500,
   "ui_font_family": "Menlo",
   "ui_font_weight": 500,
+  "theme": "Gruvbox Dark Hard",
   "icon_theme": "Catppuccin Mocha",
   "agent_servers": {
     "opencode": {
@@ -22,7 +23,6 @@
   "scroll_sensitivity": 2.0,
   "show_edit_predictions": true,
   "scroll_beyond_last_line": "off",
-  "theme": "Gruvbox Dark",
   "preview_tabs": {
     "enabled": false
   },
