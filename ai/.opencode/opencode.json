@@ -4,7 +4,7 @@
   "tools": {
     "write": true,
     "bash": true,
-    "webfetch": true,
+    "webfetch": true
   },
   "permission": {
     "bash": {
@@ -15,7 +15,7 @@
       "rg": "allow",
       "grep": "allow",
       "touch": "allow",
-      "mkdir": "allow",
-    },
-  },
+      "mkdir": "allow"
+    }
+  }
 }
