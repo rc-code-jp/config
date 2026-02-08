@@ -1,6 +1,9 @@
 # シェル連携 none / detect / bash / elvish / fish / zsh
 shell-integration = "zsh"
 
+# テーマ $ ghostty +list-themes
+theme = "Everforest Dark Hard"
+
 # フォント設定
 font-family = "Menlo"
 font-style = "Regular"
@@ -9,9 +12,6 @@ font-size = 15
 # 非Retina/FHDモニターで見やすくするために文字を少し太くする (macOSのみ)
 font-thicken = true
 font-thicken-strength = 100
-
-# テーマ $ ghostty +list-themes
-theme = "Monokai Classic"
 
 # 背景の透明度
 background-opacity = 1.0
