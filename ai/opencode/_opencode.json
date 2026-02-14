@@ -9,17 +9,31 @@
   "permission": {
     "bash": {
       "*": "deny",
-      "git": "ask",
-      "ls": "allow",
-      "cat": "allow",
-      "pwd": "allow",
-      "rg": "allow",
-      "grep": "allow",
-      "touch": "allow",
-      "mkdir": "allow",
-      "dart": "allow",
-      "flutter": "allow",
-      "npm": "allow"
+      "ls*": "allow",
+      "grep*": "allow",
+      "cat*": "allow",
+      "pwd*": "allow",
+      "rg*": "allow",
+      "plutil*": "allow",
+      "npm*": "allow",
+      "flutter*": "allow",
+      "dart*": "allow",
+      "pod*": "allow",
+      "xcodebuild*": "allow",
+      "mkdir*": "ask",
+      "touch*": "ask",
+      "cp*": "ask",
+      "mv*": "ask",
+      "rm*": "ask",
+      "chmod*": "ask",
+      "chown*": "ask",
+      "rsync*": "ask",
+      "git*": "ask",
+      "curl*": "deny",
+      "wget*": "deny",
+      "ssh*": "deny",
+      "scp*": "deny",
+      "sudo*": "deny"
     }
   }
 }
