@@ -1,0 +1,61 @@
+{
+  /* Font & Theme */
+  "editor.fontFamily": "Menlo, Monaco, monospace",
+  "editor.fontSize": 15,
+  "editor.fontWeight": "400",
+  "terminal.integrated.fontFamily": "Menlo, Monaco, monospace",
+  "terminal.integrated.fontWeight": "400",
+  "workbench.colorTheme": "Tokyo Night Storm",
+  "editor.semanticHighlighting.enabled": "configuredByTheme",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "variable.other.type",
+          "entity.name.class",
+          "entity.other.inherited-class",
+          "support.class",
+          "support.type",
+          "entity.name.type",
+          "source.ts",
+          "source.tsx"
+        ],
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+  /* Editor */
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.renderLineHighlight": "gutter",
+  "editor.cursorBlinking": "smooth",
+  "editor.mouseWheelScrollSensitivity": 2,
+  "editor.links": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.scrollBeyondLastLine": false,
+  "editor.stickyTabStops": true,
+  /* Workbench & UI */
+  "workbench.startupEditor": "none",
+  "workbench.editor.enablePreview": false,
+  "workbench.tree.indent": 15,
+  "workbench.layoutControl.enabled": false,
+  "window.commandCenter": true,
+  /* Explorer & Extensions */
+  "explorer.compactFolders": false,
+  "extensions.ignoreRecommendations": true,
+  "emmet.triggerExpansionOnTab": true,
+  "hediet.vscode-drawio.resizeImages": null,
+  /* Cursor (AI) */
+  "cursor.composer.shouldAllowCustomModes": true,
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.composer.queueMessageDefaultBehavior": "queue",
+  "cursor.composer.usageSummaryDisplay": "always",
+  /* Security & Update */
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.promptForLocalFileProtocolHandling": false,
+  "update.releaseTrack": "prerelease",
+  /* Git */
+  "git.confirmSync": false
+}
