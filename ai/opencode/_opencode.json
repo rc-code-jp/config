@@ -8,7 +8,12 @@
   },
   "permission": {
     "bash": {
-      "*": "deny",
+      "*": "ask",
+      "curl*": "deny",
+      "wget*": "deny",
+      "ssh*": "deny",
+      "scp*": "deny",
+      "sudo*": "deny",
       "ls*": "allow",
       "grep*": "allow",
       "cat*": "allow",
@@ -19,21 +24,7 @@
       "flutter*": "allow",
       "dart*": "allow",
       "pod*": "allow",
-      "xcodebuild*": "allow",
-      "mkdir*": "ask",
-      "touch*": "ask",
-      "cp*": "ask",
-      "mv*": "ask",
-      "rm*": "ask",
-      "chmod*": "ask",
-      "chown*": "ask",
-      "rsync*": "ask",
-      "git*": "ask",
-      "curl*": "deny",
-      "wget*": "deny",
-      "ssh*": "deny",
-      "scp*": "deny",
-      "sudo*": "deny"
+      "xcodebuild*": "allow"
     }
   }
 }
