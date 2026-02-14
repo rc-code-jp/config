@@ -9,13 +9,17 @@
   "permission": {
     "bash": {
       "*": "deny",
+      "git": "ask",
       "ls": "allow",
       "cat": "allow",
       "pwd": "allow",
       "rg": "allow",
       "grep": "allow",
       "touch": "allow",
-      "mkdir": "allow"
+      "mkdir": "allow",
+      "dart": "allow",
+      "flutter": "allow",
+      "npm": "allow"
     }
   }
 }
