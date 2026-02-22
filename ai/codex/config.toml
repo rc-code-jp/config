@@ -6,7 +6,7 @@ review_model = "gpt-5.3-codex"
 
 [tui]
 notifications = true
-show_tooltips = false
+notification_method = "bel"
 
 [sandbox_workspace_write]
 network_access = false
