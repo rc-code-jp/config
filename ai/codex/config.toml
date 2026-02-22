@@ -1,0 +1,30 @@
+profile = "dev"
+
+model = "gpt-5.3-codex"
+model_reasoning_effort = "medium"
+review_model = "gpt-5.3-codex"
+
+[tui]
+notifications = true
+show_tooltips = false
+
+[sandbox_workspace_write]
+network_access = false
+
+[profiles.dev]
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "cached"
+model_reasoning_effort = "medium"
+
+[profiles.research]
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "live"
+model_reasoning_effort = "high"
+
+[profiles.readonly]
+approval_policy = "on-request"
+sandbox_mode = "read-only"
+web_search = "cached"
+model_reasoning_effort = "medium"

@@ -7,6 +7,15 @@ curl -L -o AGENTS.md \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ai/AGENTS.md
 ```
 
+## codex
+
+### Global config
+
+```bash
+curl -L -o ~/.codex/config.toml \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ai/codex/config.toml
+```
+
 ## opencode
 
 ### Global config
