@@ -5,8 +5,8 @@ model_reasoning_effort = "medium"
 review_model = "gpt-5.3-codex"
 
 [tui]
-notifications = true
-notification_method = "bel"
+notifications = ["agent-turn-complete", "approval-requested"]
+notification_method = "auto"
 
 [sandbox_workspace_write]
 network_access = false
