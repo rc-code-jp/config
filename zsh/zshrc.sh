@@ -73,7 +73,11 @@ alias oz="open ~/.zshrc"
 alias sz="source ~/.zshrc"
 alias ll="ls -atrl" # リストを見やすく表示
 alias O="open ." # 現在のディレクトリを開く
-alias caf="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
+alias S="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
+
+# Tools
+alias y="yazi"
+alias z="lazygit"
 
 # Git
 alias G="git_command_pallet"
