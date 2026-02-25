@@ -76,7 +76,7 @@ alias O="open ." # 現在のディレクトリを開く
 alias W="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
 
 # Tools
-alias lg="lazygit"
+alias m="minishelf"
 
 # Git
 alias G="git_command_pallet"
