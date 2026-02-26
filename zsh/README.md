@@ -13,6 +13,7 @@
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh | bash
+source ~/.zshrc
 ```
 
 インストール時にAIツール（claudecode / codex / opencode / none）を選択するメニューが表示されます。
