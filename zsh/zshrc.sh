@@ -80,6 +80,13 @@ alias m="minishelf"
 
 # Git
 alias G="git_command_pallet"
+alias GA="git add -A"
+alias GC="git_commit_message"
+alias GP="git push origin HEAD"
+alias GL="git pull"
+alias GWC="git_switch_branch create"
+alias GWS="git_switch_branch switch"
+alias GS="git status"
 
 # Git command palette
 function git_command_pallet() {
