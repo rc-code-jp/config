@@ -87,8 +87,7 @@ alias ga="git add -A"
 alias gc="git_commit_message"
 alias gp="git push origin HEAD"
 alias gl="git pull"
-alias gwc="git_switch_branch create"
-alias gws="git_switch_branch switch"
+alias gw="git_switch"
 alias gs="git status"
 
 # Git command palette
@@ -116,8 +115,8 @@ function git_command_pallet() {
       2) echo "${fg[cyan]}Executing: ${fg[yellow]}git commit -m <message>${reset_color}"; git_commit_message ;;
       3) echo "${fg[cyan]}Executing: ${fg[yellow]}git push origin HEAD${reset_color}"; git push origin HEAD ;;
       4) echo "${fg[cyan]}Executing: ${fg[yellow]}git pull${reset_color}"; git pull ;;
-      5) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch -c <branch_name>${reset_color}"; git_switch_branch create ;;
-      6) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch <branch_name>${reset_color}"; git_switch_branch switch ;;
+      5) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch -c <branch_name>${reset_color}"; git_switch create ;;
+      6) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch <branch_name>${reset_color}"; git_switch switch ;;
       7) echo "${fg[cyan]}Executing: ${fg[yellow]}git status${reset_color}"; git status ;;
       ' ') continue ;;
       *) echo "${fg[red]}Error: Invalid choice '$c'.${reset_color}" >&2 ;;
@@ -137,23 +136,67 @@ function git_commit_message() {
   git commit -m "$message"
 }
 
-# Git switch branch
-function git_switch_branch() {
-  local create_mode="$1"
-  local branch_name
-  
-  echo -n "Branch name> "
-  read -r branch_name
-  if [[ -z "$branch_name" ]]; then
-    echo "Error: Branch name cannot be empty." >&2
+# Git switch branch (interactive)
+function git_switch() {
+  local mode="${1:-auto}" branch_name key k1 k2
+  local typed="" i
+  local selected=1
+  local -a branches
+
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Error: Not inside a git repository." >&2
     return 1
   fi
-  
-  if [[ "$create_mode" == "create" ]]; then
+
+  if [[ "$mode" == "create" ]]; then
+    echo -n "New branch name> "
+    read -r branch_name
+    [[ -z "$branch_name" ]] && { echo "Error: Branch name cannot be empty." >&2; return 1; }
     git switch -c "$branch_name"
-  else
-    git switch "$branch_name"
+    return $?
   fi
+
+  branches=("${(@f)$(git for-each-ref --format='%(refname:short)' --sort=-committerdate refs/heads)}")
+  (( ${#branches} == 0 )) && { echo "Error: No local branches found." >&2; return 1; }
+
+  while true; do
+    printf "\r\033[J"
+    echo "git switch: ↑/↓ select, Enter confirm, Ctrl-C cancel"
+    [[ "$mode" == "auto" ]] && echo "New branch> ${typed:-"(type to create)"}"
+    echo "Branches:"
+    for (( i = 1; i <= ${#branches}; i++ )); do
+      (( i == selected )) && echo "> ${branches[i]}" || echo "  ${branches[i]}"
+    done
+
+    read -rs -k 1 key || return 1
+    case "$key" in
+      $'\003') echo ""; echo "Cancelled."; return 130 ;;
+      $'\n'|$'\r')
+        echo ""
+        if [[ "$mode" == "auto" && -n "$typed" ]]; then
+          git show-ref --verify --quiet "refs/heads/$typed" && git switch "$typed" || git switch -c "$typed"
+        else
+          git switch "${branches[selected]}"
+        fi
+        return $?
+        ;;
+      $'\177'|$'\010')
+        [[ "$mode" == "auto" && -n "$typed" ]] && typed="${typed[1,-2]}"
+        ;;
+      $'\e')
+        read -rs -k 1 -t 0.01 k1 || continue
+        [[ "$k1" != "[" ]] && continue
+        read -rs -k 1 -t 0.01 k2 || continue
+        case "$k2" in
+          A) (( selected = selected > 1 ? selected - 1 : ${#branches} )) ;;
+          B) (( selected = selected < ${#branches} ? selected + 1 : 1 )) ;;
+        esac
+        ;;
+      *)
+        [[ "$mode" == "auto" && "$key" == [[:print:]] ]] && typed+="$key"
+        ;;
+    esac
+  done
 }
 
 # AI-claudecode-Start
