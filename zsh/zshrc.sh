@@ -31,8 +31,10 @@ setopt no_beep
 
 # 補完候補を矢印キーで選択できるようにする
 zstyle ':completion:*:default' menu select=2
-# 補完時に大文字小文字を区別しない
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完時に大文字小文字を区別しない + 部分一致を許可
+zstyle ':completion:*' matcher-list \
+  'm:{a-z}={A-Z}' \
+  'r:|[._-]=* r:|=*'
 
 # git status in prompt（vcs_info）
 autoload -Uz vcs_info
