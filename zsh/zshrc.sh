@@ -34,7 +34,8 @@ zstyle ':completion:*:default' menu select=2
 # 補完時に大文字小文字を区別しない + 部分一致を許可
 zstyle ':completion:*' matcher-list \
   'm:{a-z}={A-Z}' \
-  'r:|[._-]=* r:|=*'
+  'r:|[._-]=* r:|=*' \
+  'l:|=* r:|=*'
 
 # git status in prompt（vcs_info）
 autoload -Uz vcs_info
