@@ -141,6 +141,8 @@ function git_switch() {
   local mode="${1:-auto}" branch_name key k1 k2
   local typed="" i
   local selected=1
+  local rendered_lines=0
+  local line_count=0
   local -a branches
 
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -160,13 +162,22 @@ function git_switch() {
   (( ${#branches} == 0 )) && { echo "Error: No local branches found." >&2; return 1; }
 
   while true; do
-    printf "\r\033[J"
+    if (( rendered_lines > 0 )); then
+      printf "\033[%dA\r\033[J" "$rendered_lines"
+    fi
+
     echo "git switch: ↑/↓ select, Enter confirm, Ctrl-C cancel"
-    [[ "$mode" == "auto" ]] && echo "New branch> ${typed:-"(type to create)"}"
+    line_count=1
+    if [[ "$mode" == "auto" ]]; then
+      echo "New branch> ${typed:-"(type to create)"}"
+      (( line_count++ ))
+    fi
     echo "Branches:"
+    (( line_count++ ))
     for (( i = 1; i <= ${#branches}; i++ )); do
       (( i == selected )) && echo "> ${branches[i]}" || echo "  ${branches[i]}"
     done
+    rendered_lines=$((line_count + ${#branches}))
 
     read -rs -k 1 key || return 1
     case "$key" in
