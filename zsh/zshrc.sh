@@ -82,14 +82,14 @@ alias W="echo スリープを無効にします && caffeinate -dimsu" # Sleepを
 alias m="minishelf"
 
 # Git
-alias G="git_command_pallet"
-alias GA="git add -A"
-alias GC="git_commit_message"
-alias GP="git push origin HEAD"
-alias GL="git pull"
-alias GWC="git_switch_branch create"
-alias GWS="git_switch_branch switch"
-alias GS="git status"
+alias g="git_command_pallet"
+alias ga="git add -A"
+alias gc="git_commit_message"
+alias gp="git push origin HEAD"
+alias gl="git pull"
+alias gwc="git_switch_branch create"
+alias gws="git_switch_branch switch"
+alias gs="git status"
 
 # Git command palette
 function git_command_pallet() {
