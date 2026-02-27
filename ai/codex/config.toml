@@ -7,6 +7,21 @@ review_model = "gpt-5.3-codex"
 [tui]
 notifications = ["agent-turn-complete", "approval-requested"]
 notification_method = "auto"
+status_line = [
+  "model-with-reasoning",
+  "current-dir",
+  "git-branch",
+  "context-remaining",
+  "context-used",
+  "context-window-size",
+  "used-tokens",
+  "total-input-tokens",
+  "total-output-tokens",
+  "five-hour-limit",
+  "weekly-limit",
+  "codex-version",
+  "session-id",
+]
 
 [sandbox_workspace_write]
 network_access = false
