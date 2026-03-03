@@ -79,6 +79,7 @@ alias O="open ." # 現在のディレクトリを開く
 alias W="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
 
 # Tools
+alias vi="vim"
 alias m="minishelf"
 
 # Git

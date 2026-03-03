@@ -1,0 +1,24 @@
+" Vimとして動かす（vi互換寄りを避ける）
+set nocompatible
+
+" ファイル種類検出
+filetype plugin indent on
+
+" 色（シンタックス）
+syntax on
+
+" 状態表示（覚える助け）
+set showcmd
+set showmode
+set ruler
+set laststatus=2
+
+" 検索の定番
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" 文字コード（日本語で無難）
+set encoding=utf-8
+set fileencodings=utf-8,sjis,euc-jp
