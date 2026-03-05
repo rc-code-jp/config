@@ -26,3 +26,33 @@ source ~/.zshrc
 | `codex` | Codex CLI (`C="codex"`, `CC="codex resume"`) |
 | `opencode` | OpenCode (`C="opencode"`, `CC="opencode_resume"` + 関数) |
 | `none` | AIエイリアスなし |
+
+## GitHub SSH Setup
+
+`zsh/github_setup.sh` は、Mac から GitHub に SSH 接続する初期設定をまとめて行います。
+
+### できること
+
+- `~/.ssh` の作成と権限設定
+- `id_ed25519_github` 鍵の生成（既存なら再利用）
+- `~/.ssh/config` の `Host github.com` 設定を追記/更新
+- 鍵を `ssh-agent` と macOS Keychain に追加
+- GitHub に手動登録するため、公開鍵を表示
+
+### 使い方
+
+```bash
+bash zsh/github_setup.sh
+```
+
+鍵名を変更したい場合:
+
+```bash
+bash zsh/github_setup.sh id_ed25519_github_work
+```
+
+### GitHub 側での手動作業
+
+1. GitHub > Settings > SSH and GPG keys > New SSH key
+2. スクリプトが表示した公開鍵を貼り付けて保存
+3. 接続確認: `ssh -T git@github.com`
