@@ -51,6 +51,20 @@ bash zsh/github_setup.sh
 bash zsh/github_setup.sh id_ed25519_github_work
 ```
 
+ローカルに clone していない環境では、GitHub Raw から直接実行できます:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/github_setup.sh | bash
+```
+
+内容を確認してから実行したい場合:
+
+```bash
+curl -fsSL -o /tmp/github_setup.sh https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/github_setup.sh
+less /tmp/github_setup.sh
+bash /tmp/github_setup.sh
+```
+
 ### GitHub 側での手動作業
 
 1. GitHub > Settings > SSH and GPG keys > New SSH key
