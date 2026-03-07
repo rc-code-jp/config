@@ -3,6 +3,13 @@
 `zsh/install_zshrc.sh` updates `~/.zshrc` using the template block in
 `zsh/zshrc.sh`.
 
+## User Config
+
+```bash
+git config --global user.name "rc-code-jp"
+git config --global user.email "example@gmail.com"
+```
+
 ## Behavior
 
 - If `~/.zshrc` does not exist, it is created from the template block.
