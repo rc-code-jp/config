@@ -74,7 +74,7 @@ PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 alias ..="cd .."
 alias ll="ls -atrl" # リストを見やすく表示
 alias O="open ." # 現在のディレクトリを開く
-alias W="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
+alias wake="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
 
 # Tools
 alias vi="vim"
