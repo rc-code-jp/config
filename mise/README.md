@@ -5,6 +5,7 @@ https://mise.jdx.dev/rtx.html
 ## file
 
 ```bash
+mkdir -p ~/.config/mise
 curl -L -o ~/.config/mise/config.toml \
   https://raw.githubusercontent.com/rc-code-jp/config/main/mise/_config.toml
 ```
