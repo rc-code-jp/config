@@ -6,7 +6,7 @@ https://mise.jdx.dev/rtx.html
 
 ```bash
 curl -L -o ~/.config/mise/config.toml \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/mise/config.toml
+  https://raw.githubusercontent.com/rc-code-jp/config/main/mise/_config.toml
 ```
 
 ## activate
