@@ -23,11 +23,11 @@ autoload -Uz compinit
 compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 
 # Options for completion and directory
-setopt auto_cd
-setopt pushd_ignore_dups
-setopt list_packed
-setopt list_types
-setopt no_beep
+setopt correct            # スペルミスを自動訂正
+setopt pushd_ignore_dups  # ディレクトリスタックに同じディレクトリを重複して追加しない
+setopt list_packed        # 補完候補を隙間なく詰めて表示する
+setopt list_types         # 補完候補にファイル種別の識別マーク(/, *など)を付けて表示する
+setopt no_beep            # コマンド入力エラー時などにビープ音を鳴らさない
 
 # 補完候補を矢印キーで選択できるようにする
 zstyle ':completion:*:default' menu select=2
