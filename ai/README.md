@@ -3,8 +3,14 @@
 ## AGENTS.md
 
 ```bash
+mkdir -p .agents
+touch .agents/,gitkeep
+
 curl -L -o AGENTS.md \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ai/AGENTS.md
+
+ln -s AGENTS.md CLAUDE.md
+ln -s .agents .claude
 ```
 
 ## codex
