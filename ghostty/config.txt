@@ -25,10 +25,6 @@ background-opacity = 1.0
 # 背景のぼかし
 background-blur = false
 
-# ウィンドウの初期サイズ（文字数）
-window-width = 120
-window-height = 40
-
 # ウィンドウ内の余白（ピクセル）
 window-padding-x = 12
 window-padding-y = 12
