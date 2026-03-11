@@ -1,5 +1,7 @@
 # Agent Skills
 
+公式に準拠：https://agentskills.io/home
+
 ## instal
 
 ```bash
