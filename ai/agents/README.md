@@ -2,6 +2,8 @@
 
 AIエージェント用のサブエージェント設定ファイルです。
 
+公式に準拠：https://agentskills.io/home
+
 ## インストール
 
 ```bash
