@@ -5,7 +5,7 @@
   "editor.fontWeight": "400",
   "terminal.integrated.fontFamily": "Menlo, Monaco, monospace",
   "terminal.integrated.fontWeight": "400",
-  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.colorTheme": "Solarized Light",
   "editor.semanticHighlighting.enabled": "configuredByTheme",
   "editor.tokenColorCustomizations": {
     "textMateRules": [
