@@ -2,8 +2,7 @@
 shell-integration = "zsh"
 
 # テーマ $ ghostty +list-themes
-theme = "iTerm2 Solarized Light" # ライトテーマ
-#theme = "iTerm2 Solarized Dark" # ダークテーマ 
+theme = "iTerm2 Solarized Light"
 
 # 非活性セルをわかりやすく
 unfocused-split-opacity = 0.8
