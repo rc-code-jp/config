@@ -165,16 +165,22 @@ function git_switch() {
       printf "\033[%dA\r\033[J" "$rendered_lines"
     fi
 
-    echo "git switch: ↑/↓ select, Enter confirm, Ctrl-C cancel"
+    local cols=${COLUMNS:-80}
+
+    local t_hint="git switch: ↑/↓ select, Enter confirm, Ctrl-C cancel"
+    echo "${t_hint[1,$((cols-1))]}"
     line_count=1
     if [[ "$mode" == "auto" ]]; then
-      echo "New branch> ${typed:-"(type to create)"}"
+      local t_new="New branch> ${typed:-"(type to create)"}"
+      echo "${t_new[1,$((cols-1))]}"
       (( line_count++ ))
     fi
     echo "Branches:"
     (( line_count++ ))
     for (( i = 1; i <= ${#branches}; i++ )); do
-      (( i == selected )) && echo "> ${branches[i]}" || echo "  ${branches[i]}"
+      local t_branch
+      (( i == selected )) && t_branch="> ${branches[i]}" || t_branch="  ${branches[i]}"
+      echo "${t_branch[1,$((cols-1))]}"
     done
     rendered_lines=$((line_count + ${#branches}))
 
