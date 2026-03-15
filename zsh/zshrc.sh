@@ -23,7 +23,6 @@ autoload -Uz compinit
 compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 
 # Options for completion and directory
-setopt correct            # スペルミスを自動訂正
 setopt pushd_ignore_dups  # ディレクトリスタックに同じディレクトリを重複して追加しない
 setopt list_packed        # 補完候補を隙間なく詰めて表示する
 setopt list_types         # 補完候補にファイル種別の識別マーク(/, *など)を付けて表示する
