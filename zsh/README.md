@@ -23,7 +23,7 @@ curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_
 source ~/.zshrc
 ```
 
-インストール時にAIツール（claudecode / codex / opencode / none）を選択するメニューが表示されます。
+インストール時にAIツール（claudecode / codex / none）を選択するメニューが表示されます。
 
 ### 有効なAIツール
 
@@ -31,7 +31,6 @@ source ~/.zshrc
 |---|---|
 | `claudecode` | Claude Code (`C="claude"`, `CC="claude --resume"`) |
 | `codex` | Codex CLI (`C="codex"`, `CC="codex resume"`) |
-| `opencode` | OpenCode (`C="opencode"`, `CC="opencode_resume"` + 関数) |
 | `none` | AIエイリアスなし |
 
 ## GitHub SSH Setup

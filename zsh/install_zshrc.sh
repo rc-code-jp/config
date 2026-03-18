@@ -33,14 +33,14 @@ select_ai_tool() {
   
   if [ -n "${specified_tool}" ]; then
     case "${specified_tool}" in
-      claudecode|codex|opencode|none)
+      claudecode|codex|none)
         SELECTED_AI_TOOL="${specified_tool}"
         echo "AIツール: ${SELECTED_AI_TOOL}"
         return 0
         ;;
       *)
         echo "Error: 無効なAIツール: ${specified_tool}" >&2
-        echo "有効な値: claudecode, codex, opencode, none" >&2
+        echo "有効な値: claudecode, codex, none" >&2
         exit 1
         ;;
     esac
@@ -50,9 +50,9 @@ select_ai_tool() {
   if [ ! -e /dev/tty ]; then
     echo "Error: インタラクティブ選択ができません。" >&2
     echo "引数または環境変数 AI_TOOL を設定してください。" >&2
-    echo "例: curl ... | bash -s -- opencode" >&2
-    echo "例: bash <(curl ...) opencode" >&2
-    echo "有効な値: claudecode, codex, opencode, none" >&2
+    echo "例: curl ... | bash -s -- codex" >&2
+    echo "例: bash <(curl ...) codex" >&2
+    echo "有効な値: claudecode, codex, none" >&2
     exit 1
   fi
 
@@ -60,8 +60,7 @@ select_ai_tool() {
   echo "AIツールを選択してください:"
   echo "  1) claudecode"
   echo "  2) codex"
-  echo "  3) opencode"
-  echo "  4) none"
+  echo "  3) none"
   
   while true; do
     printf "#? "
@@ -76,15 +75,11 @@ select_ai_tool() {
         break
         ;;
       3)
-        SELECTED_AI_TOOL="opencode"
-        break
-        ;;
-      4)
         SELECTED_AI_TOOL="none"
         break
         ;;
       *)
-        echo "無効な選択です。1-4の番号を入力してください。"
+        echo "無効な選択です。1-3の番号を入力してください。"
         ;;
     esac
   done
@@ -105,8 +100,6 @@ filter_ai_blocks() {
       /^# AI-claudecode-End/   { skip=0; next }
       /^# AI-codex-Start/      { skip=1; next }
       /^# AI-codex-End/        { skip=0; next }
-      /^# AI-opencode-Start/   { skip=1; next }
-      /^# AI-opencode-End/     { skip=0; next }
       !skip { print }
     ' "${input_file}" > "${tmp_filtered}"
   else
@@ -116,8 +109,6 @@ filter_ai_blocks() {
       /^# AI-claudecode-End/   { skip=0; next }
       /^# AI-codex-Start/      { if (selected != "codex") skip=1; next }
       /^# AI-codex-End/        { skip=0; next }
-      /^# AI-opencode-Start/   { if (selected != "opencode") skip=1; next }
-      /^# AI-opencode-End/     { skip=0; next }
       !skip { print }
     ' "${input_file}" > "${tmp_filtered}"
   fi
