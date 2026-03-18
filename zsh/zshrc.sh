@@ -72,11 +72,12 @@ PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 # Alias
 alias ..="cd .."
 alias ll="ls -atrl" # リストを見やすく表示
+alias vi="vim"
 alias wake="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
 
 # Tools
-alias vi="vim"
-alias mini="minishelf"
+alias m="minishelf"
+alias mm="minishelf --tree-mode changed"
 
 # Git
 alias g="git_command_pallet"
