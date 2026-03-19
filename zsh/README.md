@@ -29,8 +29,8 @@ source ~/.zshrc
 
 | 値 | 説明 |
 |---|---|
-| `claudecode` | Claude Code (`C="claude"`, `CC="claude --resume"`) |
-| `codex` | Codex CLI (`C="codex"`, `CC="codex resume"`) |
+| `claudecode` | Claude Code (`x="claude"`, `xx="claude --resume"`) |
+| `codex` | Codex CLI (`x="codex"`, `xx="codex resume"`) |
 | `none` | AIエイリアスなし |
 
 ## GitHub SSH Setup
