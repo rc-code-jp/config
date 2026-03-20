@@ -69,58 +69,25 @@ PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 # Key chain
 (ssh-add --apple-load-keychain >/dev/null 2>&1 &)
 
-# Alias
+# Alias General
 alias ..="cd .."
+alias l="ls -a"
 alias ll="ls -atrl" # リストを見やすく表示
 alias vi="vim"
 alias wake="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
 
-# Tools
+# Alias Tools
 alias m="minishelf"
 alias mm="minishelf --tree-mode changed"
 
-# Git
-alias g="git_command_pallet"
+# Alias Git
 alias ga="git add -A"
 alias gc="git_commit_message"
 alias gp="git push origin HEAD"
+alias ggg="ga && gc && gp"
 alias gl="git pull"
 alias gw="git_switch"
 alias gs="git status"
-
-# Git command palette
-function git_command_pallet() {
-  echo "Git Commands:"
-  echo " 1: git add -A"
-  echo " 2: git commit (interactive)"
-  echo " 3: git push origin HEAD"
-  echo " 4: git pull"
-  echo " 5: git switch -c (create new branch)"
-  echo " 6: git switch (switch to existing branch)"
-  echo " 7: git status"
-  echo -n "Select> "
-  read -r choice
-
-  if [[ -z "$choice" ]]; then
-    echo "Cancelled."
-    return 0
-  fi
-
-  local c
-  for c in ${(s::)choice}; do
-    case "$c" in
-      1) echo "${fg[cyan]}Executing: ${fg[yellow]}git add -A${reset_color}"; git add -A ;;
-      2) echo "${fg[cyan]}Executing: ${fg[yellow]}git commit -m <message>${reset_color}"; git_commit_message ;;
-      3) echo "${fg[cyan]}Executing: ${fg[yellow]}git push origin HEAD${reset_color}"; git push origin HEAD ;;
-      4) echo "${fg[cyan]}Executing: ${fg[yellow]}git pull${reset_color}"; git pull ;;
-      5) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch -c <branch_name>${reset_color}"; git_switch create ;;
-      6) echo "${fg[cyan]}Executing: ${fg[yellow]}git switch <branch_name>${reset_color}"; git_switch switch ;;
-      7) echo "${fg[cyan]}Executing: ${fg[yellow]}git status${reset_color}"; git status ;;
-      ' ') continue ;;
-      *) echo "${fg[red]}Error: Invalid choice '$c'.${reset_color}" >&2 ;;
-    esac
-  done
-}
 
 # Git commit with message
 function git_commit_message() {
@@ -217,13 +184,5 @@ alias xx="claude --resume"
 alias x="codex"
 alias xx="codex resume"
 # AI-codex-End
-
-# Ghostty/一般的な端末のタブ/ウィンドウタイトルを「現在フォルダ名」にする
-function _set_term_title_pwd() {
-  # ${PWD:t} = パス末尾（フォルダ名）
-  print -Pn "\e]2;${PWD:t}\a"
-}
-precmd_functions+=(_set_term_title_pwd)
-chpwd_functions+=(_set_term_title_pwd)
 
 # Config-End

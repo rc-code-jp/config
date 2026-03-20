@@ -48,18 +48,6 @@ source ~/.zshrc
 ### 使い方
 
 ```bash
-bash zsh/github_setup.sh
-```
-
-鍵名を変更したい場合:
-
-```bash
-bash zsh/github_setup.sh id_ed25519_github_work
-```
-
-ローカルに clone していない環境では、GitHub Raw から直接実行できます:
-
-```bash
 curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/github_setup.sh | bash
 ```
 
