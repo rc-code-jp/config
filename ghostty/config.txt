@@ -7,7 +7,6 @@ theme = "iTerm2 Solarized Light"
 # 非活性セルをわかりやすく
 unfocused-split-opacity = 0.8
 unfocused-split-fill = #000000
-split-divider-color = #ffffff
 
 # フォント設定
 font-family = "Menlo"
