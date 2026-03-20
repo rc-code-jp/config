@@ -39,11 +39,8 @@ on run argv
         -- エディタ起動
         input text "x"          to paneEditor
         send key "enter"        to paneEditor
-        -- 動作確認
-        input text "echo hello" to paneShell
-        send key "enter"        to paneShell
         -- ファイラ起動
-        input text "m"          to paneFiles
+        input text "minishelf"  to paneFiles
         send key "enter"        to paneFiles
 
         -- ── フォーカス ───────────────────────────────────────────────
