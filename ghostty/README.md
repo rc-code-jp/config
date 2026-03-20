@@ -14,6 +14,6 @@ mkdir -p "$HOME/bin"
 curl -L -o "$HOME/bin/ghostty-work.applescript" \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/ghostty-work.applescript
 chmod +x "$HOME/bin/ghostty-work.applescript"
-grep -qF "alias work=" ~/.zshrc || echo "alias work='osascript $HOME/bin/ghostty-work.applescript'" >> ~/.zshrc
+grep -qF "alias work=" ~/.zshrc || { echo; echo "alias work='osascript $HOME/bin/ghostty-work.applescript'"; } >> ~/.zshrc
 source ~/.zshrc
 ```
