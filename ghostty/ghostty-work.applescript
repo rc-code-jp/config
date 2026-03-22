@@ -1,6 +1,6 @@
 -- Ghostty を起動し、開発用のペインレイアウトを自動構築するスクリプト
--- 使い方: osascript ghostty-work-start.applescript [フォルダパス]
---         引数を省略すると ~/src/ghostty を使用
+-- 使い方: osascript ghostty-work.applescript [フォルダパス]
+--         引数を省略すると ~/src/ghostty ...
 
 on run argv
     -- 引数があればそれを使い、なければデフォルトのパスにフォールバック
@@ -20,31 +20,32 @@ on run argv
 
         set win to new window with configuration cfg
 
-        -- ── ペインレイアウト ─────────────────────────────────────────
+        -- ── ペインレイアウト (グリッド構築) ──────────────────────────
         --
         --   ┌─────────────┬─────────────┐
-        --   │             │  paneEditor │  ← 右上: エディタ
-        --   │  paneFiles  ├─────────────┤
-        --   │ (ファイラ)  │  paneShell  │  ← 右下: 汎用シェル
+        --   │  paneFiles  │  paneAgent  │  ← 右上: AIエージェント
+        --   │  (ファイラ) ├─────────────┤
+        --   ├─────────────┤  paneShell2 │  ← 右下: 汎用シェル2
+        --   │  paneShell  │             │  ← 左下: 汎用シェル
         --   └─────────────┴─────────────┘
         --
-        -- 左ペイン (起点)
-        set paneFiles  to terminal 1 of selected tab of win
-        -- 右上
-        set paneEditor to split paneFiles  direction right with configuration cfg
-        -- 右下
-        set paneShell  to split paneEditor direction down  with configuration cfg
+        -- 1. まず左右に分割
+        set paneFiles to terminal 1 of selected tab of win
+        set paneAgent to split paneFiles direction right with configuration cfg
+        -- 2. それぞれを上下に分割
+        set paneShell to split paneFiles direction down with configuration cfg
+        set paneShell2 to split paneAgent direction down with configuration cfg
 
         -- ── 各ペインへのコマンド入力 ─────────────────────────────────
-        -- エディタ起動
-        input text "C"          to paneEditor
-        send key "enter"        to paneEditor
+        -- AIエージェント起動
+        input text "C" to paneAgent
+        send key "enter" to paneAgent
         -- ファイラ起動
-        input text "minishelf"  to paneFiles
-        send key "enter"        to paneFiles
+        input text "minishelf" to paneFiles
+        send key "enter" to paneFiles
 
         -- ── フォーカス ───────────────────────────────────────────────
-        -- 作業開始時のフォーカスはエディタ
-        focus paneEditor
+        -- 作業開始時のフォーカスはAIエージェント
+        focus paneAgent
     end tell
 end run
