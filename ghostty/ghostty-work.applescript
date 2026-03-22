@@ -44,6 +44,13 @@ on run argv
         input text "minishelf" to paneFiles
         send key "enter" to paneFiles
 
+        -- ── レイアウト調節 ──────────────────────────────────────────
+        delay 0.3
+
+        perform action "resize_split:left,480" on paneFiles
+        perform action "resize_split:down,180" on paneShell
+        perform action "resize_split:down,180" on paneShell2
+
         -- ── フォーカス ───────────────────────────────────────────────
         -- 作業開始時のフォーカスはAIエージェント
         focus paneAgent
