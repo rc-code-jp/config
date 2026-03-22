@@ -24,101 +24,6 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# AIツール選択関数
-select_ai_tool() {
-  local tool_arg="${1:-}"
-  
-  # コマンドライン引数または環境変数 AI_TOOL が設定されていればそれを使用
-  local specified_tool="${tool_arg:-${AI_TOOL:-}}"
-  
-  if [ -n "${specified_tool}" ]; then
-    case "${specified_tool}" in
-      claudecode|codex|none)
-        SELECTED_AI_TOOL="${specified_tool}"
-        echo "AIツール: ${SELECTED_AI_TOOL}"
-        return 0
-        ;;
-      *)
-        echo "Error: 無効なAIツール: ${specified_tool}" >&2
-        echo "有効な値: claudecode, codex, none" >&2
-        exit 1
-        ;;
-    esac
-  fi
-
-  # /dev/tty が利用可能か確認
-  if [ ! -e /dev/tty ]; then
-    echo "Error: インタラクティブ選択ができません。" >&2
-    echo "引数または環境変数 AI_TOOL を設定してください。" >&2
-    echo "例: curl ... | bash -s -- codex" >&2
-    echo "例: bash <(curl ...) codex" >&2
-    echo "有効な値: claudecode, codex, none" >&2
-    exit 1
-  fi
-
-  echo ""
-  echo "AIツールを選択してください:"
-  echo "  1) claudecode"
-  echo "  2) codex"
-  echo "  3) none"
-  
-  while true; do
-    printf "#? "
-    read -r choice < /dev/tty
-    case "${choice}" in
-      1)
-        SELECTED_AI_TOOL="claudecode"
-        break
-        ;;
-      2)
-        SELECTED_AI_TOOL="codex"
-        break
-        ;;
-      3)
-        SELECTED_AI_TOOL="none"
-        break
-        ;;
-      *)
-        echo "無効な選択です。1-3の番号を入力してください。"
-        ;;
-    esac
-  done
-  echo "選択: ${SELECTED_AI_TOOL}"
-}
-
-# 選択されたAIツール以外のブロックを除去する関数
-filter_ai_blocks() {
-  local input_file="$1"
-  local selected="$2"
-  local tmp_filtered
-  tmp_filtered="$(mktemp)"
-
-  if [ "${selected}" = "none" ]; then
-    # none選択時は全AIブロックを除去
-    awk '
-      /^# AI-claudecode-Start/ { skip=1; next }
-      /^# AI-claudecode-End/   { skip=0; next }
-      /^# AI-codex-Start/      { skip=1; next }
-      /^# AI-codex-End/        { skip=0; next }
-      !skip { print }
-    ' "${input_file}" > "${tmp_filtered}"
-  else
-    # 選択されたツール以外のブロックを除去（マーカーも除去）
-    awk -v selected="${selected}" '
-      /^# AI-claudecode-Start/ { if (selected != "claudecode") skip=1; next }
-      /^# AI-claudecode-End/   { skip=0; next }
-      /^# AI-codex-Start/      { if (selected != "codex") skip=1; next }
-      /^# AI-codex-End/        { skip=0; next }
-      !skip { print }
-    ' "${input_file}" > "${tmp_filtered}"
-  fi
-
-  mv "${tmp_filtered}" "${input_file}"
-}
-
-# AIツール選択
-select_ai_tool "${1:-}"
-
 # スクリプトがローカルで実行されているか、curlパイプで実行されているかを判定
 # ${BASH_SOURCE[0]:-} uses parameter expansion to handle unbound variable when using set -u
 if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]:-}" ]; then
@@ -163,9 +68,6 @@ if [ ! -s "${tmp_template}" ]; then
   echo "Template block not found" >&2
   exit 1
 fi
-
-# 選択されたAIツールに応じてフィルタリング
-filter_ai_blocks "${tmp_template}" "${SELECTED_AI_TOOL}"
 
 if [ ! -f "${zshrc_path}" ]; then
   cat "${tmp_template}" > "${zshrc_path}"

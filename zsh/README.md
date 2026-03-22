@@ -23,16 +23,6 @@ curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_
 source ~/.zshrc
 ```
 
-インストール時にAIツール（claudecode / codex / none）を選択するメニューが表示されます。
-
-### 有効なAIツール
-
-| 値 | 説明 |
-|---|---|
-| `claudecode` | Claude Code (`x="claude"`, `xx="claude --resume"`) |
-| `codex` | Codex CLI (`x="codex"`, `xx="codex resume"`) |
-| `none` | AIエイリアスなし |
-
 ## GitHub SSH Setup
 
 `zsh/github_setup.sh` は、Mac から GitHub に SSH 接続する初期設定をまとめて行います。

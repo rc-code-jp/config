@@ -79,6 +79,16 @@ alias wake="echo スリープを無効にします && caffeinate -dimsu" # Sleep
 # Alias Tools
 alias m="minishelf"
 alias mm="minishelf --tree-mode changed"
+alias Z="zed ."
+
+# AI Alias
+if command -v codex &>/dev/null; then
+  alias C="codex"
+  alias CC="codex resume"
+elif command -v claude &>/dev/null; then
+  alias C="claude"
+  alias CC="claude --resume"
+fi
 
 # Alias Git
 alias ga="git add -A"
@@ -174,15 +184,5 @@ function git_switch() {
     esac
   done
 }
-
-# AI-claudecode-Start
-alias x="claude"
-alias xx="claude --resume"
-# AI-claudecode-End
-
-# AI-codex-Start
-alias x="codex"
-alias xx="codex resume"
-# AI-codex-End
 
 # Config-End
