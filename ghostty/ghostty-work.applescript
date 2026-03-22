@@ -37,7 +37,7 @@ on run argv
 
         -- ── 各ペインへのコマンド入力 ─────────────────────────────────
         -- エディタ起動
-        input text "x"          to paneEditor
+        input text "C"          to paneEditor
         send key "enter"        to paneEditor
         -- ファイラ起動
         input text "minishelf"  to paneFiles
