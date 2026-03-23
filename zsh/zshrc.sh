@@ -8,6 +8,7 @@ fpath=("$HOME/.zsh/completions" $fpath)
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+setopt HIST_IGNORE_SPACE  # 先頭スペース付きコマンドを履歴に残さない
 setopt HIST_IGNORE_DUPS   # 重複を記録しない
 setopt SHARE_HISTORY      # 履歴を他ターミナルと共有
 

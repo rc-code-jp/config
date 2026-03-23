@@ -45,10 +45,10 @@ on run argv
 
         -- ── 各ペインへのコマンド入力 ─────────────────────────────────
         -- AIエージェント起動
-        input text "C" to paneAgent
+        input text " C" to paneAgent
         send key "enter" to paneAgent
         -- ファイラ起動
-        input text "minishelf" to paneFiles
+        input text " minishelf" to paneFiles
         send key "enter" to paneFiles
 
         -- ── フォーカス ───────────────────────────────────────────────
