@@ -21,7 +21,7 @@ on run argv
 
 		-- すでに分割されている場合は確認する
 		if (count of terminals of currentTab) > 1 then
-			set dialogResult to display dialog "このタブはすでに分割されています。現在の分割をすべて閉じて作り直しますか？" buttons {"いいえ", "はい"} default button "いいえ"
+			set dialogResult to display dialog "このタブはすでに分割されています。\n現在の分割を閉じて作り直しますか？\nEnter で続行、Esc で中止します。" buttons {"いいえ", "はい"} default button "はい" cancel button "いいえ"
 
 			-- 「はい」以外なら何もしない
 			if button returned of dialogResult is not "はい" then
