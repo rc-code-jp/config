@@ -14,16 +14,34 @@ on run argv
 		-- Ghostty を前面に出す
 		activate
 
-		-- 現在のウィンドウを使う
+		-- 現在のウィンドウ / タブ / フォーカス中 terminal を取得
 		set win to front window
+		set currentTab to selected tab of win
+		set paneFiles to focused terminal of currentTab
 
-		-- 現在フォーカスされている terminal を起点にする
-		set paneFiles to focused terminal of selected tab of win
+		-- すでに分割されている場合は確認する
+		if (count of terminals of currentTab) > 1 then
+			set dialogResult to display dialog "このタブはすでに分割されています。現在の分割をすべて閉じて作り直しますか？" buttons {"いいえ", "はい"} default button "いいえ"
 
-		-- すでに分割済みなら、メッセージを表示して終了
-		if (count of terminals of selected tab of win) > 1 then
-			display dialog "このタブはすでに分割されています。"
-			return
+			-- 「はい」以外なら何もしない
+			if button returned of dialogResult is not "はい" then
+				input text "echo 'すでに分割されているため処理をスキップしました'\n" to paneFiles
+				return
+			end if
+
+			-- フォーカス中 terminal を 1 つ残して、それ以外を閉じる
+			set allTerms to terminals of currentTab
+			repeat with t in allTerms
+				if (id of t) is not (id of paneFiles) then
+					close t
+				end if
+			end repeat
+
+			-- close 後の状態反映待ち
+			delay 0.2
+
+			-- 念のため、残った terminal を取り直す
+			set paneFiles to focused terminal of selected tab of win
 		end if
 
 		-- 右側に 1 ペイン追加
