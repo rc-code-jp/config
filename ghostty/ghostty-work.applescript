@@ -68,8 +68,8 @@ on run argv
 		send key "enter" to paneFiles
 
 		-- 左下ペイン
-		input text "git status -s" to paneFiles
-		send key "enter" to paneFiles
+		input text "pocogit" to paneShell
+		send key "enter" to paneShell
 
 		-- 最後に右上ペインへフォーカスを戻す
 		focus paneAgent
