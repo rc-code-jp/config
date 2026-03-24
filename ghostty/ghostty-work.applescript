@@ -59,12 +59,16 @@ on run argv
 		perform action "resize_split:down,180" on paneShell
 		perform action "resize_split:down,180" on paneShell2
 
-		-- 右上ペインで C を実行
-		input text " C" to paneAgent
+		-- 右上ペイン
+		input text "C" to paneAgent
 		send key "enter" to paneAgent
 
-		-- 左上ペインで minishelf を実行
-		input text " minishelf" to paneFiles
+		-- 左上ペイン
+		input text "minishelf" to paneFiles
+		send key "enter" to paneFiles
+
+		-- 左下ペイン
+		input text "git status -s" to paneFiles
 		send key "enter" to paneFiles
 
 		-- 最後に右上ペインへフォーカスを戻す
