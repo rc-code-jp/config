@@ -55,9 +55,9 @@ on run argv
 		delay 0.3
 
 		-- サイズ調整
-		perform action "resize_split:left,480" on paneFiles
-		perform action "resize_split:down,180" on paneShell
-		perform action "resize_split:down,180" on paneShell2
+		perform action "resize_split:left,400" on paneFiles
+		perform action "resize_split:down,200" on paneShell
+		perform action "resize_split:down,200" on paneShell2
 
 		-- 右上ペイン
 		input text "C" to paneAgent
