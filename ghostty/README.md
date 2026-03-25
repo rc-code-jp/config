@@ -7,13 +7,16 @@ curl -L -o "$HOME/Library/Application Support/com.mitchellh.ghostty/config" \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/config.txt
 ```
 
-## script
+## install
 
 ```bash
 mkdir -p "$HOME/bin"
-curl -L -o "$HOME/bin/ghostty-work.applescript" \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/ghostty-work.applescript
-chmod +x "$HOME/bin/ghostty-work.applescript"
-grep -qF "alias work=" ~/.zshrc || { echo; echo "alias work='osascript $HOME/bin/ghostty-work.applescript'"; } >> ~/.zshrc
+curl -L -o "$HOME/bin/uuu.applescript" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/uuu.applescript
+chmod +x "$HOME/bin/uuu.applescript"
+curl -L -o "$HOME/bin/qqq.applescript" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/qqq.applescript
+chmod +x "$HOME/bin/qqq.applescript"
+grep -qF 'export PATH="$HOME/bin:$PATH"' ~/.zshrc || echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
