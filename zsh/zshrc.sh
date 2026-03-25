@@ -76,7 +76,7 @@ alias ..="cd .."
 alias l="ls -a"
 alias ll="ls -atrl" # リストを見やすく表示
 alias vi="vim"
-alias wake="echo スリープを無効にします && caffeinate -dimsu" # Sleepを防ぐ
+alias zzz="echo 'no sleep ...' && caffeinate -dimsu" # Sleepを防ぐ
 
 # Alias Tools
 alias m="minishelf"

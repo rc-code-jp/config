@@ -1,0 +1,21 @@
+-- Ghostty でフォーカス中のターミナル（ペイン）を 1 つ残して、それ以外を閉じるスクリプト
+tell application "Ghostty"
+	activate
+	
+	-- 現在のウィンドウとタブを取得
+	try
+		set win to front window
+		set currentTab to selected tab of win
+		set focusedTerm to focused terminal of currentTab
+		
+		-- タブ内の全ターミナルを取得して、フォーカス中以外を閉じる
+		set allTerms to terminals of currentTab
+		repeat with t in allTerms
+			if (id of t) is not (id of focusedTerm) then
+				close t
+			end if
+		end repeat
+	on error
+		-- ウィンドウがない場合などは何もしない
+	end try
+end tell
