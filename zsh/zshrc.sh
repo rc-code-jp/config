@@ -51,8 +51,9 @@ _git_dirty_mark() {
   status_info=$(git status --porcelain 2>/dev/null) || return
   [[ -z "$status_info" ]] && return
   # Zshの内蔵パターンマッチングで高速判定
-  if [[ "$status_info" =~ $'\n [MADRCU]' || "$status_info" =~ '^ [MADRCU]' ]]; then
-    echo '*' # ワークツリーに修正あり
+  if [[ "$status_info" =~ $'\n [MADRCU]' || "$status_info" =~ '^ [MADRCU]' \
+     || "$status_info" =~ $'\n[?][?]'    || "$status_info" =~ '^[?][?]' ]]; then
+    echo '*' # ワークツリーに修正あり or 未追跡ファイルあり
   elif [[ "$status_info" =~ $'\n[MADRCU]' || "$status_info" =~ '^[MADRCU]' ]]; then
     echo '+' # ステージングのみ修正あり
   fi
