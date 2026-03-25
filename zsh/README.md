@@ -16,14 +16,16 @@ curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_
 source ~/.zshrc
 ```
 
-## User Config
+## Git
+
+### User Config
 
 ```bash
 git config --global user.name "rc-code-jp"
 git config --global user.email "example@gmail.com"
 ```
 
-## GitHub SSH Setup
+### GitHub SSH Setup
 
 `zsh/github_setup.sh` は、Mac から GitHub に SSH 接続する初期設定をまとめて行います。
 
