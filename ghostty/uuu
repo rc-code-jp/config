@@ -1,3 +1,4 @@
+#!/usr/bin/osascript
 -- Ghostty を起動し、開発用のペインレイアウトを自動構築するスクリプト
 -- 使い方: osascript ghostty-work.applescript [フォルダパス]
 --         引数を省略すると ~/src/ghostty ...
