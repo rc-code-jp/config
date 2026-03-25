@@ -3,13 +3,6 @@
 `zsh/install_zshrc.sh` updates `~/.zshrc` using the template block in
 `zsh/zshrc.sh`.
 
-## User Config
-
-```bash
-git config --global user.name "rc-code-jp"
-git config --global user.email "example@gmail.com"
-```
-
 ## Behavior
 
 - If `~/.zshrc` does not exist, it is created from the template block.
@@ -21,6 +14,13 @@ git config --global user.email "example@gmail.com"
 ```bash
 curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_zshrc.sh | bash
 source ~/.zshrc
+```
+
+## User Config
+
+```bash
+git config --global user.name "rc-code-jp"
+git config --global user.email "example@gmail.com"
 ```
 
 ## GitHub SSH Setup
