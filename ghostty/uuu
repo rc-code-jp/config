@@ -52,16 +52,19 @@ on run argv
 		set paneShell to split paneFiles direction down
 		set paneShell2 to split paneAgent direction down
 
+		-- 上段の中央にペイン追加
+		set paneWork to split paneAgent direction left
+
 		-- 分割直後はレイアウト確定待ち
 		delay 0.3
 
 		-- サイズ調整
-		perform action "resize_split:left,420" on paneFiles
-		perform action "resize_split:down,180" on paneShell
-		perform action "resize_split:down,180" on paneShell2
+		perform action "resize_split:left,500" on paneFiles
+		perform action "resize_split:down,250" on paneShell
+		perform action "resize_split:down,250" on paneShell2
 
 		-- 右上ペイン
-		input text "C" to paneAgent
+		input text "ai" to paneAgent
 		send key "enter" to paneAgent
 
 		-- 左上ペイン
