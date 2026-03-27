@@ -64,7 +64,7 @@ on run argv
 		perform action "resize_split:down,250" on paneShell2
 
 		-- 右上ペイン
-		input text "ai" to paneAgent
+		input text "(( $+commands[codex] )) && codex || claude" to paneAgent
 		send key "enter" to paneAgent
 
 		-- 左上ペイン
