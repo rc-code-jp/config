@@ -1,7 +1,8 @@
 #!/usr/bin/osascript
+
+-- Start Work ... 作業用にパネルを分割をして、各種ツールを呼び出す
+
 -- Ghostty を起動し、開発用のペインレイアウトを自動構築するスクリプト
--- 使い方: osascript ghostty-work.applescript [フォルダパス]
---         引数を省略すると ~/src/ghostty ...
 on run argv
 	-- 引数が渡されていればそれを使う
 	-- 使わない場合はデフォルトのパスを入れておく
