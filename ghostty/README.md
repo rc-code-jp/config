@@ -11,9 +11,9 @@ curl -L -o "$HOME/Library/Application Support/com.mitchellh.ghostty/config" \
 
 ```bash
 mkdir -p "$HOME/bin"
-curl -L -o "$HOME/bin/uuu" \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/uuu
-chmod +x "$HOME/bin/uuu"
+curl -L -o "$HOME/bin/ppp" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/ppp
+chmod +x "$HOME/bin/ppp"
 curl -L -o "$HOME/bin/qqq" \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/qqq
 chmod +x "$HOME/bin/qqq"
