@@ -81,15 +81,15 @@ alias zzz="echo 'no sleep ...' && caffeinate -dimsu" # Sleepを防ぐ
 # Alias Tools
 alias m="minishelf"
 alias mm="minishelf --tree-mode changed"
-alias Z="zed ."
+alias zd="zed ."
 
 # AI Alias
 if command -v codex &>/dev/null; then
-  alias C="codex"
-  alias CC="codex resume"
+  alias ai="codex"
+  alias aii="codex resume"
 elif command -v claude &>/dev/null; then
-  alias C="claude"
-  alias CC="claude --resume"
+  alias ai="claude"
+  alias aii="claude --resume"
 fi
 
 # Alias Git
