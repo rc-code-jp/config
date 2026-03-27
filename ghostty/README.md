@@ -11,12 +11,12 @@ curl -L -o "$HOME/Library/Application Support/com.mitchellh.ghostty/config" \
 
 ```bash
 mkdir -p "$HOME/bin"
-curl -L -o "$HOME/bin/ppp" \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/ppp
-chmod +x "$HOME/bin/ppp"
-curl -L -o "$HOME/bin/qqq" \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/qqq
-chmod +x "$HOME/bin/qqq"
+curl -L -o "$HOME/bin/sw" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/sw
+chmod +x "$HOME/bin/sw"
+curl -L -o "$HOME/bin/ew" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/ew
+chmod +x "$HOME/bin/ew"
 grep -qF 'export PATH="$HOME/bin:$PATH"' ~/.zshrc || echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
