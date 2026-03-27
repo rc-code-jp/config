@@ -12,6 +12,10 @@ curl -fsSL https://raw.githubusercontent.com/rc-code-jp/config/main/zsh/install_
 source ~/.zshrc
 ```
 
+たぶんエイリアスは以下なら空いてそう。
+
+`b, e, f, g, i, j, k, m, o, p, q, s, t, v, x, y, z`
+
 ### Behavior
 
 - If `~/.zshrc` does not exist, it is created from the template block.
