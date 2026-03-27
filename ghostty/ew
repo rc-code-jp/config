@@ -1,6 +1,6 @@
 #!/usr/bin/osascript
 
-# End Work ... 作業を終了してパネルを1つに戻す。
+-- End Work ... 作業を終了してパネルを1つに戻す。
 
 -- Ghostty でフォーカス中のターミナル（ペイン）を 1 つ残して、それ以外を閉じるスクリプト
 tell application "Ghostty"
