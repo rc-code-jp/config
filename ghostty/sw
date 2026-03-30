@@ -53,9 +53,6 @@ on run argv
 		set paneShell to split paneFiles direction down
 		set paneShell2 to split paneAgent direction down
 
-		-- 上段の中央にペイン追加
-		set paneWork to split paneAgent direction left
-
 		-- 分割直後はレイアウト確定待ち
 		delay 0.5
 
