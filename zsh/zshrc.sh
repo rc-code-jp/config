@@ -115,73 +115,61 @@ function git_commit_message() {
 
 # Git switch branch (interactive)
 function git_switch() {
-  local mode="${1:-auto}" branch_name key k1 k2
-  local typed="" i
+  local branch_name key k1 k2 i
   local selected=1
   local rendered_lines=0
-  local line_count=0
-  local -a branches
+  local total_count=0
+  local -a items branches
 
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     echo "Error: Not inside a git repository." >&2
     return 1
   fi
 
-  if [[ "$mode" == "create" ]]; then
-    echo -n "New branch name> "
-    read -r branch_name
-    [[ -z "$branch_name" ]] && { echo "Error: Branch name cannot be empty." >&2; return 1; }
-    git switch -c "$branch_name"
-    return $?
-  fi
-
   branches=("${(@f)$(git for-each-ref --format='%(refname:short)' --sort=-committerdate refs/heads)}")
-  (( ${#branches} == 0 )) && { echo "Error: No local branches found." >&2; return 1; }
+  # 先頭に新規作成オプションを追加
+  items=("+ New branch" "${branches[@]}")
+  total_count=${#items}
+  (( total_count == 1 )) && { echo "Error: No local branches found." >&2; return 1; }
 
   while true; do
     if (( rendered_lines > 0 )); then
       printf "\033[%dA\r\033[J" "$rendered_lines"
     fi
 
-    echo "git switch: ↑/↓ select"
-    line_count=1
-    if [[ "$mode" == "auto" ]]; then
-      echo "New branch> ${typed:-"(type to create)"}"
-      (( line_count++ ))
-    fi
-    echo "Branches:"
-    (( line_count++ ))
-    for (( i = 1; i <= ${#branches}; i++ )); do
-      (( i == selected )) && echo "> ${branches[i]}" || echo "  ${branches[i]}"
+    echo "git switch: ↑/↓ select, Enter confirm, Ctrl-C cancel"
+    for (( i = 1; i <= total_count; i++ )); do
+      if (( i == selected )); then
+        echo "> ${items[i]}"
+      else
+        echo "  ${items[i]}"
+      fi
     done
-    rendered_lines=$((line_count + ${#branches}))
+    rendered_lines=$((1 + total_count))
 
     read -rs -k 1 key || return 1
     case "$key" in
       $'\003') echo ""; echo "Cancelled."; return 130 ;;
       $'\n'|$'\r')
         echo ""
-        if [[ "$mode" == "auto" && -n "$typed" ]]; then
-          git show-ref --verify --quiet "refs/heads/$typed" && git switch "$typed" || git switch -c "$typed"
+        if (( selected == 1 )); then
+          echo -n "New branch name> "
+          read -r branch_name
+          [[ -z "$branch_name" ]] && { echo "Error: Branch name cannot be empty." >&2; return 1; }
+          git switch -c "$branch_name"
         else
-          git switch "${branches[selected]}"
+          git switch "${items[selected]}"
         fi
         return $?
-        ;;
-      $'\177'|$'\010')
-        [[ "$mode" == "auto" && -n "$typed" ]] && typed="${typed[1,-2]}"
         ;;
       $'\e')
         read -rs -k 1 -t 0.01 k1 || continue
         [[ "$k1" != "[" ]] && continue
         read -rs -k 1 -t 0.01 k2 || continue
         case "$k2" in
-          A) (( selected = selected > 1 ? selected - 1 : ${#branches} )) ;;
-          B) (( selected = selected < ${#branches} ? selected + 1 : 1 )) ;;
+          A) (( selected = selected > 1 ? selected - 1 : total_count )) ;;
+          B) (( selected = selected < total_count ? selected + 1 : 1 )) ;;
         esac
-        ;;
-      *)
-        [[ "$mode" == "auto" && "$key" == [[:print:]] ]] && typed+="$key"
         ;;
     esac
   done
