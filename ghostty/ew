@@ -1,28 +1,40 @@
 #!/usr/bin/osascript
 
 -- End Work ... 作業を終了してパネルを1つに戻す。
+-- 新しいタブを開き、現在のタブの全ターミナルを閉じる。
 
--- Ghostty でフォーカス中のターミナル（ペイン）を 1 つ残して、それ以外を閉じるスクリプト
 tell application "Ghostty"
 	activate
-	
-	-- 現在のウィンドウとタブを取得
+
 	try
 		set win to front window
-		set currentTab to selected tab of win
-		set focusedTerm to focused terminal of currentTab
-		
-		-- タブ内の全ターミナルを取得して、フォーカス中以外を閉じる
-		set allTerms to terminals of currentTab
-		repeat with t in allTerms
-			if (id of t) is not (id of focusedTerm) then
-				close t
-			end if
+		set oldTab to selected tab of win
+
+		-- 現在のディレクトリを引き継ぐ
+		set cwd to working directory of focused terminal of oldTab
+
+		-- 古いタブの全ターミナルのIDを収集
+		set termIds to {}
+		repeat with t in terminals of oldTab
+			set end of termIds to id of t
 		end repeat
 
-		-- 残ったターミナルにフォーカスを当てる
-		set focused of focusedTerm to true
-	on error
-		-- ウィンドウがない場合などは何もしない
+		-- 新しいタブを現在のディレクトリで作成
+		set cfg to new surface configuration
+		set initial working directory of cfg to cwd
+		new tab in win with configuration cfg
+		delay 0.3
+
+		-- 古いタブの全ターミナルを閉じる（タブも自動的に消える）
+		repeat with tid in termIds
+			try
+				close terminal id tid
+			end try
+		end repeat
+
+		-- 新しいタブのターミナルにフォーカス
+		focus focused terminal of selected tab of win
+	on error errMsg
+		return errMsg
 	end try
 end tell
