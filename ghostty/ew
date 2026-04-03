@@ -19,6 +19,9 @@ tell application "Ghostty"
 				close t
 			end if
 		end repeat
+
+		-- 残ったターミナルにフォーカスを当てる
+		set focused of focusedTerm to true
 	on error
 		-- ウィンドウがない場合などは何もしない
 	end try
