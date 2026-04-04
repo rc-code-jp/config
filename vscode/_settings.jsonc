@@ -42,7 +42,6 @@
   "workbench.tree.indent": 15,
   "workbench.layoutControl.enabled": false,
   "window.commandCenter": true,
-  "workbench.editor.enablePreview": false,
   /* Explorer & Extensions */
   "explorer.compactFolders": false,
   "extensions.ignoreRecommendations": true,

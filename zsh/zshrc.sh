@@ -79,9 +79,10 @@ alias vi="vim"
 alias zzz="echo 'no sleep ...' && caffeinate -dimsu" # Sleepを防ぐ
 
 # Alias Tools
-alias m="minishelf"
-alias mm="minishelf --tree-mode changed"
-alias z="zed ."
+alias pocos="pocoshelf"
+alias pocog="pocogit"
+alias zd="open -a 'Zed' ."
+alias vs="open -a 'Visual Studio Code' ."
 
 # AI Alias
 if command -v codex &>/dev/null; then
