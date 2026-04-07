@@ -176,4 +176,14 @@ function git_switch() {
   done
 }
 
+# @filename → cat filename（エンターキー押下時に変換）
+expand_at_to_cat() {
+  if [[ "$BUFFER" == @?* ]]; then
+    local file="${BUFFER#@}"
+    BUFFER="cat -- \"${file}\""
+  fi
+  zle .accept-line
+}
+zle -N accept-line expand_at_to_cat
+
 # Config-End
