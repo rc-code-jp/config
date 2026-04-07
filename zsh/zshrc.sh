@@ -76,7 +76,8 @@ alias ..="cd .."
 alias l="ls -a"
 alias ll="ls -atrl" # リストを見やすく表示
 alias vi="vim"
-alias zzz="echo 'no sleep ...' && caffeinate -dimsu" # Sleepを防ぐ
+alias op="open ." # macOSのopenコマンドをエイリアス
+alias ,,="echo 'no sleep ...' && caffeinate -dimsu" # Sleepを防ぐ
 
 # Alias Tools
 alias pocos="pocoshelf"
