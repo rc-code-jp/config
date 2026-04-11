@@ -177,4 +177,14 @@ function git_switch() {
   done
 }
 
+# @filename を vi filename に変換する（エンターキー押下時）
+expand_at_to_vi() {
+  if [[ "$BUFFER" == @?* ]]; then
+    local file="${BUFFER#@}"
+    BUFFER="vi -- \"${file}\""
+  fi
+  zle .accept-line
+}
+zle -N accept-line expand_at_to_vi
+
 # Config-End
