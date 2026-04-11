@@ -13,11 +13,24 @@ set showmode
 set ruler
 set laststatus=2
 
+" 表示
+set number
+set cursorline
+set scrolloff=3
+
 " 検索の定番
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+
+" 編集しやすさ
+set backspace=indent,eol,start
+set autoread
+
+" コマンドライン補完
+set wildmenu
+set wildmode=longest:full,full
 
 " 文字コード（日本語で無難）
 set encoding=utf-8
