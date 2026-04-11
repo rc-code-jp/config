@@ -6,7 +6,7 @@
   "terminal.integrated.fontFamily": "Menlo, Monaco, monospace",
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.fontWeight": "400",
-  "workbench.colorTheme": "Solarized Light",
+  "workbench.colorTheme": "Quiet Light",
   "editor.semanticHighlighting.enabled": "configuredByTheme",
   "editor.tokenColorCustomizations": {
     "textMateRules": [
@@ -43,20 +43,16 @@
   "workbench.tree.indent": 15,
   "workbench.layoutControl.enabled": false,
   "window.commandCenter": true,
+  /* Side Bar */
+  "workbench.secondarySideBar.defaultVisibility": "visible",
+  "workbench.secondarySideBar.showLabels": true,
   /* Explorer & Extensions */
   "explorer.compactFolders": false,
   "extensions.ignoreRecommendations": true,
   "emmet.triggerExpansionOnTab": true,
-  "hediet.vscode-drawio.resizeImages": null,
-  /* Cursor (AI) */
-  "cursor.composer.shouldAllowCustomModes": true,
-  "cursor.composer.shouldChimeAfterChatFinishes": true,
-  "cursor.composer.queueMessageDefaultBehavior": "queue",
-  "cursor.composer.usageSummaryDisplay": "always",
   /* Security & Update */
   "security.workspace.trust.untrustedFiles": "open",
   "security.promptForLocalFileProtocolHandling": false,
-  "update.releaseTrack": "prerelease",
   /* Git */
   "git.confirmSync": false
 }
