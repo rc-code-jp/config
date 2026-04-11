@@ -18,7 +18,7 @@ tell application "Ghostty"
 			end if
 		end repeat
 
-		delay 0.2
+		delay 1
 		focus activePane
 	on error errMsg
 		return errMsg
