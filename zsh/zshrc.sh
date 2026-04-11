@@ -87,11 +87,11 @@ alias vs="open -a 'Visual Studio Code' ."
 
 # AI Alias
 if command -v codex &>/dev/null; then
-  alias ai="codex"
-  alias aii="codex resume"
+  alias cx="codex"
+  alias cxx="codex resume"
 elif command -v claude &>/dev/null; then
-  alias ai="claude"
-  alias aii="claude --resume"
+  alias cx="claude"
+  alias cxx="claude --resume"
 fi
 
 # Alias Git
