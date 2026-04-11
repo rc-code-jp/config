@@ -101,6 +101,7 @@ alias gp="git push origin HEAD"
 alias ggg="ga && gc && gp"
 alias gl="git pull"
 alias gw="git_switch"
+alias gr="git_restore_with_clean"
 alias gs="git status"
 
 # Git commit with message
@@ -113,6 +114,35 @@ function git_commit_message() {
     return 1
   fi
   git commit -m "$message"
+}
+
+# Git restore ワークツリー初期化（確認付き）
+function git_restore_with_clean() {
+  local answer
+
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "エラー: Gitリポジトリ内ではありません。" >&2
+    return 1
+  fi
+
+  if [[ -z "$(git status --porcelain)" ]]; then
+    echo "復元する変更はありません。"
+    return 0
+  fi
+
+  git status --short
+  echo -n "変更をgit restoreし、追加したファイルも削除しますか？ [y/N] "
+  read -r answer
+  case "$answer" in
+    [yY]|[yY][eE][sS])
+      git restore .
+      git clean -fd
+      ;;
+    *)
+      echo "キャンセルしました。"
+      return 1
+      ;;
+  esac
 }
 
 # Git switch branch (interactive)
