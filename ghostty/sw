@@ -57,7 +57,7 @@ on run argv
 		delay 1
 
 		-- サイズ調整
-		perform action "resize_split:right,500" on paneFiles
+		perform action "resize_split:left,500" on paneFiles
 		perform action "resize_split:down,200" on paneShell
 		perform action "resize_split:down,250" on paneShell2
 
