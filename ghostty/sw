@@ -59,7 +59,7 @@ on run argv
 		-- サイズ調整
 		perform action "resize_split:left,500" on paneFiles
 		perform action "resize_split:down,200" on paneShell
-		perform action "resize_split:down,250" on paneShell2
+		perform action "resize_split:down,300" on paneShell2
 
 		-- 右上ペイン
 		input text "(( $+commands[codex] )) && codex || claude" to paneAgent
