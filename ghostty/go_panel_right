@@ -1,0 +1,7 @@
+#!/usr/bin/osascript
+
+tell application "Ghostty"
+	activate
+	set t to focused terminal of selected tab of front window
+	perform action "goto_split:right" on t
+end tell
