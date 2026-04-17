@@ -10,9 +10,9 @@ curl -L -o "$HOME/Library/Application Support/com.mitchellh.ghostty/config" \
 ## install
 
 ```bash
-curl -L -o "$HOME/bin/dev" \
-  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/dev
-chmod +x "$HOME/bin/dev"
+curl -L -o "$HOME/bin/go_panel_right" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/go_panel_right
+chmod +x "$HOME/bin/go_panel_right"
 
 curl -L -o "$HOME/bin/sw" \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/sw
