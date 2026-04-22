@@ -5,3 +5,24 @@ tell application "Ghostty"
 	set t to focused terminal of selected tab of front window
 	perform action "goto_split:right" on t
 end tell
+
+set shouldPaste to false
+
+try
+	set dialogResult to display dialog "右パネルへ移動しました。クリップボードの内容をペーストしますか？" buttons {"いいえ", "はい"} default button "はい" cancel button "いいえ"
+	set shouldPaste to (button returned of dialogResult is "はい")
+on error number -128
+	return
+end try
+
+if shouldPaste then
+	tell application "Ghostty"
+		activate
+	end tell
+
+	delay 0.1
+
+	tell application "System Events"
+		keystroke "v" using command down
+	end tell
+end if
