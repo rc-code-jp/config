@@ -207,14 +207,18 @@ function git_switch() {
   done
 }
 
-# @filename を vi filename に変換する（エンターキー押下時）
-expand_at_to_vi() {
+# @filename を edit filename（未インストール時は vi filename）に変換する（エンターキー押下時）
+expand_at_to_editor() {
   if [[ "$BUFFER" == @?* ]]; then
     local file="${BUFFER#@}"
-    BUFFER="vi -- \"${file}\""
+    if command -v edit >/dev/null 2>&1; then
+      BUFFER="edit -- \"${file}\""
+    else
+      BUFFER="vi -- \"${file}\""
+    fi
   fi
   zle .accept-line
 }
-zle -N accept-line expand_at_to_vi
+zle -N accept-line expand_at_to_editor
 
 # Config-End
