@@ -53,6 +53,9 @@ on run argv
 		set paneShell to split paneFiles direction down
 		set paneShell2 to split paneAgent direction down
 
+		-- 上部パネルをさらに右に分割		
+		set paneEditor to split paneAgent direction left
+
 		-- 下部パネルをさらに右に分割
 		set paneShell3 to split paneShell2 direction right
 
