@@ -18,6 +18,10 @@ curl -L -o "$HOME/bin/sw" \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/sw
 chmod +x "$HOME/bin/sw"
 
+curl -L -o "$HOME/bin/sww" \
+  https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/sww
+chmod +x "$HOME/bin/sww"
+
 curl -L -o "$HOME/bin/ew" \
   https://raw.githubusercontent.com/rc-code-jp/config/main/ghostty/ew
 chmod +x "$HOME/bin/ew"

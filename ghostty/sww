@@ -53,6 +53,12 @@ on run argv
 		set paneShell to split paneFiles direction down
 		set paneShell2 to split paneAgent direction down
 
+		-- 上部パネルをさらに右に分割		
+		set paneEditor to split paneAgent direction left
+
+		-- 下部パネルをさらに右に分割
+		set paneShell3 to split paneShell2 direction right
+
 		-- 分割直後はレイアウト確定待ち
 		delay 1
 
@@ -60,6 +66,7 @@ on run argv
 		perform action "resize_split:left,500" on paneFiles
 		perform action "resize_split:down,200" on paneShell
 		perform action "resize_split:down,300" on paneShell2
+		perform action "resize_split:right,200" on paneShell3
 
 		-- 右上ペイン
 		input text "(( $+commands[codex] )) && codex || claude" to paneAgent
@@ -72,6 +79,10 @@ on run argv
 		-- 左下ペイン
 		input text "pocogit" to paneShell
 		send key "enter" to paneShell
+
+		-- 右下ペイン
+		input text "termcat" to paneShell3
+		send key "enter" to paneShell3
 
 		-- 最後に右上ペインへフォーカスを戻す
 		focus paneAgent
