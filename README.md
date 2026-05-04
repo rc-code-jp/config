@@ -10,3 +10,15 @@
 - vscode - VS Codeの設定
 - zed - Zedエディタの設定
 - zsh - Zshの設定
+
+## その他のインストール
+
+個別でインストールしてるけどnixなどに移行したい。
+
+- mise
+- fastlane
+- cocoapods
+- codex
+- opencode
+- pocoshelf (rc-code-jp/tap)
+- pocogit (rc-code-jp/tap)
