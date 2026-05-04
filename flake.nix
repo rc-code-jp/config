@@ -34,7 +34,7 @@
     let
       system = "aarch64-darwin";
       username = "rc";
-      hostname = "RyosukenoMacBook-Pro";
+      hostname = "macbook-pro";
     in
     {
       darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {

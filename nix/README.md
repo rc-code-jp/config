@@ -44,12 +44,12 @@
 
 ```bash
 nix flake check
-darwin-rebuild check --flake .#RyosukenoMacBook-Pro
-darwin-rebuild build --flake .#RyosukenoMacBook-Pro
+darwin-rebuild check --flake .#macbook-pro
+darwin-rebuild build --flake .#macbook-pro
 ```
 
 適用するときは、ビルド確認後に以下を実行します。
 
 ```bash
-darwin-rebuild switch --flake .#RyosukenoMacBook-Pro
+darwin-rebuild switch --flake .#macbook-pro
 ```
