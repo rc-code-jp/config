@@ -2,6 +2,11 @@
 
 私の設定ファイル集
 
+## セットアップ
+
+macOS の設定は `nix-darwin` と `home-manager` で管理します。
+詳細は `nix/README.md` を参照してください。
+
 ## 含まれる設定
 
 - ai - AI関連の設定
@@ -10,15 +15,3 @@
 - vscode - VS Codeの設定
 - zed - Zedエディタの設定
 - zsh - Zshの設定
-
-## その他のインストール
-
-個別でインストールしてるけどnixなどに移行したい。
-
-- mise
-- fastlane
-- cocoapods
-- codex
-- opencode
-- pocoshelf (rc-code-jp/tap)
-- pocogit (rc-code-jp/tap)
