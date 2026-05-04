@@ -13,6 +13,16 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pocogit = {
+      url = "github:rc-code-jp/pocogit";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pocoshelf = {
+      url = "github:rc-code-jp/pocoshelf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

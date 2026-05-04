@@ -5,7 +5,6 @@
 ## 方針
 
 - Homebrew を前提にしない。
-- `pocogit` / `pocoshelf` は各本体リポジトリで Nix 対応してから、このリポジトリの `flake.nix` に flake input として追加する。
 - Apple ID、Xcode、SSH 鍵、Keychain、アクセシビリティ権限は自動化対象外として手順に残す。
 
 ## 先に管理するもの
@@ -13,6 +12,8 @@
 - `jq`
 - `git`
 - `mise`
+- `pocogit`
+- `pocoshelf`
 - `ripgrep`
 - `vim`
 - zsh / vim / mise / Ghostty / VS Code / Zed / Codex / Claude の設定ファイル
@@ -21,8 +22,6 @@
 
 ## 後で追加するもの
 
-- `pocoshelf`: 本体リポジトリで Nix 対応してから追加する。
-- `pocogit`: 本体リポジトリで Nix 対応してから追加する。
 - `codex`: nixpkgs のパッケージ名と実行ファイル名を確認してから追加する。
 - `opencode`: nixpkgs のパッケージ名と実行ファイル名を確認してから追加する。
 - `fastlane` / `cocoapods`: iOS 開発環境の復元方針を確認してから追加する。

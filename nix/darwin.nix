@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   username,
   hostname,
   ...
@@ -23,11 +24,9 @@
     mise
     ripgrep
     vim
+    inputs.pocogit.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.pocoshelf.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
-
-  # 自作TUIは各本体リポジトリで Nix 対応してから flake input として追加する。
-  # TODO: pocoshelf を追加する。
-  # TODO: pocogit を追加する。
 
   # nix-darwin の互換性用バージョン。新規導入時点の値として固定する。
   system.stateVersion = 5;
