@@ -71,6 +71,11 @@ PROMPT=$'%F{4}%~%f ${vcs_info_msg_0_}%F{1}$(_git_dirty_mark)%f\n%F{5}%#%f '
 # Key chain
 (ssh-add --apple-load-keychain >/dev/null 2>&1 &)
 
+# mise
+if command -v mise &>/dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
 # Alias General
 alias ..="cd .."
 alias l="ls -a"
