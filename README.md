@@ -139,7 +139,9 @@ nix-darwin の `homebrew` module で管理します。
 Homebrew 本体だけは管理対象外のため、初回のみ手動でインストールします。
 
 - `codex`
+- `brave-browser`
 - `ghostty`
+- `google-chrome`
 - `visual-studio-code`
 - `zed`
 

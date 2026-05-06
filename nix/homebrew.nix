@@ -13,7 +13,9 @@
     ];
 
     casks = [
+      "brave-browser"
       "ghostty"
+      "google-chrome"
       "visual-studio-code"
       "zed"
     ];
