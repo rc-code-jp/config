@@ -7,6 +7,7 @@
 with pkgs;
 [
   chezmoi
+  (callPackage ./codex-bin.nix { })
   git
   jq
   mise
