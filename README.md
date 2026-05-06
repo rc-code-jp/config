@@ -22,3 +22,7 @@
 - opencode
 - pocoshelf (rc-code-jp/tap)
 - pocogit (rc-code-jp/tap)
+
+memo
+
+`nix profile install nixpkgs#cocoapods nixpkgs#fastlane nixpkgs#mise nixpkgs#codex`
