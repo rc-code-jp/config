@@ -40,6 +40,18 @@ sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
 退避後は `nix-darwin` がシェル初期化ファイルを管理します。
 この作業は初回適用時だけ必要です。
 
+`darwin-rebuild` がまだ `PATH` にない初回環境では、以下のように `nix run` 経由で適用します。
+
+```bash
+sudo nix run github:nix-darwin/nix-darwin/master#darwin-rebuild -- switch --flake .#macbook-pro
+```
+
+適用後は `darwin-rebuild` が使えるようになるため、以降は通常の更新コマンドを使います。
+
+```bash
+sudo darwin-rebuild switch --flake .#macbook-pro
+```
+
 ## Claude statusline
 
 `ai-config/claude/statusline-command.sh` は JSON を読むために `jq` が必要です。
@@ -55,6 +67,8 @@ sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
 
 ## 確認コマンド
 
+`darwin-rebuild` 導入後に、設定を適用する前に確認する場合は以下を順に実行します。
+
 ```bash
 nix flake check
 darwin-rebuild check --flake .#macbook-pro
@@ -64,5 +78,11 @@ darwin-rebuild build --flake .#macbook-pro
 適用するときは、ビルド確認後に以下を実行します。
 
 ```bash
-darwin-rebuild switch --flake .#macbook-pro
+sudo darwin-rebuild switch --flake .#macbook-pro
+```
+
+`flake.lock` の依存関係を更新する場合は、適用前に以下を実行します。
+
+```bash
+nix flake update
 ```
