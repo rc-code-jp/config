@@ -10,6 +10,8 @@
 {
   imports = [
     ./homebrew.nix
+    ./system-defaults.nix
+    ./keyboard.nix
   ];
 
   nix.settings.experimental-features = [
