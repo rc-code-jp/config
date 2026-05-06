@@ -21,6 +21,3 @@ status_line = [
   "five-hour-limit",
   "weekly-limit",
 ]
-
-[projects."/Users/rc/work"]
-trust_level = "trusted"
