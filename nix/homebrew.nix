@@ -8,7 +8,7 @@
       cleanup = "zap";
     };
 
-    brews = [
+    casks = [
       "codex"
     ];
   };
