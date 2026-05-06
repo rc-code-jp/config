@@ -115,6 +115,8 @@ chezmoi --source "$PWD" apply
 ### nix-darwin
 
 - `chezmoi`
+- `git`
+- `jq`
 - `mise`
 - `fastlane`
 - `cocoapods`
@@ -128,9 +130,15 @@ nix-darwin の `homebrew` module で管理します。
 
 - `codex`
 
+## 手動管理として残すもの
+
+- `scripts/github_setup.sh`: GitHub SSH 初期設定用です。秘密鍵は nix / chezmoi で管理せず、初回のみ手動実行します。
+- `claude`: 設定ファイルのみ chezmoi で管理します。CLI 本体はこのリポジトリでは管理しません。
+- `termcat`: `~/bin/sww` から呼び出される任意ツールです。現時点では nixpkgs に存在せず、`rc-code-jp/termcat` に flake もないため、このリポジトリでは管理しません。
+
 ## GitHub SSH 初期設定
 
-必要な場合だけ実行します。
+必要な場合だけ、初回に一度実行します。
 
 ```bash
 bash scripts/github_setup.sh
