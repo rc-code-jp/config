@@ -7,16 +7,6 @@
 - `codex/config.toml`: Codex のグローバル設定ファイル
 - `codex.gitignore`: Codex のローカル `.codex/.gitignore` 用テンプレート
 
-## AGENTS.md の初期セットアップ
-
-```bash
-mkdir -p .agents
-touch .agents/.keep
-curl -L -o AGENTS.md \
-  https://raw.githubusercontent.com/rc-code-jp/ai-ops/main/AGENTS.md
-```
-
-
 ## Codex
 
 ### グローバル設定
