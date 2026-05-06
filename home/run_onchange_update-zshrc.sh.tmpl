@@ -1,0 +1,41 @@
+#!/bin/sh
+set -eu
+
+zshrc="{{ .chezmoi.homeDir }}/.zshrc"
+tmp="${zshrc}.chezmoi-tmp"
+
+block=$(cat <<'ZSHRC_BLOCK'
+{{ template "zshrc-block.tmpl" . -}}
+ZSHRC_BLOCK
+)
+
+if [ ! -f "$zshrc" ]; then
+  printf '%s\n' "$block" > "$zshrc"
+  exit 0
+fi
+
+if grep -q '^# Config-Start$' "$zshrc" && grep -q '^# Config-End$' "$zshrc"; then
+  awk -v block="$block" '
+    $0 == "# Config-Start" {
+      print block
+      in_block = 1
+      next
+    }
+    $0 == "# Config-End" {
+      in_block = 0
+      next
+    }
+    !in_block {
+      print
+    }
+  ' "$zshrc" > "$tmp"
+else
+  cp "$zshrc" "$tmp"
+  printf '\n%s\n' "$block" >> "$tmp"
+fi
+
+if cmp -s "$tmp" "$zshrc"; then
+  rm "$tmp"
+else
+  mv "$tmp" "$zshrc"
+fi
