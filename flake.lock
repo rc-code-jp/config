@@ -1,0 +1,113 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778009629,
+        "narHash": "sha256-nUoQtf4Zq7DRYJrfv904hjrxjAlWVP6a1pNNFKx3FCg=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "00ed86e58bb6979a7921859fd1615d19382eac5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777780666,
+        "narHash": "sha256-8wURyQMdDkGUarSTKOGdCuFfYiwa3HbzwscUfn3STDE=",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
+        "rev": "8c62fba0854ba15c8917aed18894dbccb48a3777",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-darwin",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1777946660,
+        "narHash": "sha256-iw3XDIG6xxk+AZTcawCLHf6i9i4tXRzLZEoV9xhRToQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bc57abace07689cfd34203aa5fb4027514895987",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pocogit": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778055626,
+        "narHash": "sha256-l+BVd8E1QmGFObCCMal62645aJoosXLTFVd2vZ8lxus=",
+        "owner": "rc-code-jp",
+        "repo": "pocogit",
+        "rev": "6b1bbbc8dbbdc9b25dcf2c614fdd1eeacc43909b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rc-code-jp",
+        "repo": "pocogit",
+        "type": "github"
+      }
+    },
+    "pocoshelf": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778058637,
+        "narHash": "sha256-iuI5yuQ+JTjigjybMaAOcADNKpAyFXI9H8C3bigJ/Rg=",
+        "owner": "rc-code-jp",
+        "repo": "pocoshelf",
+        "rev": "3344ca11ef651a8765909920b73b9be64aa0fb44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rc-code-jp",
+        "repo": "pocoshelf",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nix-darwin": "nix-darwin",
+        "nixpkgs": "nixpkgs",
+        "pocogit": "pocogit",
+        "pocoshelf": "pocoshelf"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

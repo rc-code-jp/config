@@ -27,6 +27,19 @@
 - `fastlane` / `cocoapods`: iOS 開発環境の復元方針を確認してから追加する。
 - `node` / `pnpm` / `rust` / `flutter`: 当面は `mise` 管理を優先し、Nix へ寄せるかは別途判断する。
 
+## 初回セットアップ
+
+新しい Mac で Nix インストール後に `nix-darwin` を初めて適用する場合、Nix インストーラが作成した `/etc/bashrc` と `/etc/zshrc` を退避する必要があります。
+これは `nix-darwin` が `/etc` 配下の既存ファイルを誤って上書きしないための安全確認です。
+
+```bash
+sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
+sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
+```
+
+退避後は `nix-darwin` がシェル初期化ファイルを管理します。
+この作業は初回適用時だけ必要です。
+
 ## Claude statusline
 
 `ai-config/claude/statusline-command.sh` は JSON を読むために `jq` が必要です。

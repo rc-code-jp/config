@@ -8,3 +8,19 @@ web_search = "cached"
 
 [sandbox_workspace_write]
 network_access = true
+
+[tui]
+notifications = ["agent-turn-complete", "approval-requested"]
+notification_method = "auto"
+status_line = [
+  "model-with-reasoning",
+  "git-branch",
+  "context-remaining",
+  "context-window-size",
+  "used-tokens",
+  "five-hour-limit",
+  "weekly-limit",
+]
+
+[projects."/Users/rc/work"]
+trust_level = "trusted"
