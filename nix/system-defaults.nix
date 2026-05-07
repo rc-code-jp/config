@@ -64,6 +64,17 @@
       wvous-br-corner = 1; # 右下: なし
     };
 
+    # デスクトップとDock > デスクトップとステージマネージャ
+    WindowManager = {
+      EnableStandardClickToShowDesktop = false; # クリックして壁紙を表示: オフ
+      StandardHideDesktopIcons = false; # デスクトップ上の項目を表示 (Hide=false なので表示する)
+      StandardHideWidgets = false; # ウィジェットを表示 (Hide=false)
+      StageManagerHideWidgets = false; # ステージマネージャ時のウィジェット表示 (Hide=false)
+      AppWindowGroupingBehavior = true; # ステージマネージャ: アプリケーションウインドウのグループ化
+      AutoHide = true; # ステージマネージャ: 最近使ったアプリケーションを自動的に隠す
+      HideDesktop = true; # ステージマネージャ: デスクトップアイコンを隠す
+    };
+
     finder = {
       AppleShowAllExtensions = true; # すべてのファイル拡張子を表示
       ShowPathbar = true; # 表示 > パスバーを表示
@@ -129,6 +140,20 @@
       {
         "com.apple.AppleMultitouchTrackpad" = trackpadGestures;
         "com.apple.driver.AppleBluetoothMultitouch.trackpad" = trackpadGestures;
+
+        # アクセシビリティ (system.defaults.universalaccess の対応外キー)
+        "com.apple.universalaccess" = {
+          closeViewHotkeysEnabled = 0; # ズーム > キーボードショートカットを使用: オフ
+          mouseDriver = 0; # ポインタコントロール > マウスキー: オフ
+          slowKey = 0; # キーボード > スローキー: オフ
+          stickyKey = 0; # キーボード > 複合キー (Sticky Keys): オフ
+          grayscale = 0; # ディスプレイ > グレイスケールを使用: オフ
+        };
+
+        # ログインウインドウ (system.defaults.loginwindow の対応外キー)
+        "com.apple.loginwindow" = {
+          TALLogoutSavesState = 0; # 一般 > 終了時にウインドウを開きなおす: オフ
+        };
       };
 
     # Mission Control > ディスプレイごとに個別の操作スペース: オフ
