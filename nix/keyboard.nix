@@ -29,6 +29,16 @@
     };
   };
 
+  # キーボード > 入力ソース / Fn キーの動作 (com.apple.HIToolbox ドメイン)
+  system.defaults.CustomUserPreferences."com.apple.HIToolbox" = {
+    # 🌐キー (Fn) を押したときの操作: 入力ソースを変更
+    # 0=なし, 1=入力ソースを変更, 2=絵文字と記号を表示, 3=音声入力を開始
+    AppleFnUsageType = 1;
+    # Caps Lock を押し続けて英字入力モードに切替: オン
+    # 0=オン (押し続けで切替), 1=オフ
+    AppleCapsLockPressAndHoldToggleOff = 0;
+  };
+
   # キーボード > キーボードショートカット に並ぶ項目を直接編集する。
   # AppleSymbolicHotKeys の主な ID:
   #   32  Mission Control
