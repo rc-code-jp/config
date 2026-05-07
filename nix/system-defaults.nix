@@ -102,6 +102,35 @@
       TrackpadThreeFingerDrag = false; # 3本指のドラッグ (アクセシビリティ > ポインタコントロール)
     };
 
+    # トラックパッド > その他のジェスチャ / スクロールとズーム / ポイント＆クリック
+    # nix-darwin の system.defaults.trackpad では扱えないため CustomUserPreferences で設定する。
+    # 内蔵 (AppleMultitouchTrackpad) と Bluetooth (Bluetooth.trackpad) の両ドメインに同じ値を書く必要がある。
+    # 値: 0=オフ, 1=オン (基本ジェスチャ), 2=フルジェスチャ (修飾なしで動作)
+    CustomUserPreferences =
+      let
+        trackpadGestures = {
+          # その他のジェスチャ
+          TrackpadFourFingerHorizSwipeGesture = 2; # 操作スペース間をスワイプ (4本指)
+          TrackpadThreeFingerHorizSwipeGesture = 2; # 操作スペース間をスワイプ (3本指)
+          TrackpadFourFingerVertSwipeGesture = 2; # Mission Control (4本指で上にスワイプ)
+          TrackpadThreeFingerVertSwipeGesture = 2; # Mission Control (3本指で上にスワイプ)
+          TrackpadFiveFingerPinchGesture = 0; # Launchpad (5本指でピンチ): オフ
+          TrackpadFourFingerPinchGesture = 0; # デスクトップを表示 (4本指で広げる): オフ
+          TrackpadTwoFingerFromRightEdgeSwipeGesture = 0; # 通知センター (右端から2本指でスワイプ): オフ
+          # スクロールとズーム
+          TrackpadTwoFingerDoubleTapGesture = 1; # スマートズーム (2本指でダブルタップ)
+          TrackpadPinch = 1; # 拡大/縮小
+          TrackpadRotate = 1; # 回転
+          TrackpadHorizScroll = 1; # 水平スクロール
+          # ポイント＆クリック
+          ForceSuppressed = 1; # 強めのクリックと触覚フィードバック: オフ (抑止)
+        };
+      in
+      {
+        "com.apple.AppleMultitouchTrackpad" = trackpadGestures;
+        "com.apple.driver.AppleBluetoothMultitouch.trackpad" = trackpadGestures;
+      };
+
     # Mission Control > ディスプレイごとに個別の操作スペース: オフ
     spaces.spans-displays = false;
 
