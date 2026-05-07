@@ -1,48 +1,48 @@
 {
-  # キーボード remap とシステムショートカット (symbolic hotkeys) を管理する。
+  # キーボードの remap とシステムショートカットを管理する。
+  # コメントは macOS の「システム設定」上の表記に合わせる。
   #
-  # symbolic hotkeys は cfprefsd のキャッシュにより darwin-rebuild switch
-  # 直後には反映されないことがある。確実に反映させたい場合は
-  #   defaults read com.apple.symbolichotkeys
-  # で値を確認した上でログアウト/再起動する。
+  # AppleSymbolicHotKeys は cfprefsd のキャッシュにより
+  # darwin-rebuild switch 直後に反映されないことがある。
+  # 確認は `defaults read com.apple.symbolichotkeys`、
+  # 反映はログアウト/再起動で行う。
   system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToControl = true;
-    swapLeftCommandAndLeftAlt = false;
+    enableKeyMapping = true; # キーマッピングを有効化 (以下の remap を有効にする)
+    remapCapsLockToControl = true; # キーボード > キーボードショートカット > 修飾キー: Caps Lock を Control に変更
+    swapLeftCommandAndLeftAlt = false; # 左 Command と左 Option の入れ替え: オフ
   };
 
   system.defaults.NSGlobalDomain = {
-    # Fn キーをファンクションキーとして扱う
+    # キーボード > キーボードショートカット > ファンクションキー
+    # F1, F2 などのキーを標準のファンクションキーとして使用
     "com.apple.keyboard.fnState" = true;
-    # Tab で全 UI 要素にフォーカス移動
+    # キーボード > キーボードショートカット > キーボードナビゲーション
+    # Tab キーですべてのコントロールに移動 (3 = フルキーボードアクセス)
     AppleKeyboardUIMode = 3;
 
-    # アプリメニュー項目のショートカット上書き例。
-    # キー: メニュー項目名 (英語)、値: Cocoa 修飾子記法
-    #   @=Cmd, ^=Ctrl, ~=Opt, $=Shift
+    # アプリケーションのメニュー項目に対するショートカット上書き。
+    # キーボード > キーボードショートカット > アプリのショートカット に相当。
+    # 値は Cocoa 修飾子記法: @=Cmd, ^=Ctrl, ~=Opt, $=Shift
     NSUserKeyEquivalents = {
-      # 例: 全アプリで「ペーストしてスタイルを合わせる」を Cmd+V に
+      # 例: 「ペーストしてスタイルを合わせる」を Cmd+V に
       # "Paste and Match Style" = "@v";
     };
   };
 
-  # システムレベルのショートカット (Spotlight / Mission Control / 入力ソース等)。
-  # AppleSymbolicHotKeys の各 ID は以下のとおり (主要なもの)。
+  # キーボード > キーボードショートカット に並ぶ項目を直接編集する。
+  # AppleSymbolicHotKeys の主な ID:
   #   32  Mission Control
-  #   33  Application windows
-  #   36  Show Desktop
-  #   60  Select previous input source
-  #   61  Select next input source
-  #   64  Spotlight: Show Spotlight search
-  #   65  Spotlight: Show Finder search window
-  #   118 Switch to Desktop 1
-  #   119 Switch to Desktop 2
+  #   33  アプリケーションウインドウ
+  #   36  デスクトップを表示
+  #   60  前の入力ソースを選択
+  #   61  次のソースを選択
+  #   64  Spotlight を表示
+  #   65  Finder の検索ウインドウを表示
   #
-  # parameters の配列は [ ASCII値 仮想キーコード 修飾子フラグ ] の3要素。
-  # 修飾子フラグ:
-  #   shift=131072, control=262144, option=524288, command=1048576
+  # parameters は [ ASCII値 仮想キーコード 修飾子フラグ ]。
+  # 修飾子フラグ: shift=131072, control=262144, option=524288, command=1048576
   system.defaults.CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys = {
-    # Spotlight を Cmd+Space に固定 (デフォルト)
+    # Spotlight を表示: Cmd + Space (デフォルト)
     "64" = {
       enabled = true;
       value = {
@@ -54,7 +54,7 @@
         type = "standard";
       };
     };
-    # Spotlight Finder 検索を Cmd+Opt+Space に固定 (デフォルト)
+    # Finder の検索ウインドウを表示: Cmd + Option + Space (デフォルト)
     "65" = {
       enabled = true;
       value = {
@@ -66,7 +66,7 @@
         type = "standard";
       };
     };
-    # Mission Control: Ctrl+Up
+    # Mission Control: Ctrl + ↑
     "32" = {
       enabled = true;
       value = {
@@ -78,7 +78,7 @@
         type = "standard";
       };
     };
-    # Application windows: Ctrl+Down
+    # アプリケーションウインドウ: Ctrl + ↓
     "33" = {
       enabled = true;
       value = {
@@ -90,10 +90,11 @@
         type = "standard";
       };
     };
-    # Show Desktop を無効化 (キー競合回避)
+    # デスクトップを表示: 無効化 (キー競合回避)
     "36".enabled = false;
-    # 入力ソース切替を無効化 (Spotlight 競合回避)
+    # 前の入力ソースを選択: 無効 (Spotlight と競合するため)
     "60".enabled = false;
+    # 次のソースを選択: 無効 (Spotlight と競合するため)
     "61".enabled = false;
   };
 }
