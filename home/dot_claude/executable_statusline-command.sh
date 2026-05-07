@@ -1,8 +1,23 @@
 #!/bin/bash
 input=$(cat)
 
+# --- Parse input (single jq pass) ---
+# 高頻度に呼ばれるため jq 起動を 1 回にまとめる。@tsv は null を空文字列として
+# 出力するので、後段の [ -n "$VAR" ] チェックは元の `// empty` と同じ挙動になる。
+IFS=$'\t' read -r cwd model ctx_used_pct FIVE_H FIVE_H_RESET WEEK WEEK_RESET wt_name < <(
+  jq -r '[
+    .cwd,
+    .model.display_name // .model.id,
+    .context_window.used_percentage,
+    .rate_limits.five_hour.used_percentage,
+    .rate_limits.five_hour.resets_at,
+    .rate_limits.seven_day.used_percentage,
+    .rate_limits.seven_day.resets_at,
+    .worktree.name
+  ] | @tsv' <<<"$input"
+)
+
 # --- CWD ---
-cwd=$(echo "$input" | jq -r '.cwd // ""')
 home="$HOME"
 short_cwd="${cwd#"$home"}"
 if [ "$short_cwd" != "$cwd" ]; then
@@ -28,10 +43,9 @@ if git -C "$cwd" rev-parse --is-inside-work-tree --no-optional-locks >/dev/null 
   fi
 fi
 
-# --- Model + Effort + Context ---
-model=$(echo "$input" | jq -r '.model.display_name // .model.id // ""')
+# --- Effort + Context ---
+# effort は別ファイル参照のため統合対象外
 effort=$(jq -r '.effortLevel // empty' ~/.claude/settings.json 2>/dev/null)
-ctx_used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
 ctx_section=""
 [ -n "$effort" ] && ctx_section=" effort:${effort}"
@@ -52,11 +66,6 @@ fmt_remaining() {
   fi
 }
 
-FIVE_H=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
-FIVE_H_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
-WEEK=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
-WEEK_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
-
 limits=""
 if [ -n "$FIVE_H" ]; then
   limits="5h: $(printf '%.0f' "$FIVE_H")%"
@@ -67,9 +76,6 @@ if [ -n "$WEEK" ]; then
   [ -n "$WEEK_RESET" ] && week_part="$week_part($(fmt_remaining "$WEEK_RESET"))"
   limits="${limits:+$limits  }$week_part"
 fi
-
-# --- Worktree ---
-wt_name=$(echo "$input" | jq -r '.worktree.name // empty')
 
 # --- Line 1: CWD + Git + Worktree ---
 printf '\033[34m%s\033[0m' "$short_cwd"
