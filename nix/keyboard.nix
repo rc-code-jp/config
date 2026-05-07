@@ -7,7 +7,7 @@
   # 確認は `defaults read com.apple.symbolichotkeys`、
   # 反映はログアウト/再起動で行う。
   system.keyboard = {
-    enableKeyMapping = true; # キーマッピングを有効化 (以下の remap を有効にする)
+    enableKeyMapping = true; # system.keyboard 配下の remap を有効化
     remapCapsLockToControl = true; # キーボード > キーボードショートカット > 修飾キー: Caps Lock を Control に変更
     swapLeftCommandAndLeftAlt = false; # 左 Command と左 Option の入れ替え: オフ
   };
@@ -19,14 +19,6 @@
     # キーボード > キーボードショートカット > キーボードナビゲーション
     # Tab キーですべてのコントロールに移動 (3 = フルキーボードアクセス)
     AppleKeyboardUIMode = 3;
-
-    # アプリケーションのメニュー項目に対するショートカット上書き。
-    # キーボード > キーボードショートカット > アプリのショートカット に相当。
-    # 値は Cocoa 修飾子記法: @=Cmd, ^=Ctrl, ~=Opt, $=Shift
-    NSUserKeyEquivalents = {
-      # 例: 「ペーストしてスタイルを合わせる」を Cmd+V に
-      # "Paste and Match Style" = "@v";
-    };
   };
 
   # キーボード > 入力ソース / Fn キーの動作 (com.apple.HIToolbox ドメイン)
@@ -54,18 +46,8 @@
   system.defaults.CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys = {
     # Spotlight を表示: 無効 (キーボードから呼び出さない)
     "64".enabled = false;
-    # Finder の検索ウインドウを表示: Cmd + Option + Space (デフォルト)
-    "65" = {
-      enabled = true;
-      value = {
-        parameters = [
-          32
-          49
-          1572864
-        ];
-        type = "standard";
-      };
-    };
+    # Finder の検索ウインドウを表示: 無効 (キーボードから呼び出さない)
+    "65".enabled = false;
     # Mission Control: 無効 (キーボードから呼び出さない)
     "32".enabled = false;
     # アプリケーションウインドウ: 無効 (キーボードから呼び出さない)
