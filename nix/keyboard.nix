@@ -52,18 +52,8 @@
   # parameters は [ ASCII値 仮想キーコード 修飾子フラグ ]。
   # 修飾子フラグ: shift=131072, control=262144, option=524288, command=1048576
   system.defaults.CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys = {
-    # Spotlight を表示: Cmd + Space (デフォルト)
-    "64" = {
-      enabled = true;
-      value = {
-        parameters = [
-          32
-          49
-          1048576
-        ];
-        type = "standard";
-      };
-    };
+    # Spotlight を表示: 無効 (キーボードから呼び出さない)
+    "64".enabled = false;
     # Finder の検索ウインドウを表示: Cmd + Option + Space (デフォルト)
     "65" = {
       enabled = true;
@@ -76,35 +66,15 @@
         type = "standard";
       };
     };
-    # Mission Control: Ctrl + ↑
-    "32" = {
-      enabled = true;
-      value = {
-        parameters = [
-          65535
-          126
-          8781824
-        ];
-        type = "standard";
-      };
-    };
-    # アプリケーションウインドウ: Ctrl + ↓
-    "33" = {
-      enabled = true;
-      value = {
-        parameters = [
-          65535
-          125
-          8781824
-        ];
-        type = "standard";
-      };
-    };
+    # Mission Control: 無効 (キーボードから呼び出さない)
+    "32".enabled = false;
+    # アプリケーションウインドウ: 無効 (キーボードから呼び出さない)
+    "33".enabled = false;
     # デスクトップを表示: 無効化 (キー競合回避)
     "36".enabled = false;
-    # 前の入力ソースを選択: 無効 (Spotlight と競合するため)
+    # 前の入力ソースを選択: 無効
     "60".enabled = false;
-    # 次のソースを選択: 無効 (Spotlight と競合するため)
+    # 次のソースを選択: 無効
     "61".enabled = false;
   };
 }

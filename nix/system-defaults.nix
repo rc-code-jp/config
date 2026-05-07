@@ -1,3 +1,5 @@
+{ username, ... }:
+
 {
   # macOS の画面・UI 系の設定を nix-darwin で宣言的に管理する。
   # コメントは macOS の「システム設定」上の表記に合わせる。
@@ -26,7 +28,7 @@
       AppleMiniaturizeOnDoubleClick = false; # タイトルバーをダブルクリックして「しまう」動作: 無効
 
       # 外観
-      AppleReduceDesktopTinting = true; # 壁紙の色合いを許可: オフ (色合いを抑制)
+      AppleReduceDesktopTinting = true; # 色合いを抑制 (システム設定の「壁紙の色合いを許可」をオフ)
 
       # キーボード
       NSAutomaticInlinePredictionEnabled = false; # 入力予測を表示: オフ
@@ -103,7 +105,7 @@
     };
 
     screencapture = {
-      location = "~/Downloads"; # スクリーンショットの保存先
+      location = "/Users/${username}/Downloads"; # スクリーンショットの保存先
       show-thumbnail = true; # 撮影後にフローティングサムネールを表示
     };
 
@@ -116,7 +118,9 @@
     # トラックパッド > その他のジェスチャ / スクロールとズーム / ポイント＆クリック
     # nix-darwin の system.defaults.trackpad では扱えないため CustomUserPreferences で設定する。
     # 内蔵 (AppleMultitouchTrackpad) と Bluetooth (Bluetooth.trackpad) の両ドメインに同じ値を書く必要がある。
-    # 値: 0=オフ, 1=オン (基本ジェスチャ), 2=フルジェスチャ (修飾なしで動作)
+    # 値: スワイプ系 (Trackpad*FingerHorizSwipeGesture / VertSwipeGesture) は
+    #     0=オフ, 1=オン (基本ジェスチャ), 2=フルジェスチャ (修飾なしで動作)。
+    #     その他のキー (Pinch / Rotate / HorizScroll / DoubleTap / ForceSuppressed) は 0=オフ, 1=オン のみ。
     CustomUserPreferences =
       let
         trackpadGestures = {
