@@ -8,7 +8,10 @@
     # NSGlobalDomain: アプリ全体に効くグローバル設定
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark"; # 外観モード: ダーク
-      AppleShowAllExtensions = true; # すべてのファイル拡張子を表示
+      # すべてのファイル拡張子を表示
+      # finder.AppleShowAllExtensions と併記が必要。書き込み先ドメインが異なり
+      # (-g と com.apple.finder)、Finder GUI も両方に書く挙動のため両方設定する。
+      AppleShowAllExtensions = true;
       AppleShowScrollBars = "Automatic"; # スクロールバーの表示: 自動
       InitialKeyRepeat = 25; # キーのリピート入力認識までの時間 (短いほど速い)
       KeyRepeat = 12; # キーのリピート速度 (短いほど速い)
@@ -78,7 +81,7 @@
     };
 
     finder = {
-      AppleShowAllExtensions = true; # すべてのファイル拡張子を表示
+      AppleShowAllExtensions = true; # すべてのファイル拡張子を表示 (NSGlobalDomain と併記。理由は上部コメント参照)
       ShowPathbar = true; # 表示 > パスバーを表示
       ShowStatusBar = true; # 表示 > ステータスバーを表示
       FXPreferredViewStyle = "Nlsv"; # 既定の表示形式: リスト表示
