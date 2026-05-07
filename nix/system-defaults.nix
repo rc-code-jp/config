@@ -50,6 +50,8 @@
       autohide = true; # Dock を自動的に表示/非表示
       orientation = "bottom"; # 画面上の位置: 下
       tilesize = 76; # サイズ (アイコンの大きさ)
+      magnification = true; # 拡大: オン
+      largesize = 128; # 拡大スライダの最大サイズ
       mineffect = "scale"; # ウインドウをしまうときのエフェクト: スケールエフェクト
       minimize-to-application = true; # ウインドウをアプリケーションアイコンにしまう
       mru-spaces = false; # 最新のものに基づいて操作スペースを自動的に並べ替える: オフ
@@ -70,6 +72,14 @@
       FXDefaultSearchScope = "SCcf"; # 検索の対象: 現在のフォルダ
       FXEnableExtensionChangeWarning = false; # 拡張子変更時の確認ダイアログ: オフ
       _FXSortFoldersFirst = true; # フォルダを名前順で先に表示
+
+      # Finder > 設定 > 一般 > 新規 Finder ウインドウで次を表示
+      # PfAF=AirDrop, PfHm=ホーム, PfDe=デスクトップ, PfDo=書類, PfCm=コンピュータ, PfLo=その他
+      NewWindowTarget = "PfAF"; # AirDrop
+      # Finder > 設定 > 一般 > デスクトップに表示する項目
+      ShowExternalHardDrivesOnDesktop = true; # 外部ディスク
+      ShowHardDrivesOnDesktop = false; # 内蔵ディスク: オフ
+      ShowRemovableMediaOnDesktop = true; # CD・DVD・iPod
     };
 
     menuExtraClock = {
