@@ -7,22 +7,22 @@
     NSGlobalDomain = {
       AppleInterfaceStyle = "Dark"; # 外観モード: ダーク
       AppleShowAllExtensions = true; # すべてのファイル拡張子を表示
-      AppleShowScrollBars = "Always"; # スクロールバーの表示: 常に表示
-      InitialKeyRepeat = 15; # キーのリピート入力認識までの時間 (短いほど速い)
-      KeyRepeat = 2; # キーのリピート速度 (短いほど速い)
+      AppleShowScrollBars = "Automatic"; # スクロールバーの表示: 自動
+      InitialKeyRepeat = 25; # キーのリピート入力認識までの時間 (短いほど速い)
+      KeyRepeat = 12; # キーのリピート速度 (短いほど速い)
       NSAutomaticCapitalizationEnabled = false; # 文頭を自動的に大文字にする: オフ
       NSAutomaticDashSubstitutionEnabled = false; # スマートダッシュ: オフ
       NSAutomaticPeriodSubstitutionEnabled = false; # ピリオドの自動入力 (スペース2回): オフ
       NSAutomaticQuoteSubstitutionEnabled = false; # スマート引用符: オフ
       NSAutomaticSpellingCorrectionEnabled = false; # スペルを自動的に修正: オフ
       "com.apple.swipescrolldirection" = true; # スクロールの方向: ナチュラル
-      "com.apple.trackpad.scaling" = 1.5; # 軌跡の速さ (トラックパッド > ポインタの軌跡の速さ)
+      "com.apple.trackpad.scaling" = 3.0; # 軌跡の速さ (トラックパッド > ポインタの軌跡の速さ)
     };
 
     dock = {
       autohide = true; # Dock を自動的に表示/非表示
       orientation = "bottom"; # 画面上の位置: 下
-      tilesize = 48; # サイズ (アイコンの大きさ)
+      tilesize = 76; # サイズ (アイコンの大きさ)
       mineffect = "scale"; # ウインドウをしまうときのエフェクト: スケールエフェクト
       minimize-to-application = true; # ウインドウをアプリケーションアイコンにしまう
       mru-spaces = false; # 最新のものに基づいて操作スペースを自動的に並べ替える: オフ
@@ -47,7 +47,7 @@
 
     menuExtraClock = {
       IsAnalog = false; # 時計の表示形式: デジタル
-      ShowDate = 1; # 日付を表示: 常に表示 (0=自動 1=常に 2=表示しない)
+      ShowDate = 0; # 日付を表示: 自動 (0=自動 1=常に 2=表示しない)
       ShowDayOfWeek = true; # 曜日を表示
       ShowSeconds = false; # 秒を表示: オフ
       Show24Hour = true; # 24時間表示を使用
@@ -55,14 +55,14 @@
     };
 
     screencapture = {
-      location = "~/Pictures/Screenshots"; # スクリーンショットの保存先
+      location = "~/Downloads"; # スクリーンショットの保存先
       show-thumbnail = true; # 撮影後にフローティングサムネールを表示
     };
 
     trackpad = {
       Clicking = true; # タップでクリック
       TrackpadRightClick = true; # 副ボタンのクリック (2本指でクリックまたはタップ)
-      TrackpadThreeFingerDrag = true; # 3本指のドラッグ (アクセシビリティ > ポインタコントロール)
+      TrackpadThreeFingerDrag = false; # 3本指のドラッグ (アクセシビリティ > ポインタコントロール)
     };
 
     # Mission Control > ディスプレイごとに個別の操作スペース: オフ
