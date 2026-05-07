@@ -17,6 +17,33 @@
       NSAutomaticSpellingCorrectionEnabled = false; # スペルを自動的に修正: オフ
       "com.apple.swipescrolldirection" = true; # スクロールの方向: ナチュラル
       "com.apple.trackpad.scaling" = 3.0; # 軌跡の速さ (トラックパッド > ポインタの軌跡の速さ)
+
+      # メニューバー (コントロールセンター > メニューバー)
+      AppleMenuBarVisibleInFullscreen = false; # フルスクリーンでメニューバーを表示: オフ
+      "_HIHideMenuBar" = false; # メニューバーを自動的に表示/非表示: オフ
+
+      # ウインドウ操作 (デスクトップとDock)
+      AppleMiniaturizeOnDoubleClick = false; # タイトルバーをダブルクリックして「しまう」動作: 無効
+
+      # 外観
+      AppleReduceDesktopTinting = true; # 壁紙の色合いを許可: オフ (色合いを抑制)
+
+      # キーボード
+      NSAutomaticInlinePredictionEnabled = false; # 入力予測を表示: オフ
+
+      # マウス
+      AppleEnableMouseSwipeNavigateWithScrolls = true; # スクロールジェスチャでページ間を移動: オン
+      "com.apple.mouse.scaling" = 3.0; # マウス > 軌跡の速さ
+      "com.apple.scrollwheel.scaling" = 0.75; # マウス > スクロールの速さ
+
+      # トラックパッド
+      "com.apple.trackpad.forceClick" = false; # 強めのクリックと触覚フィードバック: オフ
+
+      # サウンド / アクセシビリティ (オーディオ)
+      "com.apple.sound.beep.feedback" = 1; # 音量変更時にフィードバック: オン
+      "com.apple.sound.beep.flash" = 0; # ビープ音と同時に画面をフラッシュ (アクセシビリティ): オフ
+      "com.apple.sound.uiaudio.enabled" = 1; # ユーザインタフェースのサウンドエフェクトを再生: オン
+      "com.apple.sound.beep.volume" = 1.0; # 警告音の音量
     };
 
     dock = {
@@ -73,4 +100,10 @@
       SHOWFULLNAME = false; # ログインウインドウの表示: ユーザのリスト
     };
   };
+
+  # サウンド > 起動時にサウンドを再生: オフ
+  # NVRAM 領域のため system.defaults では制御できず、activationScripts で nvram を直接設定する。
+  system.activationScripts.startupChime.text = ''
+    /usr/sbin/nvram StartupMute=%01
+  '';
 }
