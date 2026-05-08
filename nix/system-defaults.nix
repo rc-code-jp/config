@@ -4,6 +4,8 @@
   # macOS の画面・UI 系の設定を nix-darwin で宣言的に管理する。
   # コメントは macOS の「システム設定」上の表記に合わせる。
   # 反映には darwin-rebuild switch 後にログアウト/再起動が必要な項目があります。
+  #
+  # nix-darwin で管理しない macOS 設定は docs/unmanaged-macos-settings.md に記録する。
   system.defaults = {
     # NSGlobalDomain: アプリ全体に効くグローバル設定
     NSGlobalDomain = {
@@ -24,30 +26,19 @@
       "com.apple.trackpad.scaling" = 3.0; # 軌跡の速さ (トラックパッド > ポインタの軌跡の速さ)
 
       # メニューバー (コントロールセンター > メニューバー)
-      AppleMenuBarVisibleInFullscreen = false; # フルスクリーンでメニューバーを表示: オフ
       "_HIHideMenuBar" = false; # メニューバーを自動的に表示/非表示: オフ
-
-      # ウインドウ操作 (デスクトップとDock)
-      AppleMiniaturizeOnDoubleClick = false; # タイトルバーをダブルクリックして「しまう」動作: 無効
-
-      # 外観
-      AppleReduceDesktopTinting = true; # 色合いを抑制 (システム設定の「壁紙の色合いを許可」をオフ)
 
       # キーボード
       NSAutomaticInlinePredictionEnabled = false; # 入力予測を表示: オフ
 
       # マウス
       AppleEnableMouseSwipeNavigateWithScrolls = true; # スクロールジェスチャでページ間を移動: オン
-      "com.apple.mouse.scaling" = 3.0; # マウス > 軌跡の速さ
-      "com.apple.scrollwheel.scaling" = 0.75; # マウス > スクロールの速さ
 
       # トラックパッド
       "com.apple.trackpad.forceClick" = false; # 強めのクリックと触覚フィードバック: オフ
 
       # サウンド / アクセシビリティ (オーディオ)
       "com.apple.sound.beep.feedback" = 1; # 音量変更時にフィードバック: オン
-      "com.apple.sound.beep.flash" = 0; # ビープ音と同時に画面をフラッシュ (アクセシビリティ): オフ
-      "com.apple.sound.uiaudio.enabled" = 1; # ユーザインタフェースのサウンドエフェクトを再生: オン
       "com.apple.sound.beep.volume" = 1.0; # 警告音の音量
     };
 
@@ -71,6 +62,7 @@
 
     # デスクトップとDock > デスクトップとステージマネージャ
     WindowManager = {
+      GloballyEnabled = false; # ステージマネージャ: オフ
       EnableStandardClickToShowDesktop = false; # クリックして壁紙を表示: オフ
       StandardHideDesktopIcons = false; # デスクトップ上の項目を表示 (Hide=false なので表示する)
       StandardHideWidgets = false; # ウィジェットを表示 (Hide=false)
@@ -88,10 +80,6 @@
       FXDefaultSearchScope = "SCcf"; # 検索の対象: 現在のフォルダ
       FXEnableExtensionChangeWarning = false; # 拡張子変更時の確認ダイアログ: オフ
       _FXSortFoldersFirst = true; # フォルダを名前順で先に表示
-
-      # Finder > 設定 > 一般 > 新規 Finder ウインドウで次を表示
-      # PfAF=AirDrop, PfHm=ホーム, PfDe=デスクトップ, PfDo=書類, PfCm=コンピュータ, PfLo=その他
-      NewWindowTarget = "PfAF"; # AirDrop
       # Finder > 設定 > 一般 > デスクトップに表示する項目
       ShowExternalHardDrivesOnDesktop = true; # 外部ディスク
       ShowHardDrivesOnDesktop = false; # 内蔵ディスク: オフ
@@ -147,20 +135,6 @@
       {
         "com.apple.AppleMultitouchTrackpad" = trackpadGestures;
         "com.apple.driver.AppleBluetoothMultitouch.trackpad" = trackpadGestures;
-
-        # アクセシビリティ (system.defaults.universalaccess の対応外キー)
-        "com.apple.universalaccess" = {
-          closeViewHotkeysEnabled = 0; # ズーム > キーボードショートカットを使用: オフ
-          mouseDriver = 0; # ポインタコントロール > マウスキー: オフ
-          slowKey = 0; # キーボード > スローキー: オフ
-          stickyKey = 0; # キーボード > 複合キー (Sticky Keys): オフ
-          grayscale = 0; # ディスプレイ > グレイスケールを使用: オフ
-        };
-
-        # ログインウインドウ (system.defaults.loginwindow の対応外キー)
-        "com.apple.loginwindow" = {
-          TALLogoutSavesState = 0; # 一般 > 終了時にウインドウを開きなおす: オフ
-        };
       };
 
     # Mission Control > ディスプレイごとに個別の操作スペース: オフ
