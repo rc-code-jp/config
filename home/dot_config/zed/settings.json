@@ -22,7 +22,16 @@
   },
   "project_panel": {
     "auto_fold_dirs": false,
+    "dock": "left",
     "indent_size": 15,
+    "starts_open": true,
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "terminal": {
+    "keep_selection_on_copy": false,
+    "dock": "right",
   },
   "show_edit_predictions": true,
   "telemetry": {
