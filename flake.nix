@@ -12,9 +12,16 @@
   outputs =
     inputs@{ nix-darwin, nixpkgs, ... }:
     let
-      system = "aarch64-darwin";
-      username = "rc";
-      hostname = "macbook-pro";
+      local =
+        if builtins.pathExists ./local.nix then
+          import ./local.nix
+        else
+          throw ''
+            local.nix が見つかりません。先に次を実行してください:
+              ./scripts/bootstrap-local.sh
+          '';
+      system = local.system or "aarch64-darwin";
+      inherit (local) username hostname;
     in
     {
       darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
