@@ -1,5 +1,11 @@
 # chezmoi: zshrc begin
 export CLICOLOR=1
+typeset -U path
+path=("$HOME/bin" $path)
+
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
 # ===== zsh completion start =====
 fpath=("$HOME/.zsh/completions" $fpath)
