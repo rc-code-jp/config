@@ -1,0 +1,33 @@
+#!/bin/sh
+set -eu
+
+tmp="$(mktemp)"
+block_tmp="$(mktemp)"
+trap 'rm -f "$tmp" "$block_tmp"' EXIT
+
+cat > "$tmp"
+cat > "$block_tmp" <<'ZSHRC_BLOCK'
+{{ template "zshrc-block.tmpl" . -}}
+ZSHRC_BLOCK
+
+if grep -q '^# chezmoi: zshrc begin$' "$tmp" && grep -q '^# chezmoi: zshrc end$' "$tmp"; then
+  awk -v block_file="$block_tmp" '
+    $0 == "# chezmoi: zshrc begin" {
+      while ((getline line < block_file) > 0) {
+        print line
+      }
+      close(block_file)
+      in_block = 1
+      next
+    }
+    $0 == "# chezmoi: zshrc end" {
+      in_block = 0
+      next
+    }
+    !in_block {
+      print
+    }
+  ' "$tmp"
+else
+  cat "$block_tmp"
+fi
