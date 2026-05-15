@@ -8,7 +8,9 @@
       cleanup = "uninstall";
     };
 
-    brews = [ ];
+    taps = [ "anomalyco/tap" ];
+
+    brews = [ "opencode" ];
 
     casks = [
       "brave-browser"
