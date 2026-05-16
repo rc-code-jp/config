@@ -12,6 +12,7 @@
     ./homebrew.nix
     ./system-defaults.nix
     ./keyboard.nix
+    ./file-associations.nix
   ];
 
   nix.settings.experimental-features = [
