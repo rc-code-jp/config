@@ -1,0 +1,16 @@
+{
+  "colorScheme": "solarized light",
+  "model": "Gemini 3.5 Flash (High)",
+  "permissions": {
+    "allow": [
+      "command(mise)",
+      "command(mkdir)"
+    ]
+  },
+  "statusLine": {
+    "type": "",
+    "command": "",
+    "enabled": true
+  },
+  "toolPermission": "always-proceed"
+}
