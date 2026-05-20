@@ -1,16 +1,47 @@
 {
   "colorScheme": "solarized light",
   "model": "Gemini 3.5 Flash (High)",
+  "toolPermission": "always-proceed",
+  
   "permissions": {
     "allow": [
+      "command(ls)",
+      "command(cat)",
       "command(mise)",
-      "command(mkdir)"
+      "command(mkdir)",
+      "command(git)",
+      "command(npm)"
+    ],
+    "deny": [
+      "command(rm -rf /)",
+      "write(/etc/*)"
     ]
   },
+
   "statusLine": {
-    "type": "",
+    "type": "advanced",
     "command": "",
     "enabled": true
   },
-  "toolPermission": "always-proceed"
+
+  "indexer": {
+    "exclude": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.antigravitycli/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.next/**",
+      "*.log",
+      "*.mp4",
+      "*.png",
+      "*.jpg"
+    ]
+  },
+
+  "notifications": {
+    "desktop": true,
+    "sound": "submarine",
+    "onSuccessOnly": false
+  }
 }
