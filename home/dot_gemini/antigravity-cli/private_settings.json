@@ -37,11 +37,5 @@
       "*.png",
       "*.jpg"
     ]
-  },
-
-  "notifications": {
-    "desktop": true,
-    "sound": "submarine",
-    "onSuccessOnly": false
   }
 }
