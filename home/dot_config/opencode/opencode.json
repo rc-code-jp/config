@@ -1,4 +1,47 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "autoupdate": false
+  "autoupdate": false,
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "task": "allow",
+    "todowrite": "allow",
+    "question": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "repo_overview": "allow",
+    "lsp": "allow",
+    "skill": "allow",
+    "doom_loop": "allow",
+    "bash": {
+      "rm *": "deny",
+      "sudo *": "deny",
+      "dd *": "deny",
+      "mkfs*": "deny",
+      "fdisk *": "deny",
+      "chown *": "deny",
+      "git *": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "mkdir *": "allow",
+      "cp *": "allow",
+      "mv *": "ask",
+      "npm *": "ask",
+      "npx *": "ask",
+      "yarn *": "ask",
+      "pnpm *": "ask",
+      "docker *": "ask",
+      "chmod *": "ask",
+      "kill *": "ask",
+      "*": "ask"
+    },
+    "external_directory": {
+      "~/.*": "deny",
+      "*": "allow"
+    },
+    "repo_clone": "ask"
+  }
 }
