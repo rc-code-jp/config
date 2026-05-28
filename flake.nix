@@ -5,12 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    pocoshelf.url = "github:rc-code-jp/pocoshelf";
-    pocogit.url = "github:rc-code-jp/pocogit";
   };
 
   outputs =
-    inputs@{ nix-darwin, nixpkgs, ... }:
+    { nix-darwin, nixpkgs, ... }:
     let
       local =
         if builtins.pathExists ./local.nix then
@@ -28,8 +26,6 @@
         inherit system;
         specialArgs = {
           inherit
-            inputs
-            system
             username
             hostname
             ;

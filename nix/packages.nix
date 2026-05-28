@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  system,
-}:
+{ pkgs }:
 
 with pkgs;
 [
@@ -12,6 +8,4 @@ with pkgs;
   mise
   fastlane
   cocoapods
-  inputs.pocoshelf.packages.${system}.pocoshelf
-  inputs.pocogit.packages.${system}.pocogit
 ]

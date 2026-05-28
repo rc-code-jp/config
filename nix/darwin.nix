@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  system,
   username,
   hostname,
   ...
@@ -29,7 +27,7 @@
   system.primaryUser = username;
 
   environment.systemPackages = import ./packages.nix {
-    inherit pkgs inputs system;
+    inherit pkgs;
   };
 
   programs.zsh.enable = true;
