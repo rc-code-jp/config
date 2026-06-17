@@ -191,8 +191,8 @@ function git_switch() {
       $'\n'|$'\r')
         echo ""
         if (( selected == 1 )); then
-          echo -n "New branch name> "
-          read -r branch_name
+          branch_name=""
+          vared -p "New branch name> " branch_name || return $?
           [[ -z "$branch_name" ]] && { echo "Error: Branch name cannot be empty." >&2; return 1; }
           git switch -c "$branch_name"
         else
