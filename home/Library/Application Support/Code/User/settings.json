@@ -41,6 +41,8 @@
   "workbench.startupEditor": "none",
   "workbench.editor.enablePreview": false,
   "workbench.tree.indent": 15,
+  "workbench.activityBar.compact": true,
+  "workbench.activityBar.location": "top",
   "workbench.layoutControl.enabled": false,
   "window.commandCenter": true,
   /* Side Bar */
@@ -53,6 +55,7 @@
   /* Security & Update */
   "security.workspace.trust.untrustedFiles": "open",
   "security.promptForLocalFileProtocolHandling": false,
+  "update.showReleaseNotes": false,
   /* Git */
   "git.confirmSync": false
 }
