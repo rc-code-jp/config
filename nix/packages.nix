@@ -8,4 +8,5 @@ with pkgs;
   mise
   fastlane
   cocoapods
+  switchaudio-osx
 ]

@@ -11,6 +11,7 @@
     ./system-defaults.nix
     ./keyboard.nix
     ./file-associations.nix
+    ./audio-input.nix
   ];
 
   nix.settings.experimental-features = [
