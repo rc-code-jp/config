@@ -3,6 +3,11 @@ node = "24"
 pnpm = "10"
 flutter = "3"
 rust = "stable"
+python = "3.12.13"
+uv = "latest"
+
+[env]
+UV_PYTHON_PREFERENCE = "system"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "flutter"]
