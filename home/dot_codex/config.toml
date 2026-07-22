@@ -1,6 +1,6 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 model_reasoning_effort = "high"
 approval_policy = "never"
 sandbox_mode = "workspace-write"
@@ -23,3 +23,6 @@ status_line = [
   "five-hour-limit",
   "weekly-limit",
 ]
+
+[features]
+multi_agent_v2 = true
