@@ -136,7 +136,6 @@ chezmoi --source "$PWD" apply
 - `mise`
 - `fastlane`
 - `cocoapods`
-- `switchaudio-osx`
 
 ### macOS システム設定
 
@@ -144,7 +143,7 @@ chezmoi --source "$PWD" apply
 
 - `system-defaults.nix`: Dock / Finder / メニューバー時計 / スクリーンショット / トラックパッド / `NSGlobalDomain` のキーリピート・拡張子表示など
 - `keyboard.nix`: CapsLock → Ctrl の remap、`AppleSymbolicHotKeys` (Spotlight / Mission Control / 入力ソース切替など) と `NSUserKeyEquivalents` (アプリメニュー項目のキーバインド)
-- `audio-input.nix`: マイク入力を常に内蔵マイクへ固定する launchd agent (`switchaudio-osx` を 30 秒間隔で実行。常駐プロセスなし)。入力が内蔵マイク以外なら UID (`BuiltInMicrophoneDevice`) 指定で戻す方式のため、Bluetooth (AirPods / soundcore 等) も有線 EarPods も機種名に依存せず対象になる。出力は変更しない
+- `audio-input.nix`: `local.nix` の `enableSwitchAudio = true;` で、マイク入力を常に内蔵マイクへ固定する launchd agent を有効化します。デフォルトは無効です。
 
 `AppleSymbolicHotKeys` は cfprefsd のキャッシュ都合で `darwin-rebuild switch` 直後に反映されない場合があります。反映状況は `defaults read com.apple.symbolichotkeys` で確認し、必要に応じてログアウト/再起動してください。
 

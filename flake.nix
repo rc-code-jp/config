@@ -19,6 +19,7 @@
               ./scripts/bootstrap-local.sh
           '';
       system = local.system or "aarch64-darwin";
+      enableSwitchAudio = local.enableSwitchAudio or false;
       inherit (local) username hostname;
     in
     {
@@ -28,6 +29,7 @@
           inherit
             username
             hostname
+            enableSwitchAudio
             ;
         };
         modules = [

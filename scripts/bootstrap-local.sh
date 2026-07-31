@@ -38,6 +38,7 @@ cat > "$OUT" <<EOF
   username = "${USERNAME}";
   hostname = "${HOSTNAME_LOCAL}";
   system   = "${SYSTEM}";
+  enableSwitchAudio = false;
 }
 EOF
 

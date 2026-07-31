@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  enableSwitchAudio,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # 入力デバイスを常に内蔵マイクへ固定する。
@@ -12,7 +17,7 @@
   # StartInterval が大幅に間引かれ、30 秒間隔が実際には数分〜数十分に伸びる。
   #
   # 常駐プロセスは持たず、launchd が 30 秒ごとに一度だけ実行する。
-  launchd.user.agents.force-builtin-mic = {
+  launchd.user.agents.force-builtin-mic = lib.mkIf enableSwitchAudio {
     serviceConfig = {
       ProgramArguments = [
         "/bin/sh"
