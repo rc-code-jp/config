@@ -12,15 +12,6 @@ else
   exit 1
 fi
 
-targets=(
-  "$HOME/.zshrc"
-  "$HOME/.codex/config.toml"
-  "$HOME/.codex/AGENTS.md"
-  "$HOME/.config/zed/settings.json"
-  "$HOME/Library/Application Support/Code/User/settings.json"
-  "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
-)
+"$CHEZMOI_BIN" --source "$PWD" apply
 
-"$CHEZMOI_BIN" --source "$PWD" apply "${targets[@]}"
-
-echo "zsh とプロジェクト管理アプリの設定を反映しました。"
+echo "chezmoi の全管理設定を反映しました。"

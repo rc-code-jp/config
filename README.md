@@ -40,7 +40,10 @@ macOS の設定ファイルと開発ツールを管理するリポジトリで�
 
 ## 初回セットアップ
 
-GitHub SSH 接続は設定済みであることを前提とします。
+次の前提を満たしていることを確認します。
+
+- Nix がインストール済みで、`nix --version` が成功する
+- GitHub SSH 接続が設定済みである
 
 ```bash
 git clone git@github.com:rc-code-jp/config.git ~/work/config
@@ -54,6 +57,10 @@ Homebrew 本体が未導入の場合は、初回のみ手動でインストー�
 eval "$(/opt/homebrew/bin/brew shellenv)"
 brew --version
 ```
+
+`eval` は初回セットアップを実行している現在のシェル用です。
+永続的な Homebrew の `bin` / `sbin` は、後続の nix-darwin 設定で
+`environment.systemPath` に追加します。
 
 マシンごとのユーザー名・ホスト名・アーキテクチャは `local.nix` に切り出しています。`local.nix` は `.gitignore` 対象で、各 Mac で初回のみ生成します。
 
@@ -81,9 +88,12 @@ sudo -H nix --extra-experimental-features "nix-command flakes" \
   switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
-zsh とプロジェクトからインストールするアプリの設定を一括で反映します。
+nix-darwin の反映後、chezmoi の全管理設定を反映します。
+この順序により、chezmoi と Homebrew 管理の CLI を先に利用可能にしてから
+dotfiles とアプリ設定を配置します。
 
 ```bash
+chezmoi --source "$PWD" diff
 ./scripts/apply-managed-configs.sh
 exec zsh -l
 ```
@@ -95,12 +105,13 @@ nix / Homebrew 管理のツールを更新します。
 ```bash
 nix flake update
 darwin-rebuild build --flake "path:$PWD#$(scutil --get LocalHostName)"
-darwin-rebuild switch --flake "path:$PWD#$(scutil --get LocalHostName)"
+sudo -H darwin-rebuild switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
-zsh とアプリ設定を更新します。
+chezmoi の全管理設定を更新します。
 
 ```bash
+chezmoi --source "$PWD" diff
 ./scripts/apply-managed-configs.sh
 ```
 

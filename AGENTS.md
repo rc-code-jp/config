@@ -11,4 +11,4 @@
 ### nix-darwin管理（システム設定・パッケージ・Homebrew）
 
 `nix/` 以下のファイルや `flake.nix` は nix-darwin によって管理されている。
-反映する場合は `darwin-rebuild switch --flake .#"$(scutil --get LocalHostName)"` を使用すること。
+反映する場合は `sudo -H darwin-rebuild switch --flake "path:$PWD#$(scutil --get LocalHostName)"` を使用すること。
