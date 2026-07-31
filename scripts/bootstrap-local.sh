@@ -46,4 +46,4 @@ echo "[bootstrap-local] $OUT を生成しました:"
 cat "$OUT"
 echo
 echo "次に実行:"
-echo "  darwin-rebuild switch --flake .#${HOSTNAME_LOCAL}"
+echo "  darwin-rebuild switch --flake \"path:\$PWD#${HOSTNAME_LOCAL}\""

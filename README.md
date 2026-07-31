@@ -63,16 +63,21 @@ brew --version
 `id -un` / `scutil --get LocalHostName` / `uname -m` から自動的に値を取得し、`local.nix` を作成します。
 
 Homebrew 本体と `local.nix` の準備ができたら、nix-darwin の設定を確認します。
+`local.nix` は Git 管理外のため、Flake は `path:` 形式で評価します。
 
 ```bash
-nix flake check
-darwin-rebuild build --flake .#"$(scutil --get LocalHostName)"
+nix --extra-experimental-features "nix-command flakes" flake check "path:$PWD"
+nix --extra-experimental-features "nix-command flakes" \
+  run nix-darwin/master#darwin-rebuild -- \
+  build --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
 問題なければ反映します。
 
 ```bash
-darwin-rebuild switch --flake .#"$(scutil --get LocalHostName)"
+sudo -H nix --extra-experimental-features "nix-command flakes" \
+  run nix-darwin/master#darwin-rebuild -- \
+  switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
 chezmoi の差分を確認します。
@@ -100,8 +105,8 @@ nix / Homebrew 管理のツールを更新します。
 
 ```bash
 nix flake update
-darwin-rebuild build --flake .#"$(scutil --get LocalHostName)"
-darwin-rebuild switch --flake .#"$(scutil --get LocalHostName)"
+darwin-rebuild build --flake "path:$PWD#$(scutil --get LocalHostName)"
+darwin-rebuild switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
 dotfiles を更新します。
