@@ -7,7 +7,7 @@ let
     "com.apple.TextEdit  public.toml                   all" # .toml
   ];
 
-  dutiSettings = pkgs.writeText "duti-settings" (builtins.concatStringsSep "\n" associations);
+  dutiSettings = pkgs.writeText "duti-settings" (builtins.concatStringsSep "\n" associations + "\n");
 in
 {
   system.activationScripts.extraActivation.text = lib.mkAfter ''

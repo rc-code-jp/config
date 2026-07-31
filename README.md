@@ -39,7 +39,7 @@ macOS の設定ファイルと開発ツールを管理するリポジトリで�
 
 ## 初回セットアップ
 
-このリポジトリを任意の場所に clone します。
+GitHub SSH 接続は設定済みであることを前提とします。
 
 ```bash
 git clone git@github.com:rc-code-jp/config.git ~/work/config
@@ -165,17 +165,13 @@ Homebrew 本体だけは管理対象外のため、初回のみ手動でイン�
 ## 手動管理として残すもの
 
 - `scripts/bootstrap-local.sh`: 各マシンのユーザー名 / ホスト名 / アーキテクチャから `local.nix` を生成します。`local.nix` は `.gitignore` 対象で、共有しません。
-- `scripts/github_setup.sh`: GitHub SSH 初期設定用です。秘密鍵は nix / chezmoi で管理せず、初回のみ手動実行します。
+- `scripts/github_setup.sh`: 必要な場合だけ使う GitHub SSH 設定用の補助スクリプトです。
 - `docs/unmanaged-macos-settings.md`: macOS の「システム設定」には存在するが、nix-darwin では無理に管理しない項目の記録です。
 - `claude`: 設定ファイルのみ chezmoi で管理します。CLI 本体はこのリポジトリでは管理しません。
 - Google Chrome / Brave / Codex デスクトップアプリ: このリポジトリでは管理せず、手動でインストールします。
 
-## GitHub SSH 初期設定
-
-必要な場合だけ、初回に一度実行します。
+## GitHub SSH 設定（任意）
 
 ```bash
 bash scripts/github_setup.sh
 ```
-
-このスクリプトは `~/.ssh` の作成、GitHub 用 SSH 鍵の生成、ssh-agent / macOS Keychain への登録、公開鍵の表示を行います。
