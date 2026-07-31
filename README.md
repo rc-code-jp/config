@@ -4,7 +4,7 @@ macOS の設定ファイルと開発ツールを管理するリポジトリで�
 
 - dotfiles とアプリ設定は chezmoi で管理します。
 - CLI ツールと Homebrew 管理は nix-darwin で管理します。
-- `codex` CLI と Codex デスクトップアプリは nix-darwin の Homebrew 管理経由で扱います。
+- `codex` CLI は nix-darwin の Homebrew 管理経由で扱います。
 - Homebrew 本体は nix-darwin では導入しないため、初回のみ手動でインストールします。
 
 ## 構成
@@ -155,10 +155,7 @@ nix-darwin の `homebrew` module で管理します。
 Homebrew 本体だけは管理対象外のため、初回のみ手動でインストールします。
 
 - `codex` (CLI)
-- `codex-app` (Codex デスクトップアプリ)
-- `brave-browser`
 - `ghostty`
-- `google-chrome`
 - `visual-studio-code`
 - `zed`
 
@@ -168,6 +165,7 @@ Homebrew 本体だけは管理対象外のため、初回のみ手動でイン�
 - `scripts/github_setup.sh`: GitHub SSH 初期設定用です。秘密鍵は nix / chezmoi で管理せず、初回のみ手動実行します。
 - `docs/unmanaged-macos-settings.md`: macOS の「システム設定」には存在するが、nix-darwin では無理に管理しない項目の記録です。
 - `claude`: 設定ファイルのみ chezmoi で管理します。CLI 本体はこのリポジトリでは管理しません。
+- Google Chrome / Brave / Codex デスクトップアプリ: このリポジトリでは管理せず、手動でインストールします。
 
 ## GitHub SSH 初期設定
 
