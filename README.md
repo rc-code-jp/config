@@ -31,6 +31,7 @@ macOS の設定ファイルと開発ツールを管理するリポジトリで�
 │   ├── packages.nix
 │   └── system-defaults.nix
 └── scripts/
+    ├── apply-managed-configs.sh
     ├── bootstrap-local.sh
     └── github_setup.sh
 ```
@@ -80,23 +81,11 @@ sudo -H nix --extra-experimental-features "nix-command flakes" \
   switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
-chezmoi の差分を確認します。
+zsh とプロジェクトからインストールするアプリの設定を一括で反映します。
 
 ```bash
-nix run nixpkgs#chezmoi -- --source "$PWD" diff
-```
-
-問題なければ反映します。
-
-```bash
-nix run nixpkgs#chezmoi -- --source "$PWD" apply
-```
-
-`darwin-rebuild switch` 後は `chezmoi` が system package として入るため、以後は次のように実行できます。
-
-```bash
-chezmoi --source "$PWD" diff
-chezmoi --source "$PWD" apply
+./scripts/apply-managed-configs.sh
+exec zsh -l
 ```
 
 ## 日常の更新
@@ -109,11 +98,10 @@ darwin-rebuild build --flake "path:$PWD#$(scutil --get LocalHostName)"
 darwin-rebuild switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
 
-dotfiles を更新します。
+zsh とアプリ設定を更新します。
 
 ```bash
-chezmoi --source "$PWD" diff
-chezmoi --source "$PWD" apply
+./scripts/apply-managed-configs.sh
 ```
 
 ## 管理対象
