@@ -8,10 +8,6 @@
       cleanup = "uninstall";
     };
 
-    taps = [ "anomalyco/tap" ];
-
-    brews = [ "opencode" ];
-
     casks = [
       "codex" # Codex CLI
       "ghostty"

@@ -136,7 +136,6 @@ chezmoi --source "$PWD" apply
 - `mise`
 - `fastlane`
 - `cocoapods`
-- `opencode`
 - `switchaudio-osx`
 
 ### macOS システム設定
