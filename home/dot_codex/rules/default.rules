@@ -1,0 +1,72 @@
+# プロセスの状態確認に使用する読み取り専用コマンドのみを許可する。
+# 表示項目を限定し、環境変数などの不要な情報を取得する形式は許可しない。
+prefix_rule(
+    pattern = [
+        "ps",
+        "-axo",
+        [
+            "pid,ppid,%cpu,%mem,etime,state,command",
+            "pid,ppid,%cpu,%mem,etime,state,nlwp,command",
+            "pid,ppid,etime,%cpu,%mem,rss,state,command",
+        ],
+    ],
+    decision = "allow",
+    justification = "表示項目を限定したプロセス一覧の参照を許可する",
+    match = [
+        "ps -axo pid,ppid,%cpu,%mem,etime,state,command",
+        "ps -axo pid,ppid,%cpu,%mem,etime,state,nlwp,command",
+        "ps -axo pid,ppid,etime,%cpu,%mem,rss,state,command",
+    ],
+    not_match = [
+        "ps aux",
+        "ps e",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "ps",
+        "-ax",
+        "-o",
+        [
+            "pid=,command=",
+            "pid=,stat=,command=",
+            "pid,lstart,command",
+        ],
+    ],
+    decision = "allow",
+    justification = "表示項目を限定したプロセス一覧の参照を許可する",
+    match = [
+        "ps -ax -o pid=,command=",
+        "ps -ax -o pid=,stat=,command=",
+        "ps -ax -o pid,lstart,command",
+    ],
+    not_match = [
+        "ps -ax",
+        "ps aux",
+    ],
+)
+
+prefix_rule(
+    pattern = [
+        "ps",
+        "-o",
+        [
+            "pid,ppid,%cpu,%mem,etime,state,thcount,command",
+            "pid,ppid,etime,%cpu,%mem,state,command",
+            "pid,etime,%cpu,%mem,command",
+            "pid,etime,time,%cpu,command",
+        ],
+        "-p",
+    ],
+    decision = "allow",
+    justification = "PIDを指定したプロセス状態の参照を許可する",
+    match = [
+        "ps -o pid,ppid,%cpu,%mem,etime,state,thcount,command -p 1234",
+        "ps -o pid,etime,%cpu,%mem,command -p 1234",
+    ],
+    not_match = [
+        "ps -o pid,etime,%cpu,%mem,command",
+        "ps aux",
+    ],
+)
