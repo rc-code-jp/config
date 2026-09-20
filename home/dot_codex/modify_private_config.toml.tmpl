@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Codex の固定設定だけを更新し、アプリが生成した設定を保持する。"""
 
+import os
 import re
 import sys
 
 
 MANAGED_CONFIG = r'''{{ include ".chezmoitemplates/codex-config-managed.toml" }}'''
 SCHEMA_LINE = "#:schema https://developers.openai.com/codex/config-schema.json"
+HOOKS_FILE = r'''{{ .chezmoi.homeDir }}/.codex/hooks.json'''
 
 TABLE_PATTERN = re.compile(r"^\s*\[([^\[\]]+)\]\s*(?:#.*)?$")
 ARRAY_TABLE_PATTERN = re.compile(r"^\s*\[\[([^\[\]]+)\]\]\s*(?:#.*)?$")
@@ -123,9 +125,26 @@ def merge_body(current, desired, removals=()):
     return preserved
 
 
+def remove_stale_hook_state(sections):
+    """hooks.json がない場合は、対応する古い信頼情報を削除する。"""
+    if os.path.exists(HOOKS_FILE):
+        return sections
+
+    state_prefix = f'hooks.state."{HOOKS_FILE}:'
+    return [
+        section
+        for section in sections
+        if section["name"] != "hooks.state"
+        and not (
+            section["name"] is not None
+            and section["name"].startswith(state_prefix)
+        )
+    ]
+
+
 def main():
     current_text = sys.stdin.read()
-    current_sections = split_sections(current_text)
+    current_sections = remove_stale_hook_state(split_sections(current_text))
     desired_sections = split_sections(MANAGED_CONFIG)
 
     desired_by_name = {
