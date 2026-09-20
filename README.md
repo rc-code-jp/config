@@ -132,6 +132,10 @@ chezmoi --source "$PWD" diff
 
 `~/.zshrc` は chezmoi の `modify_` により管理ブロックだけを差し替え、ブロック外のユーザー固有設定は残します。
 
+`~/.codex/config.toml` も `modify_` により管理します。固定する設定は `home/.chezmoitemplates/codex-config-managed.toml` に定義し、プラグイン、MCP、信頼済みプロジェクトなど、Codex アプリが追加した設定は保持します。
+
+Orca 用の `~/.codex/hooks.json` が存在する場合は、初回反映時だけ内容を確認して `~/.Trash/` へ移動します。Orca 以外のフック設定は削除しません。
+
 ### nix-darwin
 
 - `chezmoi`

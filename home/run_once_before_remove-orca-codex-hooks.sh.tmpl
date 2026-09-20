@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+hooks_file="{{ .chezmoi.homeDir }}/.codex/hooks.json"
+
+if [ ! -f "$hooks_file" ]; then
+  exit 0
+fi
+
+if ! grep -Fq '/.orca/agent-hooks/codex-hook.sh' "$hooks_file"; then
+  exit 0
+fi
+
+trash_dir="{{ .chezmoi.homeDir }}/.Trash"
+backup="$trash_dir/codex-hooks-orca.json"
+
+mkdir -p "$trash_dir"
+if [ -e "$backup" ]; then
+  backup="$trash_dir/codex-hooks-orca-$(date +%Y%m%d-%H%M%S).json"
+fi
+
+mv "$hooks_file" "$backup"
+printf 'Orca 用 Codex フックを %s へ移動しました。\n' "$backup"

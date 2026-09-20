@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+"""Codex の固定設定だけを更新し、アプリが生成した設定を保持する。"""
+
+import re
+import sys
+
+
+MANAGED_CONFIG = r'''{{ include ".chezmoitemplates/codex-config-managed.toml" }}'''
+SCHEMA_LINE = "#:schema https://developers.openai.com/codex/config-schema.json"
+
+TABLE_PATTERN = re.compile(r"^\s*\[([^\[\]]+)\]\s*(?:#.*)?$")
+ARRAY_TABLE_PATTERN = re.compile(r"^\s*\[\[([^\[\]]+)\]\]\s*(?:#.*)?$")
+ASSIGNMENT_PATTERN = re.compile(r"^\s*([A-Za-z0-9_.-]+)\s*=")
+
+
+def split_sections(text):
+    """TOMLをルートとテーブル単位に分割する。"""
+    sections = [{"name": None, "header": None, "body": [], "array": False}]
+    for line in text.splitlines():
+        array_match = ARRAY_TABLE_PATTERN.match(line)
+        table_match = TABLE_PATTERN.match(line)
+        if array_match:
+            sections.append(
+                {
+                    "name": array_match.group(1),
+                    "header": line,
+                    "body": [],
+                    "array": True,
+                }
+            )
+        elif table_match:
+            sections.append(
+                {
+                    "name": table_match.group(1),
+                    "header": line,
+                    "body": [],
+                    "array": False,
+                }
+            )
+        else:
+            sections[-1]["body"].append(line)
+    return sections
+
+
+def value_balance(text):
+    """文字列とコメントを除外して配列・インラインテーブルの深さを数える。"""
+    square = 0
+    curly = 0
+    quote = None
+    escaped = False
+    for char in text:
+        if quote:
+            if escaped:
+                escaped = False
+            elif char == "\\" and quote == '"':
+                escaped = True
+            elif char == quote:
+                quote = None
+            continue
+        if char in ('"', "'"):
+            quote = char
+        elif char == "#":
+            break
+        elif char == "[":
+            square += 1
+        elif char == "]":
+            square -= 1
+        elif char == "{":
+            curly += 1
+        elif char == "}":
+            curly -= 1
+    return square, curly, quote
+
+
+def assignment_end(lines, start):
+    """複数行の配列を含む代入の終端を返す。"""
+    first_value = lines[start].split("=", 1)[1]
+    square, curly, quote = value_balance(first_value)
+    index = start + 1
+    while index < len(lines) and (square > 0 or curly > 0 or quote):
+        next_square, next_curly, quote = value_balance(lines[index])
+        square += next_square
+        curly += next_curly
+        index += 1
+    return index
+
+
+def assignments(body):
+    """セクション内の代入を記述順で取得する。"""
+    result = []
+    index = 0
+    while index < len(body):
+        match = ASSIGNMENT_PATTERN.match(body[index])
+        if not match:
+            index += 1
+            continue
+        end = assignment_end(body, index)
+        result.append((match.group(1), body[index:end]))
+        index = end
+    return result
+
+
+def merge_body(current, desired, removals=()):
+    """管理対象キーを置換し、それ以外の行を維持する。"""
+    desired_assignments = assignments(desired)
+    managed_keys = {key for key, _ in desired_assignments} | set(removals)
+    preserved = []
+    index = 0
+    while index < len(current):
+        match = ASSIGNMENT_PATTERN.match(current[index])
+        if match and match.group(1) in managed_keys:
+            index = assignment_end(current, index)
+            continue
+        preserved.append(current[index])
+        index += 1
+
+    while preserved and not preserved[-1].strip():
+        preserved.pop()
+    if preserved and desired_assignments:
+        preserved.append("")
+    for _, block in desired_assignments:
+        preserved.extend(block)
+    return preserved
+
+
+def main():
+    current_text = sys.stdin.read()
+    current_sections = split_sections(current_text)
+    desired_sections = split_sections(MANAGED_CONFIG)
+
+    desired_by_name = {
+        section["name"]: section
+        for section in desired_sections
+        if not section["array"]
+    }
+    merged_names = set()
+
+    for section in current_sections:
+        if section["array"]:
+            continue
+        desired = desired_by_name.get(section["name"])
+        removals = ("multi_agent_v2",) if section["name"] == "features" else ()
+        if desired or removals:
+            section["body"] = merge_body(
+                section["body"],
+                desired["body"] if desired else [],
+                removals,
+            )
+        if desired:
+            merged_names.add(section["name"])
+
+    for desired in desired_sections:
+        if desired["name"] in merged_names:
+            continue
+        current_sections.append(
+            {
+                "name": desired["name"],
+                "header": desired["header"],
+                "body": desired["body"],
+                "array": False,
+            }
+        )
+
+    root = current_sections[0]["body"]
+    if not any(line.strip().startswith("#:schema ") for line in root):
+        root[:0] = [SCHEMA_LINE, ""]
+
+    output = []
+    for section_index, section in enumerate(current_sections):
+        if section_index and output and output[-1].strip():
+            output.append("")
+        if section["header"] is not None:
+            output.append(section["header"])
+        output.extend(section["body"])
+
+    while output and not output[-1].strip():
+        output.pop()
+    sys.stdout.write("\n".join(output) + "\n")
+
+
+if __name__ == "__main__":
+    main()
