@@ -3,3 +3,4 @@
 local.nix
 result
 .antigravitycli
+__pycache__/

@@ -1,11 +1,13 @@
 #!/bin/bash
 input=$(cat)
 
-# --- Parse input (single jq pass) ---
-# 高頻度に呼ばれるため jq 起動を 1 回にまとめる。@tsv は null を空文字列として
-# 出力するので、後段の [ -n "$VAR" ] チェックは元の `// empty` と同じ挙動になる。
-IFS=$'\t' read -r cwd model ctx_used_pct FIVE_H FIVE_H_RESET WEEK WEEK_RESET wt_name < <(
-  jq -r '[
+# 空欄やパス内の改行・タブを保持するため、NUL 区切りで読み取る。
+# macOS 標準の Bash 3.2 でも使えるよう readarray は使わない。
+fields=()
+while IFS= read -r -d '' field; do
+  fields+=("$field")
+done < <(
+  jq -j '[
     .cwd,
     .model.display_name // .model.id,
     .context_window.used_percentage,
@@ -14,12 +16,20 @@ IFS=$'\t' read -r cwd model ctx_used_pct FIVE_H FIVE_H_RESET WEEK WEEK_RESET wt_
     .rate_limits.seven_day.used_percentage,
     .rate_limits.seven_day.resets_at,
     .worktree.name
-  ] | @tsv' <<<"$input"
+  ] | .[] | (if . == null then "" else tostring end), "\u0000"' <<<"$input"
 )
+cwd=${fields[0]:-}
+model=${fields[1]:-}
+ctx_used_pct=${fields[2]:-}
+FIVE_H=${fields[3]:-}
+FIVE_H_RESET=${fields[4]:-}
+WEEK=${fields[5]:-}
+WEEK_RESET=${fields[6]:-}
+wt_name=${fields[7]:-}
 
 # --- CWD ---
-home="$HOME"
-short_cwd="${cwd#"$home"}"
+user_home="$HOME"
+short_cwd="${cwd#"$user_home"}"
 if [ "$short_cwd" != "$cwd" ]; then
   short_cwd="~${short_cwd}"
 fi

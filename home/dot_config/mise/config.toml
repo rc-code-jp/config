@@ -1,10 +1,27 @@
 [tools]
 node = "24"
 pnpm = "10"
-flutter = "3"
 rust = "stable"
-python = "3.12.13"
+python = "3.12.14"
 uv = "latest"
+
+# 実機で使用している Flutter 3.47 系と公式アーカイブの取得方法を共有する。
+[tools.flutter]
+version = "3.47"
+version_expr = 'fromJSON(body).releases | filter({ #.channel == "stable" }) | map({ replace(#.version, "-stable", "") }) | sortVersions()'
+version_list_url = "https://storage.googleapis.com/flutter_infra_release/releases/releases_linux.json"
+
+[tools.flutter.platforms.linux-x64]
+url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_{{ version }}-stable.tar.xz"
+
+[tools.flutter.platforms.macos-arm64]
+url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_{{ version }}-stable.zip"
+
+[tools.flutter.platforms.macos-x64]
+url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_{{ version }}-stable.zip"
+
+[tools.flutter.platforms.windows-x64]
+url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_{{ version }}-stable.zip"
 
 [env]
 UV_PYTHON_PREFERENCE = "system"

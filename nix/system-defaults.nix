@@ -5,7 +5,7 @@
   # コメントは macOS の「システム設定」上の表記に合わせる。
   # 反映には darwin-rebuild switch 後にログアウト/再起動が必要な項目があります。
   #
-  # nix-darwin で管理しない macOS 設定は docs/unmanaged-macos-settings.md に記録する。
+  # ここで宣言しない項目は macOS の「システム設定」で管理する。
   system.defaults = {
     # NSGlobalDomain: アプリ全体に効くグローバル設定
     NSGlobalDomain = {
@@ -147,8 +147,5 @@
   };
 
   # サウンド > 起動時にサウンドを再生: オフ
-  # NVRAM 領域のため system.defaults では制御できず、activationScripts で nvram を直接設定する。
-  system.activationScripts.startupChime.text = ''
-    /usr/sbin/nvram StartupMute=%01
-  '';
+  system.startup.chime = false;
 }

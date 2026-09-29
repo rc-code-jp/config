@@ -10,7 +10,17 @@ cat > "$block_tmp" <<'ZSHRC_BLOCK'
 {{ template "zshrc-block.tmpl" . -}}
 ZSHRC_BLOCK
 
-if grep -q '^# chezmoi: zshrc begin$' "$tmp" && grep -q '^# chezmoi: zshrc end$' "$tmp"; then
+# 不完全な管理ブロックは、既存設定を壊さないよう反映を中止する。
+begin_count=$(grep -c '^# chezmoi: zshrc begin$' "$tmp" || true)
+end_count=$(grep -c '^# chezmoi: zshrc end$' "$tmp" || true)
+if [ "$begin_count" -eq 1 ] && [ "$end_count" -eq 1 ]; then
+  if ! awk '
+    $0 == "# chezmoi: zshrc begin" { seen_begin = 1 }
+    $0 == "# chezmoi: zshrc end" && !seen_begin { exit 1 }
+  ' "$tmp"; then
+    echo 'エラー: zshrc の管理マーカーの順序が不正です。' >&2
+    exit 1
+  fi
   awk -v block_file="$block_tmp" '
     $0 == "# chezmoi: zshrc begin" {
       while ((getline line < block_file) > 0) {
@@ -28,6 +38,14 @@ if grep -q '^# chezmoi: zshrc begin$' "$tmp" && grep -q '^# chezmoi: zshrc end$'
       print
     }
   ' "$tmp"
-else
+elif [ "$begin_count" -eq 0 ] && [ "$end_count" -eq 0 ]; then
+  # 初回も既存の設定を残し、管理ブロックを末尾へ追加する。
+  cat "$tmp"
+  if [ -s "$tmp" ]; then
+    printf '\n'
+  fi
   cat "$block_tmp"
+else
+  echo 'エラー: zshrc の管理マーカーが不足または重複しています。' >&2
+  exit 1
 fi

@@ -12,7 +12,8 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "uninstall";
+      # 手動導入した CLI やアプリは、このリポジトリの反映時に削除しない。
+      cleanup = "none";
     };
 
     casks = [

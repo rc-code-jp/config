@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+# 個人情報や他の設定を保持し、管理するキーだけを更新する。
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+cat > "$tmp"
+git config --file "$tmp" --replace-all init.defaultBranch main
+cat "$tmp"

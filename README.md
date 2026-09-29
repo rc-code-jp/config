@@ -19,13 +19,15 @@ macOS の設定ファイルと開発ツールを管理するリポジトリで�
 │   ├── dot_claude/
 │   ├── dot_codex/
 │   ├── dot_config/
+│   ├── dot_gemini/
 │   ├── dot_vimrc
 │   ├── Library/
+│   ├── modify_dot_gitconfig
 │   └── modify_dot_zshrc.tmpl
-├── docs/
-│   └── unmanaged-macos-settings.md
 ├── nix/
+│   ├── audio-input.nix
 │   ├── darwin.nix
+│   ├── file-associations.nix
 │   ├── homebrew.nix
 │   ├── keyboard.nix
 │   ├── packages.nix
@@ -103,7 +105,7 @@ exec zsh -l
 nix / Homebrew 管理のツールを更新します。
 
 ```bash
-nix flake update
+nix flake update --flake "path:$PWD"
 darwin-rebuild build --flake "path:$PWD#$(scutil --get LocalHostName)"
 sudo -H darwin-rebuild switch --flake "path:$PWD#$(scutil --get LocalHostName)"
 ```
@@ -115,24 +117,43 @@ chezmoi --source "$PWD" diff
 ./scripts/apply-managed-configs.sh
 ```
 
+mise 管理のランタイムは、設定の反映とは別にインストール・更新します。
+Node.js は 24 系、Python は 3.12.14、Flutter は 3.47 系を使用します。
+
+```bash
+mise install
+mise upgrade node
+```
+
+Flutter は公式アーカイブから取得します。実機で追加した取得設定も
+`home/dot_config/mise/config.toml` に含め、再反映時に失われないようにしています。
+
 ## 管理対象
 
 ### chezmoi
 
 - `~/.codex/config.toml`
 - `~/.codex/AGENTS.md`
+- `~/.codex/rules/default.rules`
 - `~/.claude/settings.json`
 - `~/.claude/statusline-command.sh`
 - `~/.config/mise/config.toml`
 - `~/.config/zed/settings.json`
+- `~/.gemini/antigravity-cli/settings.json`
+- `~/.gemini/antigravity-cli/keybindings.json`
+- `~/.gitconfig` の `init.defaultBranch`
 - `~/.vimrc`
 - `~/Library/Application Support/Code/User/settings.json`
 - `~/Library/Application Support/com.mitchellh.ghostty/config`
 - `~/.zshrc` の `# chezmoi: zshrc begin` から `# chezmoi: zshrc end` まで
 
-`~/.zshrc` は chezmoi の `modify_` により管理ブロックだけを差し替え、ブロック外のユーザー固有設定は残します。
+`~/.zshrc` は chezmoi の `modify_` により管理ブロックだけを差し替え、ブロック外のユーザー固有設定は残します。初回は既存内容の末尾に管理ブロックを追加します。マーカーが不足・重複・逆順の場合は、反映を中止します。
+
+`~/.gitconfig` も `modify_` により `init.defaultBranch = main` だけを更新します。`user.name`、`user.email`、include などの個人設定は保持します。名前とメールアドレスは各マシンで `git config --global` を使って設定してください。
 
 `~/.codex/config.toml` も `modify_` により管理します。固定する設定は `home/.chezmoitemplates/codex-config-managed.toml` に定義し、プラグイン、MCP、信頼済みプロジェクトなど、Codex アプリが追加した設定は保持します。`hooks.json` が存在しない場合は、対応する古いフック信頼情報も削除します。
+
+Codex の既定モデルは `gpt-6-astra`、サブエージェント用は `gpt-6-sol` です。利用可能なモデルはアカウント・クライアントに依存します。
 
 ### nix-darwin
 
@@ -150,6 +171,8 @@ chezmoi --source "$PWD" diff
 - `system-defaults.nix`: Dock / Finder / メニューバー時計 / スクリーンショット / トラックパッド / `NSGlobalDomain` のキーリピート・拡張子表示など
 - `keyboard.nix`: CapsLock → Ctrl の remap、`AppleSymbolicHotKeys` (Spotlight / Mission Control / 入力ソース切替など) と `NSUserKeyEquivalents` (アプリメニュー項目のキーバインド)
 - `audio-input.nix`: `local.nix` の `enableSwitchAudio = true;` で、マイク入力を常に内蔵マイクへ固定する launchd agent を有効化します。デフォルトは無効です。
+- `file-associations.nix`: Markdown / JSON / TOML の既定アプリを設定します。
+- 起動音は `system.startup.chime = false;` で無効にします。
 
 `AppleSymbolicHotKeys` は cfprefsd のキャッシュ都合で `darwin-rebuild switch` 直後に反映されない場合があります。反映状況は `defaults read com.apple.symbolichotkeys` で確認し、必要に応じてログアウト/再起動してください。
 
@@ -157,6 +180,7 @@ chezmoi --source "$PWD" diff
 
 nix-darwin の `homebrew` module で管理します。
 Homebrew 本体だけは管理対象外のため、初回のみ手動でインストールします。
+反映時に管理対象を更新しますが、手動導入済みのツールは自動アンインストールしません。
 
 - `codex` (CLI)
 - `ghostty`
@@ -167,7 +191,7 @@ Homebrew 本体だけは管理対象外のため、初回のみ手動でイン�
 
 - `scripts/bootstrap-local.sh`: 各マシンのユーザー名 / ホスト名 / アーキテクチャから `local.nix` を生成します。`local.nix` は `.gitignore` 対象で、共有しません。
 - `scripts/github_setup.sh`: 必要な場合だけ使う GitHub SSH 設定用の補助スクリプトです。
-- `docs/unmanaged-macos-settings.md`: macOS の「システム設定」には存在するが、nix-darwin では無理に管理しない項目の記録です。
+- `nix/` に宣言していない macOS 設定は「システム設定」で手動管理します。
 - `claude`: 設定ファイルのみ chezmoi で管理します。CLI 本体はこのリポジトリでは管理しません。
 - Google Chrome / Brave / Codex デスクトップアプリ: このリポジトリでは管理せず、手動でインストールします。
 
@@ -175,4 +199,13 @@ Homebrew 本体だけは管理対象外のため、初回のみ手動でイン�
 
 ```bash
 bash scripts/github_setup.sh
+```
+
+## 設定反映処理の検証
+
+chezmoi、Git、zsh、jq、Python 3 を利用できる環境で実行します。
+一時ディレクトリを使い、実際のホームディレクトリの設定は変更しません。
+
+```bash
+python3 -m unittest discover -s tests -v
 ```
