@@ -93,16 +93,32 @@ alias vi="vim"
 alias op="open ." # macOSのopenコマンドをエイリアス
 alias ,,="caffeinate -i" # スリープを防ぐ
 
-# 指定した分数だけスリープを防ぐ（省略時は60分）
+# 指定した分数だけスリープを防ぎ、残り時間を1分ごとに同じ行へ表示する（省略時は60分）
 unalias ,,, 2>/dev/null || true
 function ,,,() {
+  emulate -L zsh
   local minutes=${1-60}
   if (( $# > 1 )) || [[ "$minutes" != <1-> ]]; then
     print -u2 -- '使い方: ,,, [分数（正の整数、省略時は60）]'
     return 1
   fi
-  print -r -- "no sleep for ${minutes} minutes ..."
-  caffeinate -dimsu -t "$(( 10#$minutes * 60 ))"
+  minutes=$(( 10#$minutes ))
+  trap 'return 130' INT
+  {
+    # カウントダウンの終了に合わせてスリープ抑止を解除する。
+    caffeinate -dimsu zsh -f -c '
+      total=$1
+      remaining=$total
+      printf "no sleep for %d/%d minutes ..." "$remaining" "$total"
+      while (( remaining > 0 )); do
+        sleep 60 || exit $?
+        (( remaining -= 1 ))
+        printf "\r\033[2Kno sleep for %d/%d minutes ..." "$remaining" "$total"
+      done
+    ' zsh "$minutes"
+  } always {
+    print
+  }
 }
 
 # Alias Tools
