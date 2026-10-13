@@ -92,7 +92,18 @@ alias ll="ls -atrl" # リストを見やすく表示
 alias vi="vim"
 alias op="open ." # macOSのopenコマンドをエイリアス
 alias ,,="caffeinate -i" # スリープを防ぐ
-alias ,,,="echo 'no sleep ...' && caffeinate -dimsu" # システム全体のスリープを防ぐ
+
+# 指定した分数だけスリープを防ぐ（省略時は60分）
+unalias ,,, 2>/dev/null || true
+function ,,,() {
+  local minutes=${1-60}
+  if (( $# > 1 )) || [[ "$minutes" != <1-> ]]; then
+    print -u2 -- '使い方: ,,, [分数（正の整数、省略時は60）]'
+    return 1
+  fi
+  print -r -- "no sleep for ${minutes} minutes ..."
+  caffeinate -dimsu -t "$(( 10#$minutes * 60 ))"
+}
 
 # Alias Tools
 alias pocos="pocoshelf"
