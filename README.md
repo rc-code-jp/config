@@ -153,7 +153,7 @@ Flutter は公式アーカイブから取得します。実機で追加した取
 
 `~/.codex/config.toml` も `modify_` により管理します。固定する設定は `home/.chezmoitemplates/codex-config-managed.toml` に定義し、プラグイン、MCP、信頼済みプロジェクトなど、Codex アプリが追加した設定は保持します。`hooks.json` が存在しない場合は、対応する古いフック信頼情報も削除します。
 
-Codex の既定モデルは `gpt-6-astra`、サブエージェント用は `gpt-6-sol` です。利用可能なモデルはアカウント・クライアントに依存します。
+Codex の既定モデルは `gpt-6.1-sol`、推論は `high`、サブエージェント用は `gpt-6-sol` です。利用可能なモデルはアカウント・クライアントに依存します。
 
 ### nix-darwin
 
